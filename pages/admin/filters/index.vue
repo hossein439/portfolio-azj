@@ -3,13 +3,8 @@ definePageMeta({
     layout: "adminlayout",
 });
 
-if (0) {
-    await navigateTo('/admin/auth/login')
-}
-
-
 </script>
 
 <template>
-
+    filtersp
 </template>
