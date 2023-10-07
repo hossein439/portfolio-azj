@@ -1,9 +1,12 @@
 const multer = require('multer');
 const express = require('express');
 const router = new express.Router();
+
+// controllers
 const UserController = require('./controllers/userController');
-const FilterController = require('./controllers/filterController');
+const filterController = require('./controllers/filterController');
 const collaborationController = require('./controllers/collaborationController');
+const effectController = require('./controllers/effectController');
 
 
 
@@ -24,10 +27,13 @@ const upload = multer({
 // User Routes
 router.post('/login', UserController.login);
 
-router.post('/filter', upload.single('image'), FilterController.create);
-router.get('/filter', FilterController.read);
+router.post('/filter', upload.single('image'), filterController.create);
+router.get('/filter', filterController.read);
 
 router.post('/collaboration', upload.single('image'), collaborationController.create);
 router.get('/collaboration', collaborationController.read);
+
+router.post('/effect', upload.single('image'), effectController.create);
+router.get('/effect', effectController.read);
 
 module.exports = router;
