@@ -1,9 +1,36 @@
+<script setup>
+import axios from 'axios';
+
+const effects = ref();
+
+const getAllEffects = async () => {
+    const data = await axios({
+        method: 'get',
+        url: 'http://localhost:4000/effect',
+    });
+    effects.value = data.data;
+    console.log(effects.value)
+}
+
+const setImageUrl = (imageName) => {
+    const path = `../../uploads/${imageName}`;
+    return new URL(path, import.meta.url).href;
+} 
+
+getAllEffects();
+
+</script>
+
 <template>
     <section>
         <h3 class="text-4xl pb-6 pt-12 text-center font-bold text-[#0E101C]">Try my effects</h3>
 
         <div class="grid grid-cols-6 justify-center gap-1 xs:px-10 lg:px-24">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
+            <template v-for="effect in effects" :key="effect.id">
+                <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
+                height="160" :src="setImageUrl(effect.image)" :alt="effect.alt">
+            </template>
+            <!-- <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
                 height="160" src="~/assets/images/effects/effect-1.png" alt="">
             <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
                 height="160" src="~/assets/images/effects/effect-2.png" alt="">
@@ -74,7 +101,7 @@
             <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
                 height="160" src="~/assets/images/effects/effect-35.png" alt="">
             <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-36.png" alt="">
+                height="160" src="~/assets/images/effects/effect-36.png" alt=""> -->
 
         </div>
 

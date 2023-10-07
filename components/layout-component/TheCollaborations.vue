@@ -20,6 +20,8 @@ const setImageUrl = (imageName) => {
 getAllCollaboration();
 
 </script>
+
+
 <template>
     <section class="py-60">
         <h3 class="text-4xl text-center font-bold text-[#0E101C]">Collaborations</h3>
