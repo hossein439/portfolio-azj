@@ -22,7 +22,12 @@ definePageMeta({
             </article>
         </section>
 
-        <LayoutComponentTheTrendFilter></LayoutComponentTheTrendFilter>
+        <section class="xs:px-4 xs:py-12 lg:px-[72px]">
+            <h3 class="text-4xl text-center font-bold text-[#0E101C]">My trending filters</h3>
+
+            <LayoutComponentTheTrendFilter></LayoutComponentTheTrendFilter>
+        </section>
+
 
         <LayoutComponentTheCollaborations></LayoutComponentTheCollaborations>
 
