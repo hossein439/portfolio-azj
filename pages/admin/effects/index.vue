@@ -4,7 +4,7 @@ import axios from 'axios';
 definePageMeta({
     layout: "adminlayout",
 });
-const effects = ref();
+const effects = ref([]);
 
 const getAllCollaboration = async () => {
     const data = await axios({
@@ -30,9 +30,9 @@ const deleteEffect = async (id, image) => {
 
 <template>
     <div class="px-4 sm:px-6 lg:px-8">
-        <LayoutComponentAdminTableHeader title="effects" btn-text="add effect" link="effects/create">
-        </LayoutComponentAdminTableHeader>
-        <div class="mt-8 flow-root">
+        <AdminViewTableHeader title="effects" btn-text="add effect" link="effects/create">
+        </AdminViewTableHeader>
+        <div v-if="effects.length" class="mt-8 flow-root">
             <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                     <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
@@ -82,5 +82,8 @@ const deleteEffect = async (id, image) => {
                 </div>
             </div>
         </div>
+
+        <AdminViewDataNotExist v-else></AdminViewDataNotExist>
+
     </div>
 </template>

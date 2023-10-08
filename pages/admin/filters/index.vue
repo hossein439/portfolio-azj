@@ -5,7 +5,7 @@ definePageMeta({
     layout: "adminlayout",
 });
 
-const filters = ref();
+const filters = ref([]);
 
 const getAllFilters = async () => {
     const data = await axios({
@@ -13,27 +13,24 @@ const getAllFilters = async () => {
         url: 'http://localhost:4000/filter',
     });
     filters.value = data.data;
-    console.log(filters.value)
 }
 
 getAllFilters();
 
 const deleteFilter = async (id, image) => {
-    console.log(image);
     const data = await axios({
         method: 'delete',
         url: `http://localhost:4000/filter/${id}/${image}`,
     });
-    console.log(data);
 }
 
 </script>
 
 <template>
     <div class="px-4 sm:px-6 lg:px-8">
-        <LayoutComponentAdminTableHeader title="filters" btn-text="add filter" link="filters/create">
-        </LayoutComponentAdminTableHeader>
-        <div class="mt-8 flow-root">
+        <AdminViewTableHeader title="filters" btn-text="add filter" link="filters/create">
+        </AdminViewTableHeader>
+        <div v-if="filters.length" class="mt-8 flow-root">
             <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                     <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
@@ -84,5 +81,8 @@ const deleteFilter = async (id, image) => {
                     </div>
                 </div>
             </div>
+        </div>
+
+        <AdminViewDataNotExist v-else></AdminViewDataNotExist>
     </div>
-</div></template>
+</template>
