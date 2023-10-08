@@ -30,6 +30,9 @@ router.post('/login', UserController.login);
 // Filter Routes
 router.post('/filter', upload.single('image'), filterController.create);
 router.get('/filter', filterController.read);
+router.get('/filter/:id', filterController.single);
+router.put('/filter/:id', upload.single('image'),filterController.update);
+router.delete('/filter/:id/:image', filterController.delete);
 
 // Collaboration Routes
 router.post('/collaboration', upload.single('image'), collaborationController.create);
@@ -41,5 +44,8 @@ router.delete('/collaboration/:id/:image', collaborationController.delete);
 
 router.post('/effect', upload.single('image'), effectController.create);
 router.get('/effect', effectController.read);
+router.get('/effect/:id', effectController.single);
+router.put('/effect/:id', upload.single('image'),effectController.update);
+router.delete('/effect/:id/:image', effectController.delete);
 
 module.exports = router;
