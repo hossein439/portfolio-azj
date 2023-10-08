@@ -14,7 +14,7 @@ const getAllFilters = async () => {
     });
     filters.value = data.data;
     console.log(filters.value)
-} 
+}
 
 getAllFilters();
 
@@ -31,7 +31,8 @@ const deleteFilter = async (id, image) => {
 
 <template>
     <div class="px-4 sm:px-6 lg:px-8">
-        <LayoutComponentAdminTableHeader title="filters" btn-text="add filter" link="filters/create"></LayoutComponentAdminTableHeader>
+        <LayoutComponentAdminTableHeader title="filters" btn-text="add filter" link="filters/create">
+        </LayoutComponentAdminTableHeader>
         <div class="mt-8 flow-root">
             <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
@@ -44,9 +45,11 @@ const deleteFilter = async (id, image) => {
                                     </th>
                                     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Link
                                     </th>
-                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Feature
+                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                        Feature
                                     </th>
-                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Category
+                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                        Category
                                     </th>
                                     <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                                         <span class="sr-only">Edit</span>
@@ -57,18 +60,21 @@ const deleteFilter = async (id, image) => {
 
                                 <tr v-for="filter in filters" :key="filter.id">
                                     <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                        {{filter.id}}</td>
-                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{filter.link}}</td>
+                                        {{ filter.id }}</td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ filter.link }}</td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ filter.feature }}
                                     </td>
-                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{filter.category}}</td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ filter.category }}</td>
                                     <td
                                         class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                        <NuxtLink :to="`/admin/filters/${filter.id}/edit`" class="text-indigo-600 hover:text-indigo-900">Edit</NuxtLink>
+                                        <NuxtLink :to="`/admin/filters/${filter.id}/edit`"
+                                            class="text-indigo-600 hover:text-indigo-900">
+                                            Edit
+                                        </NuxtLink>
                                         <button @click="deleteFilter(filter.id, filter.image)"
-                                            class="text-red-600 px-2 hover:text-red-900 cursor-pointer">Delete</button>
-                                        <!-- <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit<span
-                                                class="sr-only">, Lindsay Walton</span></a> -->
+                                            class="text-red-600 px-2 hover:text-red-900 cursor-pointer">
+                                            Delete
+                                        </button>
                                     </td>
                                 </tr>
 
@@ -78,6 +84,5 @@ const deleteFilter = async (id, image) => {
                     </div>
                 </div>
             </div>
-        </div>
     </div>
-</template>
+</div></template>

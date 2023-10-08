@@ -64,18 +64,18 @@ module.exports = {
 
     async update(req, res) {
         const { id } = req.params;
-        const { link, isChangedImage, exFileName } = req.body;
+        const { link, alt, isChangedImage, exFileName } = req.body;
 
         if (isChangedImage && req.file) {
 
             removeImage(exFileName);
             const imageCreated = saveImage(req.file);    
 
-            const updateCollaborationWithId = await db.query(`UPDATE effects SET image='${imageCreated}', link='${link}' WHERE id='${id}'`);
+            const updateCollaborationWithId = await db.query(`UPDATE effects SET image='${imageCreated}', link='${link}', alt='${alt}' WHERE id='${id}'`);
 
             res.send(updateCollaborationWithId);
         } else {
-            const updateCollaborationWithId = await db.query(`UPDATE effects SET link='${link}' WHERE id='${id}'`);
+            const updateCollaborationWithId = await db.query(`UPDATE effects SET link='${link}', alt='${alt}' WHERE id='${id}'`);
 
             res.send(updateCollaborationWithId);
         }

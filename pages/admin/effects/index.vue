@@ -17,6 +17,15 @@ const getAllCollaboration = async () => {
 
 getAllCollaboration();
 
+const deleteEffect = async (id, image) => {
+    console.log(image);
+    const data = await axios({
+        method: 'delete',
+        url: `http://localhost:4000/effect/${id}/${image}`,
+    });
+    console.log(data);
+}
+
 </script>
 
 <template>
@@ -55,8 +64,14 @@ getAllCollaboration();
                                     </td>
                                     <td
                                         class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                        <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit<span
-                                                class="sr-only">, Lindsay Walton</span></a>
+                                        <NuxtLink :to="`/admin/effects/${effect.id}/edit`"
+                                            class="text-indigo-600 hover:text-indigo-900">
+                                            Edit
+                                        </NuxtLink>
+                                        <button @click="deleteEffect(effect.id, effect.image)"
+                                            class="text-red-600 px-2 hover:text-red-900 cursor-pointer">
+                                            Delete
+                                        </button>
                                     </td>
                                 </tr>
 
