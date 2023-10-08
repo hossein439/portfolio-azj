@@ -1,6 +1,5 @@
 const db = require('../db/mysql.js');
 const fs = require('fs');
-const axios = require('axios');
 
 const saveImage = (file) => {
     const filename = file.filename;
@@ -42,7 +41,7 @@ module.exports = {
             const image = saveImage(req.file);
 
             const createCollaborations = await db.query(
-                `INSERT INTO collaborations (image, url) VALUES ('${image}', '${link}')`
+                `INSERT INTO collaborations (image, link) VALUES ('${image}', '${link}')`
             );
 
 
@@ -89,8 +88,9 @@ module.exports = {
     },
 
     async delete(req, res) {
-        const { id } = req.params;
-        const getCollaborationWithId = await db.query(`SELECT * FROM collaborations WHERE id='${id}'`);
-        res.send(getCollaborationWithId);
+        const { id, image } = req.params;
+        removeImage(image);
+        const deleteCollaborationWithId = await db.query(`DELETE FROM collaborations WHERE id='${id}'`);
+        res.send(deleteCollaborationWithId);
     }
 }

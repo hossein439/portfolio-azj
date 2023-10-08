@@ -17,6 +17,16 @@ const getAllCollaboration = async () => {
 
 getAllCollaboration();
 
+
+const deleteCollaboration = async (id, image) => {
+    console.log(image);
+    const data = await axios({
+        method: 'delete',
+        url: `http://localhost:4000/collaboration/${id}/${image}`,
+    });
+    console.log(data);
+}
+
 </script>
 
 <template>
@@ -35,23 +45,26 @@ getAllCollaboration();
                                     </th>
                                     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">link
                                     </th>
+                                    <th scope="col" class="px-12 py-3.5 text-right text-sm font-semibold text-gray-900">actions
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200 bg-white">
                                 <tr v-for="collaboration in collaborations" :key="collaboration.id">
                                     <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                        {{collaboration.id}}
+                                        {{ collaboration.id }}
                                     </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                         {{ collaboration.link }}
                                     </td>
                                     <td
                                         class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                        <NuxtLink 
-                                            :to="`/admin/collaborations/${collaboration.id}/edit`"
+                                        <NuxtLink :to="`/admin/collaborations/${collaboration.id}/edit`"
                                             class="text-indigo-600 hover:text-indigo-900">
                                             <span>Edit</span>
                                         </NuxtLink>
+                                        <button @click="deleteCollaboration(collaboration.id, collaboration.image)"
+                                            class="text-red-600 px-2 hover:text-red-900 cursor-pointer">Delete</button>
                                         <!-- <a href="#" >Edit<span
                                                 class="sr-only">, Lindsay Walton</span></a> -->
                                     </td>

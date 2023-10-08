@@ -36,7 +36,7 @@ router.post('/collaboration', upload.single('image'), collaborationController.cr
 router.get('/collaboration', collaborationController.read);
 router.get('/collaboration/:id', collaborationController.single);
 router.put('/collaboration/:id', upload.single('image'),collaborationController.update);
-router.delete('/collaboration', collaborationController.delete);
+router.delete('/collaboration/:id/:image', collaborationController.delete);
 
 
 router.post('/effect', upload.single('image'), effectController.create);
