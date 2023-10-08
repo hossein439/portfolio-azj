@@ -34,6 +34,39 @@ module.exports = {
     async read(req, res) {
         const getFilters = await db.query('SELECT * FROM effects');
         res.send(getFilters);
+    },
+
+    async single(req, res) {
+        const { id } = req.params;
+        const getCollaborationWithId = await db.query(`SELECT * FROM effects WHERE id='${id}'`);
+        res.send(getCollaborationWithId);
+    },
+
+    async update(req, res) {
+        const { id } = req.params;
+        const { link, isChangedImage, exFileName } = req.body;
+
+        if (isChangedImage && req.file) {
+
+            removeImage(exFileName);
+            const imageCreated = saveImage(req.file);    
+
+            const updateCollaborationWithId = await db.query(`UPDATE effects SET image='${imageCreated}', link='${link}' WHERE id='${id}'`);
+
+            res.send(updateCollaborationWithId);
+        } else {
+            const updateCollaborationWithId = await db.query(`UPDATE effects SET link='${link}' WHERE id='${id}'`);
+
+            res.send(updateCollaborationWithId);
+        }
+
+    },
+
+    async delete(req, res) {
+        const { id, image } = req.params;
+        removeImage(image);
+        const deleteCollaborationWithId = await db.query(`DELETE FROM collaborations WHERE id='${id}'`);
+        res.send(deleteCollaborationWithId);
     }
 
 }
