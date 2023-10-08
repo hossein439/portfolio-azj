@@ -9,7 +9,6 @@ const getAllFilters = async () => {
         url: 'http://localhost:4000/filter',
     });
     filters.value = data.data;
-    console.log(filters.value)
 }
 
 getAllFilters();

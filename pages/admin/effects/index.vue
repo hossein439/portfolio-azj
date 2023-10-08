@@ -48,7 +48,7 @@ getAllCollaboration();
                                         {{ effect.id }}
                                     </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                        {{ effect.url }}
+                                        {{ effect.link }}
                                     </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                         {{ effect.alt }}

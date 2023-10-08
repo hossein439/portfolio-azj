@@ -33,7 +33,7 @@ getAllFilters();
                                     <th scope="col"
                                         class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Id
                                     </th>
-                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Url
+                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Link
                                     </th>
                                     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Feature
                                     </th>
@@ -49,7 +49,7 @@ getAllFilters();
                                 <tr v-for="filter in filters" :key="filter.id">
                                     <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                         {{filter.id}}</td>
-                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{filter.url}}</td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{filter.link}}</td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ filter.feature }}
                                     </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{filter.category}}</td>

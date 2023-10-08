@@ -13,7 +13,6 @@ const getAllCollaboration = async () => {
         url: 'http://localhost:4000/collaboration',
     });
     collaborations.value = data.data;
-    console.log(collaborations.value)
 }
 
 getAllCollaboration();
@@ -44,12 +43,17 @@ getAllCollaboration();
                                         {{collaboration.id}}
                                     </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                        {{ collaboration.url }}
+                                        {{ collaboration.link }}
                                     </td>
                                     <td
                                         class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                        <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit<span
-                                                class="sr-only">, Lindsay Walton</span></a>
+                                        <NuxtLink 
+                                            :to="`/admin/collaborations/${collaboration.id}/edit`"
+                                            class="text-indigo-600 hover:text-indigo-900">
+                                            <span>Edit</span>
+                                        </NuxtLink>
+                                        <!-- <a href="#" >Edit<span
+                                                class="sr-only">, Lindsay Walton</span></a> -->
                                     </td>
                                 </tr>
 

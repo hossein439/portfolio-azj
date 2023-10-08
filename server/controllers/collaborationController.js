@@ -1,6 +1,31 @@
 const db = require('../db/mysql.js');
 const fs = require('fs');
+const axios = require('axios');
 
+const saveImage = (file) => {
+    const filename = file.filename;
+    fs.rename(file.path, `./uploads/${filename}.jpg`, (err) => {
+        console.log('err', err)
+    });
+
+    const image = `${filename}.jpg`;
+
+    return image;
+}
+
+
+const removeImage = (file) => {
+    fs.unlink('./uploads/' + file, (err) => {
+        console.log(err);
+        if (err && err.code == 'ENOENT') {
+            console.info("File doesn't exist, won't remove it.");
+        } else if (err) {
+            console.error("Error occurred while trying to remove file");
+        } else {
+            console.info(`removed`);
+        }
+    });
+}
 
 module.exports = {
 
@@ -8,20 +33,21 @@ module.exports = {
         try {
 
             const { link } = req.body;
-            const filename = req.file.filename;
-            fs.rename(req.file.path, `./uploads/${filename}.jpg`, (err) => {
-                console.log('err', err)
-            });
+            // const filename = req.file.filename;
+            // fs.rename(req.file.path, `./uploads/${filename}.jpg`, (err) => {
+            //     console.log('err', err)
+            // });
 
-            const image = `${filename}.jpg`;
+            // const image = `${filename}.jpg`;
+            const image = saveImage(req.file);
 
-            const filterCreated = await db.query(
+            const createCollaborations = await db.query(
                 `INSERT INTO collaborations (image, url) VALUES ('${image}', '${link}')`
             );
-            
 
-            if (filterCreated) {
-                res.send(filterCreated);
+
+            if (createCollaborations) {
+                res.send(createCollaborations);
             } else {
                 res.status(404).send('not found');
             }
@@ -32,8 +58,39 @@ module.exports = {
     },
 
     async read(req, res) {
-        const getFilters = await db.query('SELECT * FROM collaborations');
-        res.send(getFilters);
-    }
+        const getAllCollaborations = await db.query('SELECT * FROM collaborations');
+        res.send(getAllCollaborations);
+    },
 
+    async single(req, res) {
+        const { id } = req.params;
+        const getCollaborationWithId = await db.query(`SELECT * FROM collaborations WHERE id='${id}'`);
+        res.send(getCollaborationWithId);
+    },
+
+    async update(req, res) {
+        const { id } = req.params;
+        const { link, isChangedImage, exFileName } = req.body;
+
+        if (isChangedImage && req.file) {
+
+            removeImage(exFileName);
+            const imageCreated = saveImage(req.file);    
+
+            const updateCollaborationWithId = await db.query(`UPDATE collaborations SET image='${imageCreated}', link='${link}' WHERE id='${id}'`);
+
+            res.send(updateCollaborationWithId);
+        } else {
+            const updateCollaborationWithId = await db.query(`UPDATE collaborations SET link='${link}' WHERE id='${id}'`);
+
+            res.send(updateCollaborationWithId);
+        }
+
+    },
+
+    async delete(req, res) {
+        const { id } = req.params;
+        const getCollaborationWithId = await db.query(`SELECT * FROM collaborations WHERE id='${id}'`);
+        res.send(getCollaborationWithId);
+    }
 }
