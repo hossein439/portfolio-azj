@@ -7,7 +7,6 @@ const UserController = require('./controllers/userController');
 const filterController = require('./controllers/filterController');
 const collaborationController = require('./controllers/collaborationController');
 const effectController = require('./controllers/effectController');
-const fileController = require('./controllers/fileController');
 
 
 
