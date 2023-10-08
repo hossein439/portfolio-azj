@@ -18,6 +18,15 @@ const getAllFilters = async () => {
 
 getAllFilters();
 
+const deleteFilter = async (id, image) => {
+    console.log(image);
+    const data = await axios({
+        method: 'delete',
+        url: `http://localhost:4000/filter/${id}/${image}`,
+    });
+    console.log(data);
+}
+
 </script>
 
 <template>
@@ -55,8 +64,11 @@ getAllFilters();
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{filter.category}}</td>
                                     <td
                                         class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                        <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit<span
-                                                class="sr-only">, Lindsay Walton</span></a>
+                                        <NuxtLink :to="`/admin/filters/${filter.id}/edit`" class="text-indigo-600 hover:text-indigo-900">Edit</NuxtLink>
+                                        <button @click="deleteFilter(filter.id, filter.image)"
+                                            class="text-red-600 px-2 hover:text-red-900 cursor-pointer">Delete</button>
+                                        <!-- <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit<span
+                                                class="sr-only">, Lindsay Walton</span></a> -->
                                     </td>
                                 </tr>
 

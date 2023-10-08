@@ -1,6 +1,30 @@
 const db = require('../db/mysql.js');
 const fs = require('fs');
 
+const saveImage = (file) => {
+    const filename = file.filename;
+    fs.rename(file.path, `./uploads/${filename}.jpg`, (err) => {
+        console.log('err', err)
+    });
+
+    const image = `${filename}.jpg`;
+
+    return image;
+}
+
+
+const removeImage = (file) => {
+    fs.unlink('./uploads/' + file, (err) => {
+        console.log(err);
+        if (err && err.code == 'ENOENT') {
+            console.info("File doesn't exist, won't remove it.");
+        } else if (err) {
+            console.error("Error occurred while trying to remove file");
+        } else {
+            console.info(`removed`);
+        }
+    });
+}
 
 module.exports = {
 
@@ -8,17 +32,10 @@ module.exports = {
         try {
 
             const { link, feature, category } = req.body;
-            const extention = req.file.mimetype.split('/')[1];
-            const filename = req.file.filename;
-            
-            fs.rename(req.file.path, `./uploads/${filename}.${extention}`, (err) => {
-                console.log('err', err)
-            });
-
-            const image = `${filename}.${extention}`;
+            const image = saveImage(req.file);
 
             const filterCreated = await db.query(
-                `INSERT INTO filters (image, url, feature, category) VALUES ('${image}', '${link}', '${feature}', '${category}')`
+                `INSERT INTO filters (image, link, feature, category) VALUES ('${image}', '${link}', '${feature}', '${category}')`
             );
             
 
@@ -40,35 +57,36 @@ module.exports = {
 
     async single(req, res) {
         const { id } = req.params;
-        const getCollaborationWithId = await db.query(`SELECT * FROM filters WHERE id='${id}'`);
-        res.send(getCollaborationWithId);
+        const getFilterWithId = await db.query(`SELECT * FROM filters WHERE id='${id}'`);
+        res.send(getFilterWithId);
     },
 
     async update(req, res) {
         const { id } = req.params;
-        const { link, isChangedImage, exFileName } = req.body;
+        const { link, feature, category, isChangedImage, exFileName } = req.body;
 
         if (isChangedImage && req.file) {
 
             removeImage(exFileName);
             const imageCreated = saveImage(req.file);    
 
-            const updateCollaborationWithId = await db.query(`UPDATE filters SET image='${imageCreated}', link='${link}' WHERE id='${id}'`);
+            const updateFilterWithId = await db.query(`UPDATE filters SET image='${imageCreated}', link='${link}', feature='${feature}', category='${category}' WHERE id='${id}'`);
 
-            res.send(updateCollaborationWithId);
+            res.send(updateFilterWithId);
         } else {
-            const updateCollaborationWithId = await db.query(`UPDATE filters SET link='${link}' WHERE id='${id}'`);
+            const updateFilterWithId = await db.query(`UPDATE filters SET link='${link}', feature='${feature}', category='${category}' WHERE id='${id}'`);
 
-            res.send(updateCollaborationWithId);
+            res.send(updateFilterWithId);
         }
 
     },
 
     async delete(req, res) {
         const { id, image } = req.params;
+        console.log(id);
         removeImage(image);
-        const deleteCollaborationWithId = await db.query(`DELETE FROM collaborations WHERE id='${id}'`);
-        res.send(deleteCollaborationWithId);
+        const deleteFilterWithId = await db.query(`DELETE FROM filters WHERE id='${id}'`);
+        res.send(deleteFilterWithId);
     }
 
 }

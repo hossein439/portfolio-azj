@@ -32,12 +32,6 @@ module.exports = {
         try {
 
             const { link } = req.body;
-            // const filename = req.file.filename;
-            // fs.rename(req.file.path, `./uploads/${filename}.jpg`, (err) => {
-            //     console.log('err', err)
-            // });
-
-            // const image = `${filename}.jpg`;
             const image = saveImage(req.file);
 
             const createCollaborations = await db.query(
