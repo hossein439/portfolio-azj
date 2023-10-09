@@ -35,7 +35,7 @@ module.exports = {
             const image = saveImage(req.file);
 
             const filterCreated = await db.query(
-                `INSERT INTO categories (name, image, description) VALUES ('${image}', '${name}', '${description}')`
+                `INSERT INTO categories (name, image, description) VALUES ('${name}', '${image}', '${description}')`
             );
             
 

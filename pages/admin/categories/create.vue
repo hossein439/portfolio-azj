@@ -6,37 +6,33 @@ definePageMeta({
 });
 const { showAlert } = useAlert();
 
-const filter = reactive({
-    link: null,
-    feature: null,
-    category: null,
+const category = reactive({
+    name: null,
+    description: null,
     image: null
 });
 
 const imageSrc = ref(null);
-const isChangedImage = ref(false);
 
 const selectImage = (e) => {
     const file = e.target.files[0];
     imageSrc.value = URL.createObjectURL(file);
-    filter.image = file;
-    isChangedImage.value = true;
+    category.image = file;
 }
 
 const create = async () => {
     const formData = new FormData();
-    formData.append('link', filter.link);
-    formData.append('feature', filter.feature);
-    formData.append('category', filter.category);
-    formData.append('image', filter.image);
+    formData.append('name', category.name);
+    formData.append('description', category.description);
+    formData.append('image', category.image);
 
     const data = await axios({
         method: 'post',
-        url: 'http://localhost:4000/filter',
+        url: 'http://localhost:4000/category',
         data: formData
     });
 
-    showAlert('success', 'you created a filter', 6000).
+    showAlert('success', 'you created a category', 6000).
         then(res => {
             console.log(res);
         }).catch(err => {
@@ -48,31 +44,25 @@ const create = async () => {
 
 <template>
     <form @submit.prevent="create()">
+       
         <div class="w-1/3 flex flex-col gap-2">
             <div>
-                <label for="link" class="block text-sm font-medium leading-6 text-gray-900">Link</label>
-                <div class="mt-2">
-                    <input v-model="filter.link" type="text" name="link" id="link"
+                <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Name</label>
+                <div>
+                    <input v-model="category.name" type="text" name="name" id="name"
                         class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
                         placeholder="">
                 </div>
             </div>
 
             <div>
-                <label for="feature" class="block text-sm font-medium leading-6 text-gray-900">Feature</label>
-                <div class="mt-2">
-                    <input v-model="filter.feature" type="text" name="feature" id="feature"
+                <label for="description" class="block text-sm font-medium leading-6 text-gray-900">Description</label>
+                <div>
+                    <textarea v-model="category.description" rows="6" type="text" name="description" id="description"
                         class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
                         placeholder="">
-                </div>
-            </div>
 
-            <div>
-                <label for="category" class="block text-sm font-medium leading-6 text-gray-900">Category</label>
-                <div class="mt-2">
-                    <input v-model="filter.category" type="text" name="category" id="category"
-                        class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                        placeholder="">
+                    </textarea>
                 </div>
             </div>
 
@@ -84,14 +74,14 @@ const create = async () => {
                         d="M8 14v20c0 4.418 7.163 8 16 8 1.381 0 2.721-.087 4-.252M8 14c0 4.418 7.163 8 16 8s16-3.582 16-8M8 14c0-4.418 7.163-8 16-8s16 3.582 16 8m0 0v14m0-4c0 4.418-7.163 8-16 8S8 28.418 8 24m32 10v6m0 0v6m0-6h6m-6 0h-6" />
                 </svg>
                 <input @change="selectImage($event)" class="absolute inset-0 opacity-0 cursor-pointer" type="file">
-                <span v-show="!imageSrc" class="mt-2 block text-sm font-semibold text-gray-900">Image for filter</span>
+                <span v-show="!imageSrc" class="mt-2 block text-sm font-semibold text-gray-900">Image for category</span>
                 <img v-show="imageSrc" :src="imageSrc" alt="" class="w-full h-full rounded-lg inline-block object-cover">
             </div>
         </div>
 
         <button
             class="block ml-auto rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 capitalize">create
-            filter</button>
+            category</button>
 
     </form>
 </template>
