@@ -5,6 +5,8 @@ definePageMeta({
 });
 
 const route = useRoute();
+const { successAlert } = useAlert();
+
 
 const collaboration = reactive({
     link: null,
@@ -42,16 +44,19 @@ const getSingle = async () => {
 
 getSingle()
 
-const edit = async () => {
+const edit = () => {
     const formData = new FormData();
-    console.log(collaboration);
+
     formData.append('link', collaboration.link);
     formData.append('image', collaboration.image);
     formData.append('exFileName', exFile.value);
     formData.append('isChangedImage', isChangedImage.value);
 
-    const data = await axios.put(`http://localhost:4000/collaboration/${route.params.id}`, formData)
-    console.log(data);
+    axios.put(`http://localhost:4000/collaboration/${route.params.id}`, formData)
+
+
+    successAlert('Updated','You updated a collaboration');
+    navigateTo('/admin/collaborations')
 }
 
 </script>

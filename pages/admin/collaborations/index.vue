@@ -5,6 +5,8 @@ definePageMeta({
     layout: "adminlayout",
 });
 
+const { deleteAlert, successAlert } = useAlert();
+
 const collaborations = ref([]);
 
 const getAllCollaboration = async () => {
@@ -18,13 +20,20 @@ const getAllCollaboration = async () => {
 getAllCollaboration();
 
 
-const deleteCollaboration = async (id, image) => {
-    console.log(image);
-    const data = await axios({
-        method: 'delete',
-        url: `http://localhost:4000/collaboration/${id}/${image}`,
-    });
-    console.log(data);
+const deleteCollaboration = (id, image) => {
+    
+    deleteAlert('Are you sure you want to remove this category?')
+    .then(result => {
+        if(result.isConfirmed) {
+            axios({
+                method: 'delete',
+                url: `http://localhost:4000/collaboration/${id}/${image}`,
+            });
+            successAlert('', 'You deleted collaboration successfully');
+            getAllCollaboration()
+        }
+    })
+
 }
 
 </script>

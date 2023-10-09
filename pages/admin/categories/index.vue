@@ -22,7 +22,7 @@ const deleteCategory = async (id, image) => {
     deleteAlert('Are you sure you want to remove this category?')
     .then(result => {
         if(result.isConfirmed) {
-            const data = axios({
+            axios({
                 method: 'delete',
                 url: `http://localhost:4000/category/${id}/${image}`,
             });
