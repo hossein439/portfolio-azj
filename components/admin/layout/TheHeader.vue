@@ -9,7 +9,7 @@ const router = useRouter();
 // });
 
 const crumbs = computed(() => {
-    return route.fullPath.substring(1).split('/');
+    return route.fullPath.substring(7).split('/');
 })
 
 // console.log(route, router)
