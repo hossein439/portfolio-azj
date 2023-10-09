@@ -26,8 +26,8 @@ const deleteCategory = async (id, image) => {
                 method: 'delete',
                 url: `http://localhost:4000/category/${id}/${image}`,
             });
-
-            successAlert('You deleted category successfully');
+            successAlert('', 'You deleted category successfully');
+            getAllcategories();
         }
     })
 }

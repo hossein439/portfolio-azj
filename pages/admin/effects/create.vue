@@ -22,10 +22,7 @@ const getAllcategories = async () => {
     });
     categories.value = data.data;
 }
-
 getAllcategories();
-
-
 
 const effect = reactive({
     link: null,
