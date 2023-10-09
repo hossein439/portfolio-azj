@@ -7,6 +7,8 @@ const UserController = require('./controllers/userController');
 const filterController = require('./controllers/filterController');
 const collaborationController = require('./controllers/collaborationController');
 const effectController = require('./controllers/effectController');
+const categoryController = require('./controllers/categoryController');
+
 
 
 
@@ -41,11 +43,18 @@ router.get('/collaboration/:id', collaborationController.single);
 router.put('/collaboration/:id', upload.single('image'),collaborationController.update);
 router.delete('/collaboration/:id/:image', collaborationController.delete);
 
-
+// effect Routes
 router.post('/effect', upload.single('image'), effectController.create);
 router.get('/effect', effectController.read);
 router.get('/effect/:id', effectController.single);
 router.put('/effect/:id', upload.single('image'),effectController.update);
 router.delete('/effect/:id/:image', effectController.delete);
+
+// Category Routes
+router.post('/category', upload.single('image'), categoryController.create);
+router.get('/category', categoryController.read);
+router.get('/category/:id', categoryController.single);
+router.put('/category/:id', upload.single('image'),categoryController.update);
+router.delete('/category/:id/:image', categoryController.delete);
 
 module.exports = router;
