@@ -18,8 +18,8 @@ const upload = multer({
         fileSize: 1000000,
     },
     fileFilter(req, file, cb) {
-        if (!file.originalname.match(/\.(jpg|png|jpeg|svg)$/)) {
-            return cb(new Error('Please Upload png or jpg or jpeg or svg'));
+        if (!file.originalname.match(/\.(jpg|png|jpeg|svg|gif)$/)) {
+            return cb(new Error('Please Upload png or jpg or jpeg or svg or gif'));
         }
         cb(undefined, true)
     },
@@ -44,10 +44,11 @@ router.put('/collaboration/:id', upload.single('image'),collaborationController.
 router.delete('/collaboration/:id/:image', collaborationController.delete);
 
 // effect Routes
-router.post('/effect', upload.single('image'), effectController.create);
+// router.post('/effect', upload.single('image'), effectController.create);
+router.post('/effect', upload.fields([{name: 'image'}, {name: 'gif'}]), effectController.create);
 router.get('/effect', effectController.read);
 router.get('/effect/:id', effectController.single);
-router.put('/effect/:id', upload.single('image'),effectController.update);
+router.put('/effect/:id', upload.fields([{name: 'image'}, {name: 'gif'}]), effectController.update);
 router.delete('/effect/:id/:image', effectController.delete);
 
 // Category Routes

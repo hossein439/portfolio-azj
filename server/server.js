@@ -24,8 +24,6 @@ app.use(function(req, res, next) {
     next();
 });
 
-
-
 const port = process.env.PORT || 4000;
 app.use(routes);
 
