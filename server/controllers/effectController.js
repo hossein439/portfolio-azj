@@ -42,12 +42,12 @@ module.exports = {
 
     async create(req, res) {
         try {
-            const { link, alt, categoryId } = req.body;
+            const { name, link, alt, categoryId } = req.body;
             const image = saveImage(req.files.image[0], 'image');
             const gif = saveImage(req.files.gif[0], 'gif');
 
             const filterCreated = await db.query(
-                `INSERT INTO effects (image, link, alt, category_id, gif) VALUES ('${image}', '${link}', '${alt}', '${categoryId}', '${gif}')`
+                `INSERT INTO effects (name, image, link, alt, category_id, gif) VALUES ('${name}', '${image}', '${link}', '${alt}', '${categoryId}', '${gif}')`
             );
 
 
@@ -63,21 +63,19 @@ module.exports = {
     },
 
     async read(req, res) {
-        // const getFilters = await db.query('SELECT * FROM effects');
-        const getEffects = await db.query(`SELECT effects.id, effects.image, effects.alt, effects.link, effects.gif, effects.category_id, categories.name AS categoryName FROM effects CROSS JOIN categories WHERE effects.category_id = categories.id`)
+        const getEffects = await db.query(`SELECT effects.id, effects.name, effects.image, effects.alt, effects.link, effects.gif, effects.category_id, categories.name AS categoryName FROM effects CROSS JOIN categories WHERE effects.category_id = categories.id`)
         res.send(getEffects);
     },
 
     async single(req, res) {
         const { id } = req.params;
-        // const getCollaborationWithId = await db.query(`SELECT * FROM effects WHERE id='${id}'`);
-        const getCollaborationWithId = await db.query(`SELECT effects.id, effects.image, effects.alt, effects.link, effects.gif, effects.category_id, categories.name FROM effects CROSS JOIN categories WHERE effects.category_id = categories.id AND effects.id ='${id}'`);
+        const getCollaborationWithId = await db.query(`SELECT effects.id, effects.name, effects.image, effects.alt, effects.link, effects.gif, effects.category_id, categories.name AS categoryName FROM effects CROSS JOIN categories WHERE effects.category_id = categories.id AND effects.id ='${id}'`);
         res.send(getCollaborationWithId);
     },
 
     async update(req, res) {
         const { id } = req.params;
-        const { link, alt, categoryId, isChangedImg, isChangedGif, exFilenameImg, exFilenameGif } = req.body;
+        const { name, link, alt, categoryId, isChangedImg, isChangedGif, exFilenameImg, exFilenameGif } = req.body;
 
 
         if (isChangedImg && ('image' in req.files) && !('gif' in req.files) ) {
@@ -85,7 +83,7 @@ module.exports = {
             removeImage(exFilenameImg);
             const imageCreated = saveImage(req.files.image[0]);
 
-            const updateCollaborationWithId = await db.query(`UPDATE effects SET image='${imageCreated}', link='${link}', alt='${alt}', category_id='${categoryId}' WHERE id='${id}'`);
+            const updateCollaborationWithId = await db.query(`UPDATE effects SET name='${name}', image='${imageCreated}', link='${link}', alt='${alt}', category_id='${categoryId}' WHERE id='${id}'`);
 
             res.send(updateCollaborationWithId);
             return;
@@ -96,7 +94,7 @@ module.exports = {
             removeImage(exFilenameGif);
             const gifCreated = saveImage(req.files.gif[0]);
 
-            const updateCollaborationWithId = await db.query(`UPDATE effects SET gif='${gifCreated}', link='${link}', alt='${alt}', category_id='${categoryId}' WHERE id='${id}'`);
+            const updateCollaborationWithId = await db.query(`UPDATE effects SET name='${name}', gif='${gifCreated}', link='${link}', alt='${alt}', category_id='${categoryId}' WHERE id='${id}'`);
 
             res.send(updateCollaborationWithId);
             return;
@@ -110,13 +108,13 @@ module.exports = {
             const gifCreated = saveImage(req.files.gif[0]);
             const imageCreated = saveImage(req.files.image[0]);
 
-            const updateCollaborationWithId = await db.query(`UPDATE effects SET gif='${gifCreated}', image='${imageCreated}', link='${link}', alt='${alt}', category_id='${categoryId}' WHERE id='${id}'`);
+            const updateCollaborationWithId = await db.query(`UPDATE effects SET name='${name}', gif='${gifCreated}', image='${imageCreated}', link='${link}', alt='${alt}', category_id='${categoryId}' WHERE id='${id}'`);
 
             res.send(updateCollaborationWithId);
             return;
         }
 
-        const updateCollaborationWithId = await db.query(`UPDATE effects SET link='${link}', alt='${alt}', category_id='${categoryId}' WHERE id='${id}'`);
+        const updateCollaborationWithId = await db.query(`UPDATE effects SET name='${name}', link='${link}', alt='${alt}', category_id='${categoryId}' WHERE id='${id}'`);
 
         res.send(updateCollaborationWithId);
 

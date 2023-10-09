@@ -45,15 +45,17 @@ const deleteEffect = async (id, image, gif) => {
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th scope="col"
-                                        class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">id
+                                        class="capitalize py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">id
                                     </th>
-                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">link
+                                    <th scope="col" class="capitalize px-3 py-3.5 text-left text-sm font-semibold text-gray-900">name
                                     </th>
-                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">category
+                                    <th scope="col" class="capitalize px-3 py-3.5 text-left text-sm font-semibold text-gray-900">link
                                     </th>
-                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">alt
+                                    <th scope="col" class="capitalize px-3 py-3.5 text-left text-sm font-semibold text-gray-900">category
                                     </th>
-                                    <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                                    <th scope="col" class="capitalize px-3 py-3.5 text-left text-sm font-semibold text-gray-900">alt
+                                    </th>
+                                    <th scope="col" class="capitalize relative py-3.5 pl-3 pr-4 sm:pr-6">
                                         <span class="sr-only">Edit</span>
                                     </th>
                                 </tr>
@@ -62,6 +64,9 @@ const deleteEffect = async (id, image, gif) => {
                                 <tr v-for="effect in effects" :key="effect.id">
                                     <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                         {{ effect.id }}
+                                    </td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                        {{ effect.name }}
                                     </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                         {{ effect.link }}

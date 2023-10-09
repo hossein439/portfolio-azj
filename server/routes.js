@@ -4,7 +4,7 @@ const router = new express.Router();
 
 // controllers
 const UserController = require('./controllers/userController');
-const filterController = require('./controllers/filterController');
+const blogController = require('./controllers/blogController');
 const collaborationController = require('./controllers/collaborationController');
 const effectController = require('./controllers/effectController');
 const categoryController = require('./controllers/categoryController');
@@ -30,11 +30,11 @@ const upload = multer({
 router.post('/login', UserController.login);
 
 // Filter Routes
-router.post('/filter', upload.single('image'), filterController.create);
-router.get('/filter', filterController.read);
-router.get('/filter/:id', filterController.single);
-router.put('/filter/:id', upload.single('image'),filterController.update);
-router.delete('/filter/:id/:image', filterController.delete);
+router.post('/blog', upload.single('image'), blogController.create);
+router.get('/blog', blogController.read);
+router.get('/blog/:id', blogController.single);
+router.put('/blog/:id', upload.single('image'),blogController.update);
+router.delete('/blog/:id/:image', blogController.delete);
 
 // Collaboration Routes
 router.post('/collaboration', upload.single('image'), collaborationController.create);

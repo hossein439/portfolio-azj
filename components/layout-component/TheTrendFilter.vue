@@ -6,7 +6,7 @@ const filters = ref();
 const getAllFilters = async () => {
     const data = await axios({
         method: 'get',
-        url: 'http://localhost:4000/filter',
+        url: 'http://localhost:4000/effect',
     });
     filters.value = data.data;
 }
@@ -26,16 +26,16 @@ getAllFilters();
 
             <div v-for="filter in filters">
                 <div class="h-96">
-                    <img class="h-full object-cover rounded-2xl" :src="`_nuxt/uploads/${filter.image}`" alt="">
+                    <img class="h-full object-cover rounded-2xl" :src="`_nuxt/uploads/${filter.gif}`" alt="">
                 </div>
                 <div class="flex flex-col">
                     <button class="flex items-center gap-2 cursor-pointer">
                         <img src="~/assets/images/icons/stars.svg" alt="">
-                        <span class="text-[28px] font-medium capitalize">{{ filter.feature }}</span>
+                        <span class="text-[28px] font-medium capitalize">{{ filter.name }}</span>
                     </button>
                     <button class="flex items-center gap-2 cursor-pointer">
                         <img src="~/assets/images/icons/menu.svg" alt="">
-                        <span class="text-[28px] font-medium capitalize">{{ filter.category }}</span>
+                        <span class="text-[28px] font-medium capitalize">{{ filter.categoryName }}</span>
                     </button>
                 </div>
             </div>
@@ -47,4 +47,5 @@ getAllFilters();
         </button>
 
     </div>
+
 </template>
