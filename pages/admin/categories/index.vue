@@ -58,7 +58,7 @@ const deleteCategory = async (id, image) => {
 
                                     <td
                                         class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                        <NuxtLink :to="`/admin/categorys/${category.id}/edit`"
+                                        <NuxtLink :to="`/admin/categories/${category.id}/edit`"
                                             class="text-indigo-600 hover:text-indigo-900">
                                             Edit
                                         </NuxtLink>

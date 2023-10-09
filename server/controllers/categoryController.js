@@ -14,8 +14,7 @@ const saveImage = (file) => {
 
 
 const removeImage = (file) => {
-    fs.unname('./uploads/' + file, (err) => {
-        console.log(err);
+    fs.unlink('./uploads/' + file, (err) => {
         if (err && err.code == 'ENOENT') {
             console.info("File doesn't exist, won't remove it.");
         } else if (err) {
@@ -70,11 +69,11 @@ module.exports = {
             removeImage(exFileName);
             const imageCreated = saveImage(req.file);    
 
-            const updateFilterWithId = await db.query(`UPDATE categories SET name='${name}', image='${imageCreated}', description='}' WHERE id='${id}'`);
+            const updateFilterWithId = await db.query(`UPDATE categories SET name='${name}', image='${imageCreated}', description='${description}' WHERE id='${id}'`);
 
             res.send(updateFilterWithId);
         } else {
-            const updateFilterWithId = await db.query(`UPDATE categories SET name='${name}'='}', description='${description}' WHERE id='${id}'`);
+            const updateFilterWithId = await db.query(`UPDATE categories SET name='${name}', description='${description}' WHERE id='${id}'`);
 
             res.send(updateFilterWithId);
         }

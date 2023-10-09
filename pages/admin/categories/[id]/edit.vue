@@ -8,10 +8,9 @@ const route = useRoute();
 const { showAlert } = useAlert();
 
 
-const filter = reactive({
-    link: null,
-    feature: null,
-    category: null,
+const category = reactive({
+    name: null,
+    description: null,
     image: null
 });
 
@@ -22,7 +21,7 @@ const exFile = ref(null);
 const selectImage = (e) => {
     const file = e.target.files[0];
     imageSrc.value = URL.createObjectURL(file);
-    filter.image = file;
+    category.image = file;
     isChangedImage.value = true;
 }
 
@@ -34,13 +33,12 @@ const setImageUrl = (imageName) => {
 const getSingle = async () => {
     const data = await axios({
         method: 'get',
-        url: `http://localhost:4000/filter/${route.params.id}`,
+        url: `http://localhost:4000/category/${route.params.id}`,
     });
-    const { link, image, feature, category } = data.data[0];
-    filter.link = link;
-    filter.image = image;
-    filter.feature = feature;
-    filter.category = category;
+    const { name, image, description } = data.data[0];
+    category.name = name;
+    category.image = image;
+    category.description = description;
     exFile.value = image;
 
     imageSrc.value = setImageUrl(image);
@@ -50,17 +48,16 @@ getSingle()
 
 const edit = async () => {
     const formData = new FormData();
-    console.log(filter);
-    formData.append('link', filter.link);
-    formData.append('feature', filter.feature);
-    formData.append('category', filter.category);
-    formData.append('image', filter.image);
+    console.log(category);
+    formData.append('name', category.name);
+    formData.append('description', category.description);
+    formData.append('image', category.image);
     formData.append('exFileName', exFile.value);
     formData.append('isChangedImage', isChangedImage.value);
 
-    const data = await axios.put(`http://localhost:4000/filter/${route.params.id}`, formData)
+    const data = await axios.put(`http://localhost:4000/category/${route.params.id}`, formData)
 
-    showAlert('success', 'you updated a filter', 6000).
+    showAlert('success', 'you updated a category', 6000).
         then(res => {
             console.log(res);
         }).catch(err => {
@@ -74,9 +71,9 @@ const edit = async () => {
     <form @submit.prevent="edit()">
         <div class="w-1/3 flex flex-col gap-2">
             <div>
-                <label for="link" class="block text-sm font-medium leading-6 text-gray-900">Link</label>
+                <label for="name" class="block text-sm font-medium leading-6 text-gray-900">name</label>
                 <div class="mt-2">
-                    <input v-model="filter.link" type="text" name="link" id="link"
+                    <input v-model="category.name" type="text" name="name" id="name"
                         class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
                         placeholder="">
                 </div>
@@ -84,20 +81,13 @@ const edit = async () => {
 
 
             <div>
-                <label for="feature" class="block text-sm font-medium leading-6 text-gray-900">Feature</label>
+                <label for="description" class="block text-sm font-medium leading-6 text-gray-900">Description</label>
                 <div class="mt-2">
-                    <input v-model="filter.feature" type="text" name="feature" id="feature"
+                    <textarea v-model="category.description" rows="6" type="text" name="description" id="description"
                         class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
                         placeholder="">
-                </div>
-            </div>
 
-            <div>
-                <label for="category" class="block text-sm font-medium leading-6 text-gray-900">Category</label>
-                <div class="mt-2">
-                    <input v-model="filter.category" type="text" name="category" id="category"
-                        class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                        placeholder="">
+                    </textarea>
                 </div>
             </div>
 
@@ -110,15 +100,16 @@ const edit = async () => {
                 </svg>
                 <input @change="selectImage($event)" class="absolute inset-0 opacity-0 cursor-pointer" type="file">
                 <span v-show="!imageSrc" class="mt-2 block text-sm font-semibold text-gray-900">Image for
-                    filter</span>
+                    category</span>
                 <img v-show="imageSrc" :src="imageSrc" alt="" class="w-full h-full rounded-lg inline-block object-cover">
             </div>
         </div>
 
         <button
             class="block ml-auto rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 capitalize">
-            edit filter
+            edit category
         </button>
 
     </form>
 </template>
+
