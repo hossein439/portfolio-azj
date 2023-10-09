@@ -35,3 +35,7 @@ body {
     position: relative;
     z-index: 10;
 }
+
+.swal2-popup {
+    font-size: 8px;
+}

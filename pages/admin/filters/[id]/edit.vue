@@ -5,8 +5,10 @@ definePageMeta({
 });
 
 const route = useRoute();
+const { showAlert } = useAlert();
 
-const filter  = reactive({
+
+const filter = reactive({
     link: null,
     feature: null,
     category: null,
@@ -57,7 +59,13 @@ const edit = async () => {
     formData.append('isChangedImage', isChangedImage.value);
 
     const data = await axios.put(`http://localhost:4000/filter/${route.params.id}`, formData)
-    console.log(data);
+
+    showAlert('success', 'you updated a filter', 6000).
+        then(res => {
+            console.log(res);
+        }).catch(err => {
+            console.log(err)
+        });
 }
 
 </script>
@@ -83,7 +91,7 @@ const edit = async () => {
                         placeholder="">
                 </div>
             </div>
-            
+
             <div>
                 <label for="category" class="block text-sm font-medium leading-6 text-gray-900">Category</label>
                 <div class="mt-2">

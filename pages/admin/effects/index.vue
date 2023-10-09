@@ -6,24 +6,21 @@ definePageMeta({
 });
 const effects = ref([]);
 
-const getAllCollaboration = async () => {
+const getAllEffects = async () => {
     const data = await axios({
         method: 'get',
         url: 'http://localhost:4000/effect',
     });
     effects.value = data.data;
-    console.log(effects.value)
 }
-
-getAllCollaboration();
+getAllEffects();
 
 const deleteEffect = async (id, image) => {
-    console.log(image);
-    const data = await axios({
-        method: 'delete',
-        url: `http://localhost:4000/effect/${id}/${image}`,
-    });
-    console.log(data);
+    // const data = await axios({
+    //     method: 'delete',
+    //     url: `http://localhost:4000/effect/${id}/${image}`,
+    // });
+    swalInstance.showAlert('warning', 'are you sure delete it', 6000);
 }
 
 </script>

@@ -4,8 +4,9 @@ import axios from 'axios';
 definePageMeta({
     layout: "adminlayout",
 });
+const { showAlert } = useAlert();
 
-const filter  = reactive({
+const filter = reactive({
     link: null,
     feature: null,
     category: null,
@@ -22,7 +23,7 @@ const selectImage = (e) => {
     isChangedImage.value = true;
 }
 
-const edit = async () => {
+const create = async () => {
     const formData = new FormData();
     formData.append('link', filter.link);
     formData.append('feature', filter.feature);
@@ -35,13 +36,18 @@ const edit = async () => {
         data: formData
     });
 
-    console.log(data);
+    showAlert('success', 'you created a filter', 6000).
+        then(res => {
+            console.log(res);
+        }).catch(err => {
+            console.log(err)
+        });
 }
 
 </script>
 
 <template>
-    <form @submit.prevent="edit()">
+    <form @submit.prevent="create()">
         <div class="w-1/3 flex flex-col gap-2">
             <div>
                 <label for="link" class="block text-sm font-medium leading-6 text-gray-900">Link</label>
@@ -51,7 +57,7 @@ const edit = async () => {
                         placeholder="">
                 </div>
             </div>
-    
+
             <div>
                 <label for="feature" class="block text-sm font-medium leading-6 text-gray-900">Feature</label>
                 <div class="mt-2">
@@ -60,7 +66,7 @@ const edit = async () => {
                         placeholder="">
                 </div>
             </div>
-            
+
             <div>
                 <label for="category" class="block text-sm font-medium leading-6 text-gray-900">Category</label>
                 <div class="mt-2">
@@ -69,11 +75,11 @@ const edit = async () => {
                         placeholder="">
                 </div>
             </div>
-    
-            <div
-                :class="!imageSrc ? 'p-12': 'p-3'" class="relative block w-full h-48 rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                <svg v-show="!imageSrc" class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48"
-                    aria-hidden="true">
+
+            <div :class="!imageSrc ? 'p-12' : 'p-3'"
+                class="relative block w-full h-48 rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                <svg v-show="!imageSrc" class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none"
+                    viewBox="0 0 48 48" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M8 14v20c0 4.418 7.163 8 16 8 1.381 0 2.721-.087 4-.252M8 14c0 4.418 7.163 8 16 8s16-3.582 16-8M8 14c0-4.418 7.163-8 16-8s16 3.582 16 8m0 0v14m0-4c0 4.418-7.163 8-16 8S8 28.418 8 24m32 10v6m0 0v6m0-6h6m-6 0h-6" />
                 </svg>
@@ -83,7 +89,9 @@ const edit = async () => {
             </div>
         </div>
 
-        <button class="block ml-auto rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 capitalize">create filter</button>
+        <button
+            class="block ml-auto rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 capitalize">create
+            filter</button>
 
     </form>
 </template>
