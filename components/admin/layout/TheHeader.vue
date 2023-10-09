@@ -1,39 +1,10 @@
 <script setup>
+
 const route = useRoute();
-const router = useRouter();
-// const breadcrumbs = ref([]);
-// watch(() => route.fullPath, () => {
-//     breadcrumbs.value = route.fullPath.substring(1).split('/');
-//     console.log(route.fullPath);
-//     console.log(breadcrumbs.value);
-// });
 
 const crumbs = computed(() => {
     return route.fullPath.substring(7).split('/');
 })
-
-// console.log(route, router)
-// const crumbs = computed(() => {
-//     const fullPath = route.fullPath
-//     const params = fullPath.startsWith('/')
-//         ? fullPath.substring(1).split('/')
-//         : fullPath.split('/')
-//     const crumbs = []
-//     let path = ''
-//     params.forEach((param, index) => {
-//         path = `${path}/${param}`
-//         const match = router.match(path)
-//         if (match.name !== null) {
-//             crumbs.push({
-//                 title: titleCase(param.replace(/-/g, ' ')),
-//                 ...match,
-//             })
-//         }
-//     });
-//     return crumbs
-// });
-
-// console.log(crumbs.value);
 
 const show = ref(false);
 
@@ -51,22 +22,10 @@ const show = ref(false);
                 </svg>
             </button>
 
-            <!-- Separator -->
             <div class="h-6 w-px bg-gray-200 lg:hidden" aria-hidden="true"></div>
 
             <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-                <!-- <form class="relative flex flex-1" action="#" method="GET">
-                    <label for="search-field" class="sr-only">Search</label>
-                    <svg class="pointer-events-none absolute inset-y-0 left-0 h-full w-5 text-gray-400" viewBox="0 0 20 20"
-                        fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                            d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
-                            clip-rule="evenodd" />
-                    </svg>
-                    <input id="search-field"
-                        class="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
-                        placeholder="Search..." type="search" name="search">
-                </form> -->
+                
                 <nav class="flex flex-1" aria-label="Breadcrumb">
                     <ol role="list" class="flex items-center space-x-4">
                         <li>
@@ -91,10 +50,6 @@ const show = ref(false);
                                         d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
                                         clip-rule="evenodd" />
                                 </svg>
-
-                                <!-- <NuxtLink>
-                                    {{ breadcrumb }}
-                                </NuxtLink> -->
 
                                 <a href="#" class="ml-4 text-sm capitalize font-medium text-gray-500 hover:text-gray-700">{{
                                     breadcrumb }}</a>
