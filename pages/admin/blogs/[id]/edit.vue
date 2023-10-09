@@ -8,8 +8,10 @@ const route = useRoute();
 const { successAlert } = useAlert();
 
 
-const collaboration = reactive({
-    link: null,
+const blog = reactive({
+    title: null,
+    alt: null,
+    description: null,
     image: null
 });
 
@@ -20,23 +22,26 @@ const exFile = ref(false);
 const selectImage = (e) => {
     const file = e.target.files[0];
     imageSrc.value = URL.createObjectURL(file);
-    collaboration.image = file;
+    blog.image = file;
     isChangedImage.value = true;
 }
 
 const setImageUrl = (imageName) => {
     const path = `../../../../uploads/${imageName}`;
     return new URL(path, import.meta.url).href;
-} 
+}
 
 const getSingle = async () => {
     const data = await axios({
         method: 'get',
-        url: `http://localhost:4000/collaboration/${route.params.id}`,
+        url: `http://localhost:4000/blog/${route.params.id}`,
     });
-    const { link, image } = data.data[0];
-    collaboration.link = link;
-    collaboration.image = image;
+    const { title, image, description, alt } = data.data[0];
+    blog.title = title;
+    blog.image = image;
+    blog.alt = alt;
+    blog.description = description;
+
     exFile.value = image;
 
     imageSrc.value = setImageUrl(image);
@@ -47,16 +52,19 @@ getSingle()
 const edit = () => {
     const formData = new FormData();
 
-    formData.append('link', collaboration.link);
-    formData.append('image', collaboration.image);
+    formData.append('title', blog.title);
+    formData.append('alt', blog.alt);
+    formData.append('description', blog.description);
+    formData.append('image', blog.image);
+
     formData.append('exFileName', exFile.value);
     formData.append('isChangedImage', isChangedImage.value);
 
-    axios.put(`http://localhost:4000/collaboration/${route.params.id}`, formData)
+    axios.put(`http://localhost:4000/blog/${route.params.id}`, formData)
 
 
-    successAlert('Updated','You updated a collaboration');
-    navigateTo('/admin/collaborations')
+    successAlert('Updated', 'You updated a blog');
+    navigateTo('/admin/blogs')
 }
 
 </script>
@@ -65,11 +73,30 @@ const edit = () => {
     <form @submit.prevent="edit()">
         <div class="w-1/3 flex flex-col gap-2">
             <div>
-                <label for="link" class="block text-sm font-medium leading-6 text-gray-900">Link</label>
+                <label for="title" class="block text-sm font-medium leading-6 text-gray-900">Title</label>
                 <div class="mt-2">
-                    <input v-model="collaboration.link" type="text" name="link" id="link"
+                    <input v-model="blog.title" type="text" name="title" id="title"
                         class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
                         placeholder="">
+                </div>
+            </div>
+
+            <div>
+                <label for="alt" class="block text-sm font-medium leading-6 text-gray-900">Alt</label>
+                <div class="mt-2">
+                    <input v-model="blog.alt" type="text" name="alt" id="alt"
+                        class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                        placeholder="">
+                </div>
+            </div>
+
+            <div class="w-full flex flex-col">
+                <label for="description" class="block text-sm font-medium leading-6 text-gray-900">Description</label>
+                <div class="w-full flex-1">
+                    <textarea v-model="blog.description" type="text" name="description" id="description"
+                        class="block w-full h-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                        placeholder="">
+                        </textarea>
                 </div>
             </div>
 
@@ -83,15 +110,15 @@ const edit = () => {
                 </svg>
                 <input @change="selectImage($event)" class="absolute inset-0 opacity-0 cursor-pointer" type="file">
                 <span v-show="!imageSrc" class="mt-2 block text-sm font-semibold text-gray-900">Image for
-                    collaboration</span>
+                    blog</span>
                 <img v-show="imageSrc" :src="imageSrc" alt="" class="w-full h-full rounded-lg inline-block object-cover">
             </div>
         </div>
 
         <div class="flex justify-between mt-5">
-            <AdminViewGoBackBtn text="cancel" btn-type="error" link="/admin/collaborations"></AdminViewGoBackBtn>
+            <AdminViewGoBackBtn text="cancel" btn-type="error" link="/admin/blogs"></AdminViewGoBackBtn>
 
-            <AdminViewCreateBtn>edit collaboration</AdminViewCreateBtn>
+            <AdminViewCreateBtn>edit blog</AdminViewCreateBtn>
         </div>
 
     </form>

@@ -1,5 +1,7 @@
 const db = require('../db/mysql.js');
 const fs = require('fs');
+const { format } = require('date-fns');
+
 
 const saveImage = (file) => {
     const filename = file.filename;
@@ -31,11 +33,12 @@ module.exports = {
     async create(req, res) {
         try {
 
-            const { link, feature, category } = req.body;
+            const { title, description, alt } = req.body;
             const image = saveImage(req.file);
+            const date = new Date();
 
             const filterCreated = await db.query(
-                `INSERT INTO filters (image, link, feature, category) VALUES ('${image}', '${link}', '${feature}', '${category}')`
+                `INSERT INTO blogs (title, image, description, alt, created_at) VALUES ('${title}', '${image}', '${description}', '${alt}', '${format(date, 'yyyy-MM-dd HH:mm')}')`
             );
             
 
@@ -51,41 +54,39 @@ module.exports = {
     },
 
     async read(req, res) {
-        const getFilters = await db.query('SELECT * FROM filters');
-        res.send(getFilters);
+        const getBlogs = await db.query('SELECT * FROM blogs');
+        res.send(getBlogs);
     },
 
     async single(req, res) {
         const { id } = req.params;
-        const getFilterWithId = await db.query(`SELECT * FROM filters WHERE id='${id}'`);
+        const getFilterWithId = await db.query(`SELECT * FROM blogs WHERE id='${id}'`);
         res.send(getFilterWithId);
     },
 
     async update(req, res) {
         const { id } = req.params;
-        const { link, feature, category, isChangedImage, exFileName } = req.body;
+        const { title, description, alt, isChangedImage, exFileName } = req.body;
 
         if (isChangedImage && req.file) {
 
             removeImage(exFileName);
             const imageCreated = saveImage(req.file);    
 
-            const updateFilterWithId = await db.query(`UPDATE filters SET image='${imageCreated}', link='${link}', feature='${feature}', category='${category}' WHERE id='${id}'`);
+            const updateFilterWithId = await db.query(`UPDATE blogs SET image='${imageCreated}', alt='${alt}', title='${title}', description='${description}' WHERE id='${id}'`);
 
             res.send(updateFilterWithId);
         } else {
-            const updateFilterWithId = await db.query(`UPDATE filters SET link='${link}', feature='${feature}', category='${category}' WHERE id='${id}'`);
+            const updateFilterWithId = await db.query(`UPDATE blogs SET title='${title}', alt='${alt}',description='${description}' WHERE id='${id}'`);
 
             res.send(updateFilterWithId);
         }
-
     },
 
     async delete(req, res) {
         const { id, image } = req.params;
-        console.log(id);
         removeImage(image);
-        const deleteFilterWithId = await db.query(`DELETE FROM filters WHERE id='${id}'`);
+        const deleteFilterWithId = await db.query(`DELETE FROM blogs WHERE id='${id}'`);
         res.send(deleteFilterWithId);
     }
 
