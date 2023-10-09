@@ -6,6 +6,7 @@ definePageMeta({
 });
 
 const categories = ref([]);
+const { deleteAlert, successAlert } = useAlert();
 
 const getAllcategories = async () => {
     const data = await axios({
@@ -18,10 +19,17 @@ const getAllcategories = async () => {
 getAllcategories();
 
 const deleteCategory = async (id, image) => {
-    const data = await axios({
-        method: 'delete',
-        url: `http://localhost:4000/category/${id}/${image}`,
-    });
+    deleteAlert('Are you sure you want to remove this category?')
+    .then(result => {
+        if(result.isConfirmed) {
+            const data = axios({
+                method: 'delete',
+                url: `http://localhost:4000/category/${id}/${image}`,
+            });
+
+            successAlert('You deleted category successfully');
+        }
+    })
 }
 
 </script>

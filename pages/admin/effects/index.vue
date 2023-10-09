@@ -4,6 +4,8 @@ import axios from 'axios';
 definePageMeta({
     layout: "adminlayout",
 });
+
+const { deleteAlert, successAlert } = useAlert();
 const effects = ref([]);
 
 const getAllEffects = async () => {
@@ -15,12 +17,18 @@ const getAllEffects = async () => {
 }
 getAllEffects();
 
-const deleteEffect = async (id, image) => {
-    // const data = await axios({
-    //     method: 'delete',
-    //     url: `http://localhost:4000/effect/${id}/${image}`,
-    // });
-    swalInstance.showAlert('warning', 'are you sure delete it', 6000);
+const deleteEffect = async (id, image, gif) => {
+    deleteAlert('Are you sure you want to remove this effect?')
+        .then(result => {
+            if (result.isConfirmed) {
+                const data = axios({
+                    method: 'delete',
+                    url: `http://localhost:4000/effect/${id}/${image}/${gif}`,
+                });
+                successAlert('','You deleted effect successfully');
+                getAllEffects();
+            }
+        })
 }
 
 </script>
@@ -41,6 +49,8 @@ const deleteEffect = async (id, image) => {
                                     </th>
                                     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">link
                                     </th>
+                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">category
+                                    </th>
                                     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">alt
                                     </th>
                                     <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
@@ -57,6 +67,9 @@ const deleteEffect = async (id, image) => {
                                         {{ effect.link }}
                                     </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                        {{ effect.categoryName }}
+                                    </td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                         {{ effect.alt }}
                                     </td>
                                     <td
@@ -65,7 +78,7 @@ const deleteEffect = async (id, image) => {
                                             class="text-indigo-600 hover:text-indigo-900">
                                             Edit
                                         </NuxtLink>
-                                        <button @click="deleteEffect(effect.id, effect.image)"
+                                        <button @click="deleteEffect(effect.id, effect.image, effect.gif)"
                                             class="text-red-600 px-2 hover:text-red-900 cursor-pointer">
                                             Delete
                                         </button>

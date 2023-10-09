@@ -44,12 +44,11 @@ router.put('/collaboration/:id', upload.single('image'),collaborationController.
 router.delete('/collaboration/:id/:image', collaborationController.delete);
 
 // effect Routes
-// router.post('/effect', upload.single('image'), effectController.create);
 router.post('/effect', upload.fields([{name: 'image'}, {name: 'gif'}]), effectController.create);
 router.get('/effect', effectController.read);
 router.get('/effect/:id', effectController.single);
 router.put('/effect/:id', upload.fields([{name: 'image'}, {name: 'gif'}]), effectController.update);
-router.delete('/effect/:id/:image', effectController.delete);
+router.delete('/effect/:id/:image/:gif', effectController.delete);
 
 // Category Routes
 router.post('/category', upload.single('image'), categoryController.create);

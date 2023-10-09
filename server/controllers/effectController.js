@@ -63,8 +63,9 @@ module.exports = {
     },
 
     async read(req, res) {
-        const getFilters = await db.query('SELECT * FROM effects');
-        res.send(getFilters);
+        // const getFilters = await db.query('SELECT * FROM effects');
+        const getEffects = await db.query(`SELECT effects.id, effects.image, effects.alt, effects.link, effects.gif, effects.category_id, categories.name AS categoryName FROM effects CROSS JOIN categories WHERE effects.category_id = categories.id`)
+        res.send(getEffects);
     },
 
     async single(req, res) {
@@ -122,9 +123,13 @@ module.exports = {
     },
 
     async delete(req, res) {
-        const { id, image } = req.params;
+        const { id, image, gif } = req.params;
+
         removeImage(image);
+        removeImage(gif);
+        
         const deleteCollaborationWithId = await db.query(`DELETE FROM effects WHERE id='${id}'`);
+
         res.send(deleteCollaborationWithId);
     }
 

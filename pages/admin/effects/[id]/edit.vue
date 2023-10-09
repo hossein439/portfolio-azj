@@ -5,6 +5,7 @@ definePageMeta({
     layout: "adminlayout",
 });
 
+const { successAlert } = useAlert();
 const route = useRoute();
 
 const showCategory = ref(false);
@@ -85,7 +86,7 @@ const getSingle = async () => {
 
 getSingle()
 
-const edit = async () => {
+const edit = () => {
     const formData = new FormData();
     formData.append('link', effect.link);
     formData.append('alt', effect.alt)
@@ -99,9 +100,10 @@ const edit = async () => {
     formData.append('isChangedGif', isChangedGif.value);
 
 
-    const data = await axios.put(`http://localhost:4000/effect/${route.params.id}`, formData)
+    axios.put(`http://localhost:4000/effect/${route.params.id}`, formData)
 
-    console.log(data);
+    successAlert('Updated','You Updated an effect');
+    navigateTo('/admin/effects')
 }
 
 </script>
@@ -195,10 +197,11 @@ const edit = async () => {
             </div>
         </div>
 
-        <button
-            class="block ml-auto rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 capitalize">
-            edit effect
-        </button>
+        <div class="flex justify-between mt-5">
+            <AdminViewGoBackBtn text="cancel" btn-type="error" link="/admin/effects"></AdminViewGoBackBtn>
+
+            <AdminViewCreateBtn>edit effect</AdminViewCreateBtn>
+        </div>
 
     </form>
 </template>
