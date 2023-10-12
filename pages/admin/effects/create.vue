@@ -49,7 +49,7 @@ const selectImage = (e, mediaType) => {
 }
 
 
-const create = () => {
+const create = async () => {
     const formData = new FormData();
     formData.append('name', effect.name)
     formData.append('alt', effect.alt)

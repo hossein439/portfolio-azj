@@ -21,28 +21,28 @@
 
                         <li>
                             <NuxtLink
-                                class="border-b-2 border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
+                                class="cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
                                 to="/">Home
                             </NuxtLink>
                         </li>
 
                         <li>
                             <NuxtLink
-                                class="border-b-2 border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
+                                class="cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
                                 href="./about">about me
                             </NuxtLink>
                         </li>
 
                         <li>
                             <NuxtLink
-                                class="border-b-2 border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
+                                class="cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
                                 href="./categories">Categories
                             </NuxtLink>
                         </li>
 
                         <li>
                             <NuxtLink
-                                class="border-b-2 border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
+                                class="cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
                                 href="./blog">Blog
                             </NuxtLink>
                         </li>
@@ -59,9 +59,21 @@
     </header>
 </template>
 
-<style>
+<style scoped>
 .router-link-active {
     border-color: #025EFF;
     color: #025EFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.router-link-active::after {
+    content: '';
+    display: inline-block;
+    height: 3px;
+    width: 32px;
+    position: relative;
+    top: 8px;
+    background-color: #025EFF;
 }
 </style>

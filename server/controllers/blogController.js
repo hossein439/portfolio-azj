@@ -54,7 +54,7 @@ module.exports = {
     },
 
     async read(req, res) {
-        const getBlogs = await db.query('SELECT * FROM blogs');
+        const getBlogs = await db.query('SELECT * FROM blogs ORDER BY created_at');
         res.send(getBlogs);
     },
 

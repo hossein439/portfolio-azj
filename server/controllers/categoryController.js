@@ -1,5 +1,7 @@
 const db = require('../db/mysql.js');
 const fs = require('fs');
+const { format } = require('date-fns');
+
 
 const saveImage = (file) => {
     const filename = file.filename;
@@ -32,9 +34,10 @@ module.exports = {
 
             const { name, description } = req.body;
             const image = saveImage(req.file);
+            const date = new Date();
 
             const filterCreated = await db.query(
-                `INSERT INTO categories (name, image, description) VALUES ('${name}', '${image}', '${description}')`
+                `INSERT INTO categories (name, image, description, created_at) VALUES ('${name}', '${image}', '${description}, '${format(date, 'yyyy-MM-dd HH:mm')}')`
             );
             
 
@@ -50,7 +53,7 @@ module.exports = {
     },
 
     async read(req, res) {
-        const getFilters = await db.query('SELECT * FROM categories');
+        const getFilters = await db.query('SELECT * FROM categories ORDER BY created_at');
         res.send(getFilters);
     },
 

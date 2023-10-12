@@ -1,5 +1,7 @@
 const db = require('../db/mysql.js');
 const fs = require('fs');
+const { format } = require('date-fns');
+
 
 
 const saveImage = (file, mediaType) => {
@@ -45,9 +47,11 @@ module.exports = {
             const { name, link, alt, categoryId } = req.body;
             const image = saveImage(req.files.image[0], 'image');
             const gif = saveImage(req.files.gif[0], 'gif');
+            const date = new Date();
+
 
             const filterCreated = await db.query(
-                `INSERT INTO effects (name, image, link, alt, category_id, gif) VALUES ('${name}', '${image}', '${link}', '${alt}', '${categoryId}', '${gif}')`
+                `INSERT INTO effects (name, image, link, alt, category_id, gif, created_at) VALUES ('${name}', '${image}', '${link}', '${alt}', '${categoryId}', '${gif}', '${format(date, 'yyyy-MM-dd HH:mm')}')`
             );
 
 
@@ -63,7 +67,7 @@ module.exports = {
     },
 
     async read(req, res) {
-        const getEffects = await db.query(`SELECT effects.id, effects.name, effects.image, effects.alt, effects.link, effects.gif, effects.category_id, categories.name AS categoryName FROM effects CROSS JOIN categories WHERE effects.category_id = categories.id`)
+        const getEffects = await db.query(`SELECT effects.id, effects.name, effects.image, effects.alt, effects.link, effects.gif, effects.category_id, categories.name AS categoryName FROM effects CROSS JOIN categories WHERE effects.category_id = categories.id ORDER BY effects.created_at`)
         res.send(getEffects);
     },
 

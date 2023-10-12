@@ -5,6 +5,7 @@
 body {
     font-family: 'Inter', sans-serif;
     box-sizing: border-box;
+    background-color: #FAFAFA;
 }
 
 .hello {
@@ -38,4 +39,16 @@ body {
 
 .swal2-popup {
     font-size: 12px;
+}
+
+.one {
+    display: none;
+}
+
+.two:hover + .one {
+    top: 0;
+    display: block;
+    backdrop-filter: blur(5px);
+    height: 100%;
+    width: 100%;
 }

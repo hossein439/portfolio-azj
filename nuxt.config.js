@@ -9,4 +9,7 @@ export default defineNuxtConfig({
         '@nuxtjs/tailwindcss',
         '@pinia/nuxt',
     ],
+    plugins: [
+        // {src: '~/plugins/splide.client.js', mode: 'client'}
+    ]
 })

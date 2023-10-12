@@ -7,8 +7,8 @@ definePageMeta({
 
 <template>
     <main>
-        <section class="mx-[170px] xs:my-[128px] xs:py-24 md:py-4 xs:px-4">
-            <article class="py-16 text-[#0E101C]">
+        <section class="mx-[85px] xs:my-[128px] h-screen flex justify-center items-center xs:py-24 md:py-4 xs:px-4">
+            <article class="px-[85px] rounded-2xl py-16 shadow-[2px_2px_5px_0px_rgba(53,53,53,0.50)] bg-[#FFF] text-[#0E101C]">
                 <h2 class="text-5xl font-semibold capitalize">about me</h2>
                 <p class="pt-12 pb-16">Hi! I’m Jawad, also known as <strong class="text-[#025EFF]">AZJ</strong>. I weave
                     AR magic as a
