@@ -40,6 +40,7 @@ definePageMeta({
                     <img class="rounded-lg" src="~/assets/images/client/blog-image.png" alt="">
                 </div>
                 <div class="flex flex-col justify-between w-2/3">
+                    <h5 class="text-[42px]">Crazy Effects</h5>
                     <p class="text-[28px] font-medium">Lorem ipsum dolor sit amet consectetur. Lectus massa nam nullam
                         scelerisque. A in diam risus at eu non ornare semper ac. In pulvinar lacus at libero at
                         ullamcorper. Rhoncus habitant consectetur egestas mi purus sagittis neque. Suspendisse interdum

@@ -16,6 +16,7 @@ getAllFilters();
 </script>
 
 <template>
+
     <!-- <div class="flex justify-between items-center gap-6">
 
         <button class="mb-10 cursor-pointer">
@@ -61,5 +62,7 @@ getAllFilters();
 
     </div> -->
 
-    <ViewComponentTheSlider></ViewComponentTheSlider>
+    <div class="mx-12 mt-12">
+        <ViewComponentTheSlider></ViewComponentTheSlider>
+    </div>
 </template>

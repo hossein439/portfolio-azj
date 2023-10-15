@@ -21,7 +21,7 @@ const deleteEffect = async (id, image, gif) => {
     deleteAlert('Are you sure you want to remove this effect?')
         .then(result => {
             if (result.isConfirmed) {
-                const data = axios({
+                axios({
                     method: 'delete',
                     url: `http://localhost:4000/effect/${id}/${image}/${gif}`,
                 });

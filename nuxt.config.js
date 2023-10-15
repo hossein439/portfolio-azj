@@ -4,7 +4,7 @@ export default defineNuxtConfig({
             baseUrl: process.env.BASE_URL,
         },
     },
-    css: ['~/assets/css/custom.css'],
+    css: ['~/assets/css/custom.css', '~/assets/css/aos.css'],
     modules: [
         '@nuxtjs/tailwindcss',
         '@pinia/nuxt',

@@ -1,5 +1,6 @@
 <script setup>
 import { Splide, SplideSlide, SplideTrack } from '@splidejs/vue-splide';
+import '@splidejs/vue-splide/css';
 import axios from 'axios';
 
 const filters = ref();
@@ -16,14 +17,17 @@ getAllFilters();
 const options = reactive({
     focus: 'center',
     perPage: 4,
-    rewind: true
+    rewind: true,
+    gap: '24px',
+    perMove: 1,
+    pagination: false
 });
 
 </script>
 <template>
-    <Splide :has-track="false" :options="options" >
-        <SplideTrack v-for="filter in filters">
-            <SplideSlide >
+    <Splide :options="options" :has-track="false">
+        <SplideTrack>
+            <SplideSlide v-for="filter in filters" :key="filter.id">
                 <div class="h-96 relative">
                     <img class="two h-full object-cover rounded-2xl" :src="`_nuxt/uploads/${filter.gif}`" alt="">
                     <div class="one absolute inset-0 rounded-2xl flex flex-col text-center">
@@ -55,11 +59,11 @@ const options = reactive({
             </SplideSlide>
         </SplideTrack>
 
-        <div class="splide__arrows">
-            <button class="mb-10 cursor-pointer">
-                <img src="~/assets/images/icons/arrow-btn.png" alt="">
+        <div class="splide__arrows relative bottom-72 flex justify-between mx-auto">
+            <button class="splide__arrow--prev mb-10 -ml-24 cursor-pointer">
+                <img src="~/assets/images/icons/arrow-btn.png" class="" alt="">
             </button>
-            <button class="mb-10 cursor-pointer">
+            <button class="splide__arrow--next mb-10 -mr-24 cursor-pointer">
                 <img src="~/assets/images/icons/arrow-btn.png" class="rotate-180" alt="">
             </button>
         </div>

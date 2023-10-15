@@ -33,12 +33,12 @@ module.exports = {
     async create(req, res) {
         try {
 
-            const { link } = req.body;
+            const { link, alt } = req.body;
             const image = saveImage(req.file);
             const date = new Date();
 
             const createCollaborations = await db.query(
-                `INSERT INTO collaborations (image, link, created_at) VALUES ('${image}', '${link}', '${format(date, 'yyyy-MM-dd HH:mm')}')`
+                `INSERT INTO collaborations (image, link, alt, created_at) VALUES ('${image}', '${link}', '${alt}', '${format(date, 'yyyy-MM-dd HH:mm')}')`
             );
 
 

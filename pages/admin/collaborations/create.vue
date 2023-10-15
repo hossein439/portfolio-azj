@@ -8,9 +8,8 @@ definePageMeta({
 const { successAlert } = useAlert();
 
 const collaboration = reactive({
+    alt: null,
     link: null,
-    feature: null,
-    category: null,
     image: null
 });
 
@@ -23,9 +22,10 @@ const selectImage = (e) => {
 }
 
 
-const create = () => {
+const create = async() => {
     const formDate = new FormData();
     formDate.append('link', collaboration.link);
+    formDate.append('alt', collaboration.alt);
     formDate.append('image', collaboration.image);
 
     axios({
@@ -47,6 +47,15 @@ const create = () => {
                 <label for="link" class="block text-sm font-medium leading-6 text-gray-900">Link</label>
                 <div class="mt-2">
                     <input v-model="collaboration.link" type="text" name="link" id="link"
+                        class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                        placeholder="">
+                </div>
+            </div>
+
+            <div>
+                <label for="alt" class="block text-sm font-medium leading-6 text-gray-900">Alt</label>
+                <div class="mt-2">
+                    <input v-model="collaboration.alt" type="text" name="alt" id="alt"
                         class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
                         placeholder="">
                 </div>

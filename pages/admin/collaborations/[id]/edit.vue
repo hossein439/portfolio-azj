@@ -9,6 +9,7 @@ const { successAlert } = useAlert();
 
 
 const collaboration = reactive({
+    alt: null,
     link: null,
     image: null
 });
@@ -34,9 +35,10 @@ const getSingle = async () => {
         method: 'get',
         url: `http://localhost:4000/collaboration/${route.params.id}`,
     });
-    const { link, image } = data.data[0];
+    const { link, image, alt } = data.data[0];
     collaboration.link = link;
     collaboration.image = image;
+    collaboration.alt = alt;
     exFile.value = image;
 
     imageSrc.value = setImageUrl(image);
@@ -49,6 +51,7 @@ const edit = () => {
 
     formData.append('link', collaboration.link);
     formData.append('image', collaboration.image);
+    formData.append('alt', collaboration.alt);
     formData.append('exFileName', exFile.value);
     formData.append('isChangedImage', isChangedImage.value);
 
@@ -68,6 +71,15 @@ const edit = () => {
                 <label for="link" class="block text-sm font-medium leading-6 text-gray-900">Link</label>
                 <div class="mt-2">
                     <input v-model="collaboration.link" type="text" name="link" id="link"
+                        class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                        placeholder="">
+                </div>
+            </div>
+
+            <div>
+                <label for="alt" class="block text-sm font-medium leading-6 text-gray-900">Alt</label>
+                <div class="mt-2">
+                    <input v-model="collaboration.alt" type="text" name="alt" id="alt"
                         class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
                         placeholder="">
                 </div>

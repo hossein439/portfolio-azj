@@ -12,8 +12,8 @@ import '@splidejs/vue-splide/css';
 // import '@splidejs/vue-splide/css/core';
 
 
-Vue.use(VueSplide);
-new Vue({
-    el: '#app',
-    render: h => h(App),
-});
+// Vue.use(VueSplide);
+// new Vue({
+//     el: '#app',
+//     render: h => h(App),
+// });

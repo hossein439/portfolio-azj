@@ -32,20 +32,31 @@
     <section>
         <h2 class="bye">Software Expertise</h2>
         <div class="relative top-[-150px] overflow-hidden h-[350px]">
-            <div class="absolute top-32 w-full h-32 rotate-[3.811deg] bg-[#025EFF] "></div>
-            <div class="absolute z-20 top-32 flex items-center gap-16 w-full h-32 rotate-[-7.407deg] bg-[#353535]">
-                <div><img src="~/assets/images/others/other-1.png" alt=""></div>
-                <div><img src="~/assets/images/others/other-2.png" alt=""></div>
-                <div><img src="~/assets/images/others/other-3.png" alt=""></div>
-                <div><img src="~/assets/images/others/other-4.png" alt=""></div>
-                <div><img src="~/assets/images/others/other-5.png" alt=""></div>
-                <div><img src="~/assets/images/others/other-6.png" alt=""></div>
-                <div><img src="~/assets/images/others/other-7.png" alt=""></div>
-                <div><img src="~/assets/images/others/other-8.png" alt=""></div>
-                <div><img src="~/assets/images/others/other-9.png" alt=""></div>
-                <div><img src="~/assets/images/others/other-10.png" alt=""></div>
-                <div><img src="~/assets/images/others/other-11.png" alt=""></div>
-                <div><img src="~/assets/images/others/other-12.png" alt=""></div>
+            <div class="absolute top-32 w-full h-24 rotate-[3.811deg] bg-[#025EFF]">
+                <div class="bg-[#025EFF]"></div>
+                <div class="bg-[#025EFF]"></div>
+                <div class="bg-[#025EFF]"></div>
+                <div class="absolute w-[30px] bg-red-900 z-10"></div>
+
+            </div>
+            <div class="absolute z-20 top-32 flex items-center gap-16 w-full h-24 rotate-[-7.407deg] bg-[#353535]">
+                <div class="flex">
+                    <div class="to-left flex items-center gap-16">
+                        <div><img src="~/assets/images/others/other-1.png" alt=""></div>
+                        <div><img src="~/assets/images/others/other-2.png" alt=""></div>
+                        <div><img src="~/assets/images/others/other-3.png" alt=""></div>
+                        <div><img src="~/assets/images/others/other-4.png" alt=""></div>
+                        <div><img src="~/assets/images/others/other-5.png" alt=""></div>
+                        <div><img src="~/assets/images/others/other-6.png" alt=""></div>
+                        <div><img src="~/assets/images/others/other-7.png" alt=""></div>
+                        <div><img src="~/assets/images/others/other-8.png" alt=""></div>
+                        <div><img src="~/assets/images/others/other-9.png" alt=""></div>
+                        <div><img src="~/assets/images/others/other-10.png" alt=""></div>
+                        <div><img src="~/assets/images/others/other-11.png" alt=""></div>
+                        <div><img src="~/assets/images/others/other-12.png" alt=""></div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -67,3 +78,21 @@
         </button>
     </section>
 </template>
+
+<style scoped>
+.to-left {
+    animation: scroll 10s infinite linear;
+}
+
+@keyframes scroll {
+
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+
+}
+</style>
