@@ -1,3 +1,6 @@
+
+
+
 <template>
     <Title>about</Title>
     <section class="px-[110px]">

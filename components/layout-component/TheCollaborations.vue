@@ -31,9 +31,7 @@ function checkFadeIn() {
                 fade.classList.add('active');
                 fade.style.animationDelay = `${counter}s`;
             }
-        } else {
-            fade.classList.remove('active');
-        }
+        } 
     });
 }
 
@@ -61,11 +59,6 @@ onMounted(() => {
 
 <style scoped>
 .fade-in {
-    /* width: 100px;
-    height: 100px;
-    background-color: #3498db;
-    position: relative;
-    opacity: 0; */
     opacity: 0;
     transform: translateY(200px);
 }
@@ -85,8 +78,8 @@ onMounted(() => {
         transform: translateY(0);
     }
 }
-
+/* 
 .container {
     display: flex;
-}
+} */
 </style>

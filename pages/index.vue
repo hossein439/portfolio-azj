@@ -2,13 +2,37 @@
 definePageMeta({
     layout: "customheader",
 });
+
+
+function checkFadeIn() {
+    const fadeIns = document.querySelectorAll('.fade-in-about');
+    fadeIns.forEach(fade => {
+
+        const rect = fade.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+    
+        if (rect.top >= 0 && rect.top <= windowHeight) {
+            if (!fade.classList.contains('active')) {
+                fade.classList.add('active');
+            }
+        } 
+    })
+}
+
+onMounted(() => {
+    window.addEventListener('scroll', checkFadeIn);
+    window.addEventListener('resize', checkFadeIn);
+    checkFadeIn();
+})
+
 </script>
 
 
 <template>
     <main>
-        <section class="mx-[85px] xs:my-[128px] h-screen flex justify-center items-center xs:py-24 md:py-4 xs:px-4">
-            <article class="px-[85px] rounded-2xl py-16 shadow-[2px_2px_5px_0px_rgba(53,53,53,0.50)] bg-[#FFF] text-[#0E101C]">
+        <section class="fade-in-about mx-[85px] xs:my-[128px] h-screen flex justify-center items-center xs:py-24 md:py-4 xs:px-4">
+            <article
+                class="px-[85px] rounded-2xl py-16 shadow-[2px_2px_5px_0px_rgba(53,53,53,0.50)] bg-[#FFF] text-[#0E101C]">
                 <h2 class="text-5xl font-semibold capitalize">about me</h2>
                 <p class="pt-12 pb-16">Hi! I’m Jawad, also known as <strong class="text-[#025EFF]">AZJ</strong>. I weave
                     AR magic as a
@@ -22,7 +46,7 @@ definePageMeta({
             </article>
         </section>
 
-        <section class="xs:px-4 xs:py-12 lg:px-[72px]">
+        <section class="fade-in-about xs:px-4 xs:py-12 lg:px-[72px]">
             <h3 class="text-4xl text-center font-bold text-[#0E101C]">My trending filters</h3>
 
             <LayoutComponentTheTrendFilter></LayoutComponentTheTrendFilter>
@@ -31,9 +55,9 @@ definePageMeta({
 
         <LayoutComponentTheCollaborations></LayoutComponentTheCollaborations>
 
-        <LayoutComponentTheEffects></LayoutComponentTheEffects>
+        <LayoutComponentTheEffects class="fade-in-about"></LayoutComponentTheEffects>
 
-        <section class="py-60">
+        <section class="fade-in-about py-60">
             <h3 class="text-4xl py-[30px] text-center font-bold text-[#0E101C] capitalize">blog</h3>
             <div class="flex gap-6 w-[1160px] mx-auto">
                 <div class="w-1/3">
@@ -59,5 +83,25 @@ definePageMeta({
     </main>
 </template>
 
-<script setup>
-</script>
+<style scoped>
+.fade-in-about {
+    opacity: 0;
+    transform: translateY(200px);
+}
+
+.fade-in-about.active {
+    animation: fade .5s ease-in-out forwards;
+}
+
+@keyframes fade {
+    0% {
+        opacity: 0;
+        transform: translateY(200px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
