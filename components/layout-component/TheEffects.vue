@@ -22,7 +22,7 @@ getAllEffects();
 </script>
 
 <template>
-    <section>
+    <section class="px-[176px]">
         <h3 class="text-4xl pb-6 pt-12 text-center font-bold text-[#0E101C]">Try my effects</h3>
 
         <div class="grid grid-cols-6 justify-center gap-1 xs:px-10 lg:px-24">

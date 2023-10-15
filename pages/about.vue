@@ -1,6 +1,3 @@
-
-
-
 <template>
     <Title>about</Title>
     <section class="px-[110px]">
@@ -36,13 +33,12 @@
         <h2 class="bye">Software Expertise</h2>
         <div class="relative top-[-150px] overflow-hidden h-[350px]">
             <div class="absolute top-32 w-full h-24 rotate-[3.811deg] bg-[#025EFF]">
-                <div class="bg-[#025EFF]"></div>
-                <div class="bg-[#025EFF]"></div>
-                <div class="bg-[#025EFF]"></div>
-                <div class="absolute w-[30px] bg-red-900 z-10"></div>
-
+                <div class="h-full absolute w-12 -left-4 bg-[#025EFF]"></div>
+                <div class="h-full absolute w-12 -right-4 bg-[#025EFF]"></div>
             </div>
             <div class="absolute z-20 top-32 flex items-center gap-16 w-full h-24 rotate-[-7.407deg] bg-[#353535]">
+                <div class="h-full absolute w-12 -left-4 bg-[#353535]"></div>
+                <div class="h-full absolute w-12 -right-4 bg-[#353535]"></div>
                 <div class="flex">
                     <div class="to-left flex items-center gap-16">
                         <div><img src="~/assets/images/others/other-1.png" alt=""></div>
@@ -65,14 +61,6 @@
     </section>
 
     <section class="py-8 px-[176px]">
-        <h3 class="text-5xl pb-12 font-semibold text-center capitalize">other talent</h3>
-        <ul class="flex flex-col gap-5 text-2xl list-disc">
-            <li>item 1</li>
-            <li>item 3</li>
-            <li>item 3</li>
-            <li>item 4</li>
-            <li>item 5</li>
-        </ul>
         <h4 class="text-5xl leading-[76px] font-semibold text-center">Ready to see your ideas <br /> Come to life?
         </h4>
         <button

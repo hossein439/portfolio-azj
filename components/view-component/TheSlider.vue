@@ -18,7 +18,7 @@ const options = reactive({
     focus: 'center',
     perPage: 4,
     rewind: true,
-    gap: '24px',
+    // gap: '24px',
     perMove: 1,
     pagination: false
 });

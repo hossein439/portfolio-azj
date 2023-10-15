@@ -1,5 +1,27 @@
+<script setup>
+import axios from 'axios';
+
+const categories = ref([]);
+const getGategories = async () => {
+    const data = await axios({
+        method: 'get',
+        url: 'http://localhost:4000/category',
+    });
+    categories.value = data.data;
+}
+
+getGategories();
+
+const isMouseEnter = ref(false);
+const showCategory = () => {
+    isMouseEnter.value = true;
+    // document.querySelector('.router-link-active').classList.remove('router-link-active');
+}
+</script>
+
 <template>
     <header class="relative overflow-hidden transition-all">
+
 
         <div class=" relative flex flex-col justify-between">
             <nav class="lg:hidden xs:flex justify-between px-4 py-[50px]">
@@ -9,39 +31,43 @@
                 </button>
             </nav>
 
-            <nav class="xs:hidden lg:flex justify-evenly items-center py-8">
+            <nav :class="['xs:hidden lg:flex justify-evenly items-center py-8', isMouseEnter && 'bg-white relative z-30']">
+
+
                 <div class="">
                     <img src="~/assets/images/client/logo.svg" alt="">
                 </div>
-                <div class="flex justify-between">
+                <div class="flex justify-between items-center">
 
                     <ul class="flex gap-8 items-center relative z-30">
 
-                        <li>
+                        <li @click="isMouseEnter = false">
                             <NuxtLink
-                                class="border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
+                                class="text-2xl border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
                                 to="/">Home
                                 <!-- <span class="inline-block h-[3px] w-8 bg-[#025EFF]"></span> -->
                             </NuxtLink>
                         </li>
 
-                        <li>
+                        <li @click="isMouseEnter = false">
                             <NuxtLink
-                                class="border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
+                                class="text-2xl border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
                                 href="./about">about me
                             </NuxtLink>
                         </li>
 
-                        <li>
-                            <NuxtLink
-                                class="border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
+                        <li @mouseover="showCategory()" class="flex flex-col items-center">
+                            <button
+                                class="text-2xl border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
                                 href="./categories">Categories
-                            </NuxtLink>
+                            </button>
+                            <span
+                                :class="['inline-block opacity-0 h-[3px] w-[32px] m-auto relative top-[8px] bg-[#025EFF]', isMouseEnter && 'opacity-100']"></span>
                         </li>
 
-                        <li>
+                        <li @click="isMouseEnter = false">
                             <NuxtLink
-                                class="border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
+                                class="text-2xl border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
                                 href="./blog">Blog
                             </NuxtLink>
                         </li>
@@ -50,35 +76,47 @@
                     <button
                         class="flex justify-center ml-16 py-2 px-4 rounded-lg capitalize text-[#025EFF] border-2 border-[#025EFF]">contact</button>
                 </div>
+
             </nav>
+
+            <div :class="['absolute z-30 pb-12 pt-10 w-full top-24 opacity-0 bg-white', isMouseEnter && 'opacity-100']">
+                <ul class="grid grid-cols-3 gap-12 w-1/4 mx-auto">
+                    <li v-for="category in categories" :key="category.id" @click="isMouseEnter = false" class="text-2xl text-[#5F5F5F]">
+                        <NuxtLink :to="`/categories/${category.id}`">{{ category.name }}</NuxtLink>
+                    </li>
+                </ul>
+            </div>
+
+            <div v-show="isMouseEnter" @mouseover="isMouseEnter = false" class="absolute inset-0 overllay"></div>
 
             <div class="mt-[245px]">
 
-                <div class="absolute z-50 right-[40%] top-64">
+                <div class="absolute z-20 right-[40%] top-64">
                     <a class="cursor-pointer" href="#">
                         <img src="~/assets/images/icons/youtube-black.svg" alt="">
                     </a>
                 </div>
-                <div class="absolute z-50 right-[49%] top-48">
+                <div class="absolute z-20 right-[49%] top-48">
                     <a class="cursor-pointer" href="#">
                         <img src="~/assets/images/icons/instagram-black.svg" alt="">
                     </a>
                 </div>
-                <div class="absolute z-50 right-[60%] top-64">
+                <div class="absolute z-20 right-[60%] top-64">
                     <a class="cursor-pointer" href="#">
                         <img src="~/assets/images/icons/tiktok-black.svg" alt="">
                     </a>
                 </div>
-    
+
                 <div class="absolute xs:bottom-0 lg:bottom-[-24rem] w-full">
                     <img class="inline-block w-full mx-auto" src="~/assets/images/others/background-user.svg" alt="">
                 </div>
-    
+
                 <div class="absolute z-10 bottom-0 w-full px-10">
                     <img class="xs:inline-block lg:hidden w-full mx-auto" src="~/assets/images/client/user.png" alt="">
-                    <img class="xs:hidden lg:flex mx-auto" width="500" src="~/assets/images/client/userimg-desktop.png" alt="">
+                    <img class="xs:hidden lg:flex mx-auto" width="500" src="~/assets/images/client/userimg-desktop.png"
+                        alt="">
                 </div>
-    
+
                 <div class="overflow-hidden lg:px-12">
                     <h1
                         class="to-right lg:text-[225px] leading-[194px] -z-10 bottom-[12rem] font-bold whitespace-nowrap text-[62.877px] text-[#1C1C1C]">
@@ -140,11 +178,16 @@
     from {
         transform: translate(-2800px);
     }
-    
+
     to {
         transform: translate(0px);
     }
 }
 
-
+.overllay {
+    opacity: 0.9;
+    background:  #000;
+    backdrop-filter: blur(50px);
+    z-index: 20;
+}
 </style>
