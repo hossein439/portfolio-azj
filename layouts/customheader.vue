@@ -43,31 +43,28 @@ const showCategory = () => {
 
                         <li @click="isMouseEnter = false">
                             <NuxtLink
-                                class="text-2xl border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
+                                class="nav-item text-2xl border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
                                 to="/">Home
-                                <!-- <span class="inline-block h-[3px] w-8 bg-[#025EFF]"></span> -->
                             </NuxtLink>
                         </li>
 
                         <li @click="isMouseEnter = false">
                             <NuxtLink
-                                class="text-2xl border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
+                                class="nav-item text-2xl border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
                                 href="./about">about me
                             </NuxtLink>
                         </li>
 
                         <li @mouseover="showCategory()" class="flex flex-col items-center">
                             <button
-                                class="text-2xl border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
+                                class="nav-item text-2xl border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
                                 href="./categories">Categories
                             </button>
-                            <span
-                                :class="['inline-block opacity-0 h-[3px] w-[32px] m-auto relative top-[8px] bg-[#025EFF]', isMouseEnter && 'opacity-100']"></span>
                         </li>
 
                         <li @click="isMouseEnter = false">
                             <NuxtLink
-                                class="text-2xl border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
+                                class="nav-item text-2xl border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
                                 href="./blog">Blog
                             </NuxtLink>
                         </li>
@@ -136,15 +133,13 @@ const showCategory = () => {
 </template>
 
 <style scoped>
-.router-link-active {
-    border-color: #025EFF;
-    color: #025EFF;
+.nav-item {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.router-link-active::after {
+.nav-item::after {
     content: '';
     display: inline-block;
     height: 3px;
@@ -152,9 +147,25 @@ const showCategory = () => {
     margin: auto;
     position: relative;
     top: 8px;
+    background-color: transparent;
+    transition: all .3s;
+}
+
+.router-link-active {
+    color: #025EFF;
+}
+.router-link-active::after {
     background-color: #025EFF;
 }
 
+.nav-item:hover:after {
+    background-color: #025EFF;
+    width: 100%;
+}
+
+.router-link-active:hover {
+    width: 100%;
+}
 
 .to-left {
     animation: left 15s infinite linear;

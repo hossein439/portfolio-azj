@@ -41,39 +41,36 @@ const showCategory = () => {
 
                         <li @click="isMouseEnter = false">
                             <NuxtLink
-                                class="text-2xl cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
+                                class="nav-item text-2xl cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
                                 to="/">Home
                             </NuxtLink>
                         </li>
 
                         <li @click="isMouseEnter = false">
                             <NuxtLink
-                                class="text-2xl cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
+                                class="nav-item text-2xl cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
                                 href="./about">about me
                             </NuxtLink>
                         </li>
 
                         <li @mouseover="showCategory()" class="flex flex-col items-center">
                             <button
-                                class="text-2xl cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
+                                class="nav-item text-2xl cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
                                 href="./categories">Categories
                             </button>
-                            <span
-                                :class="['inline-block opacity-0 h-[3px] w-[32px] m-auto relative top-[8px] bg-[#025EFF]', (isMouseEnter) && 'opacity-100']"></span>
                         </li>
 
                         <li @click="isMouseEnter = false">
                             <NuxtLink
-                                class="text-2xl cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
+                                class="nav-item text-2xl cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
                                 href="./blog">Blog
                             </NuxtLink>
                         </li>
-
                     </ul>
 
-                    <button
-                        class="flex justify-center ml-16 py-2 px-4 rounded-lg capitalize text-[#025EFF] border-2 border-[#025EFF]">contact
-                    </button>
+                    <ViewComponentBaseButton size="2xl">
+                        contact
+                    </ViewComponentBaseButton>
 
                 </div>
             </nav>
@@ -92,24 +89,39 @@ const showCategory = () => {
 </template>
 
 <style scoped>
-.router-link-active {
-    border-color: #025EFF;
-    color: #025EFF;
+.nav-item {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.router-link-active::after {
+.nav-item::after {
     content: '';
     display: inline-block;
     height: 3px;
     width: 32px;
+    margin: auto;
     position: relative;
     top: 8px;
+    background-color: transparent;
+    transition: all .3s;
+}
+
+.router-link-active {
+    color: #025EFF;
+}
+.router-link-active::after {
     background-color: #025EFF;
 }
 
+.nav-item:hover:after {
+    background-color: #025EFF;
+    width: 100%;
+}
+
+.router-link-active:hover {
+    width: 100%;
+}
 .overllay {
     opacity: 0.9;
     background: #000;
