@@ -49,7 +49,7 @@ onMounted(() => {
         <h3 class="text-4xl text-center font-bold text-[#0E101C]">Collaborations</h3>
         <div class="grid grid-cols-4 items-center m-6">
             <template v-for="(collaboration, index) in collaborations" :key="collaboration.id">
-                <div class="flex px-4 py-8 h-full bg-[#272727] fade-in">
+                <div class="flex px-4 py-8 h-[165px] bg-[#272727] fade-in">
                     <img class="inline-block w-full h-full object-contain" :src="setImageUrl(collaboration.image)" alt="">
                 </div>
             </template>

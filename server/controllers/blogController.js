@@ -37,13 +37,13 @@ module.exports = {
             const image = saveImage(req.file);
             const date = new Date();
 
-            const filterCreated = await db.query(
+            const blogCreated = await db.query(
                 `INSERT INTO blogs (title, image, description, alt, created_at) VALUES ('${title}', '${image}', '${description}', '${alt}', '${format(date, 'yyyy-MM-dd HH:mm')}')`
             );
             
 
-            if (filterCreated) {
-                res.send(filterCreated);
+            if (blogCreated) {
+                res.send(blogCreated);
             } else {
                 res.status(404).send('not found');
             }

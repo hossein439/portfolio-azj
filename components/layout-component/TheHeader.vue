@@ -49,21 +49,21 @@ const showCategory = () => {
                         <li @click="isMouseEnter = false">
                             <NuxtLink
                                 class="nav-item text-2xl cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
-                                href="./about">about me
+                                href="/about">about me
                             </NuxtLink>
                         </li>
 
                         <li @mouseover="showCategory()" class="flex flex-col items-center">
                             <button
                                 class="nav-item text-2xl cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
-                                href="./categories">Categories
+                                >Categories
                             </button>
                         </li>
 
                         <li @click="isMouseEnter = false">
                             <NuxtLink
                                 class="nav-item text-2xl cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
-                                href="./blog">Blog
+                                href="/blog">Blog
                             </NuxtLink>
                         </li>
                     </ul>

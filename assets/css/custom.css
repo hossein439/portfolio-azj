@@ -45,10 +45,28 @@ body {
     display: none;
 }
 
-.two:hover + .one {
+.two:hover>.one {
     top: 0;
     display: block;
     backdrop-filter: blur(5px);
     height: 100%;
     width: 100%;
+}
+
+.splide__arrow {
+    display: none !important;
+}
+
+.hello-bg {
+    /* background: rgb(182, 212, 252);
+    background: radial-gradient(circle, rgba(182, 212, 252, 1) 0%, rgba(192, 218, 252, 1) 19%, rgba(229, 238, 250, 1) 42%, rgba(255, 255, 255, 1) 100%); */
+    
+    /* background: rgb(182, 212, 252);
+    background: radial-gradient(circle, rgba(182, 212, 252, 1) 0%, rgba(192, 218, 252, 1) 15%, rgba(229, 238, 250, 1) 31%, rgba(255, 255, 255, 1) 100%); */
+    
+    /* background: rgb(182, 212, 252);
+    background: radial-gradient(circle, rgba(182, 212, 252, 1) 0%, rgba(192, 218, 252, 1) 22%, rgba(229, 238, 250, 1) 43%, rgba(255, 255, 255, 1) 84%); */
+
+    background: rgb(182, 212, 252);
+    background: radial-gradient(circle, rgba(182, 212, 252, 1) 0%, rgba(192, 218, 252, 1) 22%, rgba(229, 238, 250, 1) 43%, rgba(255, 255, 255, 1) 79%);
 }

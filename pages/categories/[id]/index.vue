@@ -1,4 +1,5 @@
 <script setup>
+import axios from 'axios'
 
 const route = useRoute();
 
@@ -10,7 +11,7 @@ const category = reactive({
 const imageSrc = ref();
 
 const setImageUrl = (imageName) => {
-    const path = `../../uploads/${imageName}`;
+    const path = `../../../uploads/${imageName}`;
     return new URL(path, import.meta.url).href;
 }
 
@@ -25,7 +26,6 @@ const getSingle = async () => {
     category.description = description;
 
     imageSrc.value = setImageUrl(image);
-    console.log(data.data[0])
 }
 
 getSingle()
@@ -34,111 +34,23 @@ getSingle()
 <template>
     <Title>categories</Title>
     <section class="px-[176px]">
-        <div>
-            <img class="rounded-lg" :src="imageSrc" alt="">
+        <div class="w-full h-[400px]">
+            <img class="inline-block w-full h-full object-cover rounded-lg" :src="imageSrc" alt="">
         </div>
-        <p class="text-2xl pt-8 pb-12" >{{ category.description }}</p>
+        <p class="text-2xl pt-8 pb-12">{{ category.name }}</p>
+        <p class="text-2xl pt-8 pb-12">{{ category.description }}</p>
 
     </section>
+
     <section class="px-[80px]">
-        <LayoutComponentTheTrendFilter></LayoutComponentTheTrendFilter>
+        <ViewComponentSliderTrend></ViewComponentSliderTrend>
     </section>
 
-    <section class="px-[176px]">
+    <section>
         <h3 class="text-4xl pb-6 pt-12 text-center font-bold capitalize text-[#0E101C]">all sport effect</h3>
 
-        <div class="grid grid-cols-6 justify-center gap-1 xs:px-10 lg:px-24">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-1.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-2.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-3.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-4.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-5.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-6.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-7.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-8.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-9.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-10.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-11.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-12.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-13.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-14.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-15.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-16.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-17.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-18.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-19.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-20.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-21.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-22.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-23.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-24.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-25.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-26.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-27.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-28.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-29.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-30.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-31.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-32.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-33.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-34.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-35.png" alt="">
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-36.png" alt="">
 
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-31.png" alt="">
-
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-32.png" alt="">
-
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-33.png" alt="">
-
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-34.png" alt="">
-
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-35.png" alt="">
-
-            <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all" width="158"
-                height="160" src="~/assets/images/effects/effect-36.png" alt="">
-        </div>
+        <LayoutComponentTheEffects title="all sport effect"></LayoutComponentTheEffects>
 
         <div class="relative -top-32 py-4 hello-1">
             <button

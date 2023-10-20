@@ -23,7 +23,7 @@ const showCategory = () => {
     <header class="relative overflow-hidden transition-all">
 
 
-        <div class=" relative flex flex-col justify-between">
+        <div class=" relative flex flex-col justify-between hello-bg">
             <nav class="lg:hidden xs:flex justify-between px-4 py-[50px]">
                 <img src="~/assets/images/client/logo.svg" alt="">
                 <button id="open-btn" data-status="open">
@@ -51,27 +51,28 @@ const showCategory = () => {
                         <li @click="isMouseEnter = false">
                             <NuxtLink
                                 class="nav-item text-2xl border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
-                                href="./about">about me
+                                href="/about">about me
                             </NuxtLink>
                         </li>
 
                         <li @mouseover="showCategory()" class="flex flex-col items-center">
                             <button
                                 class="nav-item text-2xl border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
-                                href="./categories">Categories
+                                href="#">Categories
                             </button>
                         </li>
 
                         <li @click="isMouseEnter = false">
                             <NuxtLink
                                 class="nav-item text-2xl border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
-                                href="./blog">Blog
+                                href="/blog">Blog
                             </NuxtLink>
                         </li>
 
                     </ul>
-                    <button
-                        class="flex justify-center ml-16 py-2 px-4 rounded-lg capitalize text-[#025EFF] border-2 border-[#025EFF]">contact</button>
+                    <ViewComponentBaseButton size="2xl">
+                        contact
+                    </ViewComponentBaseButton>
                 </div>
 
             </nav>
@@ -104,8 +105,9 @@ const showCategory = () => {
                     </a>
                 </div>
 
-                <div class="absolute xs:bottom-0 lg:bottom-[-24rem] w-full">
-                    <img class="inline-block w-full mx-auto" src="~/assets/images/others/background-user.svg" alt="">
+                <div class="hello-bg absolute xs:bottom-0 lg:bottom-[-24rem] w-full p-[100px]">
+                    <!-- <img class="inline-block w-full h-full mx-auto" src="~/assets/images/others/background-user.svg" alt=""> -->
+                    <!-- <img class="inline-block mx-auto" src="~/assets/images/others/bg-desktop.png" alt=""> -->
                 </div>
 
                 <div class="absolute z-10 bottom-0 w-full px-10">

@@ -2,8 +2,8 @@
     <Title>about</Title>
     <section class="px-[110px]">
         <div class="flex justify-between items-center">
-            <div><img src="~/assets/images/client/about-me.png" alt=""></div>
-            <h1 class="text-5xl hello">I'm Jawad Mohammadi
+            <div class="h-[418px] w-[397px]"><img class="inline-block h-full w-full" src="~/assets/images/client/about-me.jpeg" alt=""></div>
+            <h1 class="text-5xl hello">I'm Jawad
                 <div><img src="~/assets/images/client/sign.png" alt=""></div>
             </h1>
         </div>

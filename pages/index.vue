@@ -49,15 +49,15 @@ onMounted(() => {
         <section class="fade-in-about xs:px-4 xs:py-12 lg:px-[72px]">
             <h3 class="text-4xl text-center font-bold text-[#0E101C]">My trending filters</h3>
 
-            <LayoutComponentTheTrendFilter></LayoutComponentTheTrendFilter>
+            <ViewComponentSliderTrend></ViewComponentSliderTrend>
         </section>
 
 
         <LayoutComponentTheCollaborations></LayoutComponentTheCollaborations>
 
-        <LayoutComponentTheEffects class="fade-in-about"></LayoutComponentTheEffects>
+        <LayoutComponentTheEffects class="fade-in-about" title="Try my effects"></LayoutComponentTheEffects>
 
-        <section class="fade-in-about py-60">
+        <section class="fade-in-about my-60">
             <h3 class="text-4xl py-[30px] text-center font-bold text-[#0E101C] capitalize">blog</h3>
             <div class="flex gap-6 w-[1160px] mx-auto">
                 <div class="w-1/3">
@@ -90,7 +90,7 @@ onMounted(() => {
 }
 
 .fade-in-about.active {
-    animation: fade .5s ease-in-out forwards;
+    animation: fade .8s ease-in-out forwards;
 }
 
 @keyframes fade {

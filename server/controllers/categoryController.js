@@ -32,17 +32,16 @@ module.exports = {
     async create(req, res) {
         try {
 
-            const { name, description } = req.body;
+            const { name, description, alt } = req.body;
             const image = saveImage(req.file);
             const date = new Date();
 
-            const filterCreated = await db.query(
-                `INSERT INTO categories (name, image, description, created_at) VALUES ('${name}', '${image}', '${description}, '${format(date, 'yyyy-MM-dd HH:mm')}')`
+            const blogCreated = await db.query(
+                `INSERT INTO categories (name, image, description, alt, created_at) VALUES ('${name}', '${image}', '${description}', '${alt}', '${format(date, 'yyyy-MM-dd HH:mm')}')`
             );
             
-
-            if (filterCreated) {
-                res.send(filterCreated);
+            if (blogCreated) {
+                res.send(blogCreated);
             } else {
                 res.status(404).send('not found');
             }
@@ -65,18 +64,18 @@ module.exports = {
 
     async update(req, res) {
         const { id } = req.params;
-        const { name, description, isChangedImage, exFileName } = req.body;
+        const { name, description, alt, isChangedImage, exFileName } = req.body;
 
         if (isChangedImage && req.file) {
 
             removeImage(exFileName);
             const imageCreated = saveImage(req.file);    
 
-            const updateFilterWithId = await db.query(`UPDATE categories SET name='${name}', image='${imageCreated}', description='${description}' WHERE id='${id}'`);
+            const updateFilterWithId = await db.query(`UPDATE categories SET name='${name}', image='${imageCreated}', description='${description}', alt='${alt}' WHERE id='${id}'`);
 
             res.send(updateFilterWithId);
         } else {
-            const updateFilterWithId = await db.query(`UPDATE categories SET name='${name}', description='${description}' WHERE id='${id}'`);
+            const updateFilterWithId = await db.query(`UPDATE categories SET name='${name}', description='${description}', alt='${alt}' WHERE id='${id}'`);
 
             res.send(updateFilterWithId);
         }

@@ -1,3 +1,7 @@
 <template>
-    <div>not Found</div>
+    <div class="h-screen flex justify-center items-center">
+        <div>
+            <img src="~/assets/images/client/404.png" alt="">
+        </div>
+    </div>
 </template>
