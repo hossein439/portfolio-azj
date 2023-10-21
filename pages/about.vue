@@ -29,7 +29,7 @@
         </p>
     </section>
 
-    <section>
+    <section class="fade-in">
         <h2 class="bye">Software Expertise</h2>
         <div class="relative top-[-150px] overflow-hidden h-[350px]">
             <div class="absolute top-32 w-full h-24 rotate-[3.811deg] bg-[#025EFF]">
@@ -60,7 +60,7 @@
         </div>
     </section>
 
-    <section class="py-8 px-[176px]">
+    <section class="py-8 px-[176px] fade-in">
         <h4 class="text-5xl leading-[76px] font-semibold text-center">Ready to see your ideas <br /> Come to life?
         </h4>
         <button

@@ -1,8 +1,8 @@
 <template>
-    <footer class="bg-[#272727] rounded-t-2xl text-white">
+    <footer class="bg-[#272727] text-white">
         <div class="grid grid-cols-8 pt-12 w-4/5 mx-auto">
             <div class="col-span-4">
-                <img class="flex pb-6" src="~/assets/images/client/Symbol-logo.svg" alt="">
+                <img class="flex pb-6" src="~/assets/images/client/Symbol-logo.png" alt="">
 
                 <h5 class="xs:px-16 lg:px-0 font-bold text-2xl text-[#E6EFFF] xs:text-center lg:text-left">AR & Graphic
                     Designer + Content Creator</h5>

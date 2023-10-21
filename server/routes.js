@@ -32,6 +32,7 @@ router.post('/login', UserController.login);
 // Filter Routes
 router.post('/blog', upload.single('image'), blogController.create);
 router.get('/blog', blogController.read);
+router.get('/blog/last', blogController.getLast);
 router.get('/blog/:id', blogController.single);
 router.put('/blog/:id', upload.single('image'),blogController.update);
 router.delete('/blog/:id/:image', blogController.delete);

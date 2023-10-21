@@ -10,6 +10,10 @@ export default defineNuxtConfig({
         '@pinia/nuxt',
     ],
     plugins: [
+        {
+            src: '~/plugins/animation.client.js',
+            mode: 'client'
+        }
         // {src: '~/plugins/splide.client.js', mode: 'client'}
     ]
 })

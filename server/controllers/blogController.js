@@ -60,7 +60,12 @@ module.exports = {
 
     async single(req, res) {
         const { id } = req.params;
-        const getFilterWithId = await db.query(`SELECT * FROM blogs WHERE id='${id}'`);
+        const getFilterWithId = await db.query(`SELECT * FROM blogs WHERE id='${id}' ORDER BY created_at DESC LIMIT 1`);
+        res.send(getFilterWithId);
+    },
+
+    async getLast(req, res) {
+        const getFilterWithId = await db.query(`SELECT * FROM blogs ORDER BY created_at DESC LIMIT 1`);
         res.send(getFilterWithId);
     },
 

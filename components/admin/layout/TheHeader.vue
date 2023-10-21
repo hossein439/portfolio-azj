@@ -25,7 +25,7 @@ const show = ref(false);
             <div class="h-6 w-px bg-gray-200 lg:hidden" aria-hidden="true"></div>
 
             <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-                
+
                 <nav class="flex flex-1" aria-label="Breadcrumb">
                     <ol role="list" class="flex items-center space-x-4">
                         <li>
@@ -91,17 +91,6 @@ const show = ref(false);
                                 </svg>
                             </span>
                         </button>
-
-                        <!--
-                Dropdown menu, show/hide based on menu state.
-
-                Entering: "transition ease-out duration-100"
-                  From: "transform opacity-0 scale-95"
-                  To: "transform opacity-100 scale-100"
-                Leaving: "transition ease-in duration-75"
-                  From: "transform opacity-100 scale-100"
-                  To: "transform opacity-0 scale-95"
-              -->
                         <div v-show="show"
                             class="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none"
                             role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">

@@ -3,6 +3,13 @@ import { Splide, SplideSlide, SplideTrack } from '@splidejs/vue-splide';
 import '@splidejs/vue-splide/css';
 import axios from 'axios';
 
+const props = defineProps({
+    showCategory: {
+        type: Boolean,
+        default: false
+    }
+});
+
 const filters = ref();
 
 const getAllFilters = async () => {
@@ -14,6 +21,7 @@ const getAllFilters = async () => {
 }
 
 getAllFilters();
+
 const options = reactive({
     focus: 'center',
     perPage: 4,
@@ -29,9 +37,9 @@ const options = reactive({
         <Splide :options="options" :has-track="false">
             <SplideTrack>
                 <SplideSlide v-for="filter in filters" :key="filter.id">
-                    <div class="two h-96 relative z-10">
+                    <div class="two h-[465px] relative z-10">
                         <img class="h-full object-cover rounded-2xl" :src="`_nuxt/uploads/${filter.gif}`" alt="">
-                        <div class="one absolute inset-0 rounded-2xl flex flex-col text-center">
+                        <div class="one absolute right-0 left-0 rounded-2xl flex flex-col text-center">
                             <div class="w-[30px] absolute z-50 top-4 left-4">
                                 <img class="inline-block h-full w-full object-cover" src="~/assets/images/icons/icon-tiktok.svg"
                                     alt="">
@@ -52,7 +60,7 @@ const options = reactive({
                             <img src="~/assets/images/icons/stars.svg" alt="">
                             <span class="text-[28px] font-medium capitalize">{{ filter.name }}</span>
                         </p>
-                        <p class="flex items-center gap-2">
+                        <p v-if="showCategory" class="flex items-center gap-2">
                             <img src="~/assets/images/icons/menu.svg" alt="">
                             <span class="text-[28px] font-medium capitalize">{{ filter.categoryName }}</span>
                         </p>
@@ -60,14 +68,14 @@ const options = reactive({
                 </SplideSlide>
             </SplideTrack>
     
-            <div class="splide__arrows relative -z-10 bottom-72 flex justify-between mx-auto">
-                <button class="splide__arrow--prev mb-10 -ml-24 cursor-pointer bg-[#5593FF] text-[#E6EFFF] w-[80px] h-[80px] rounded-full relative shadow-md hover:bg-[#025EFF] transition-all">
+            <div class="splide__arrows relative -z-10 bottom-[22rem] flex justify-between mx-auto">
+                <button class="splide__arrow--prev mb-10 -ml-28 cursor-pointer bg-[#5593FF] text-[#E6EFFF] w-[80px] h-[80px] rounded-full relative shadow-md hover:bg-[#025EFF] transition-all">
                     <svg class="absolute inset-0 w-full m-auto" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
                         <path d="M12 24L20 16L12 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" />
                     </svg>
                 </button>
-                <button class="splide__arrow--next mb-10 -mr-24 cursor-pointer bg-[#5593FF] text-[#E6EFFF] w-[80px] h-[80px] rounded-full relative shadow-md hover:bg-[#025EFF] transition-all">
+                <button class="splide__arrow--next mb-10 -mr-28 cursor-pointer bg-[#5593FF] text-[#E6EFFF] w-[80px] h-[80px] rounded-full relative shadow-md hover:bg-[#025EFF] transition-all">
                     <svg class="absolute inset-0 w-full m-auto rotate-270" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
                         <path d="M12 24L20 16L12 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" />

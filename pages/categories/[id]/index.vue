@@ -42,27 +42,17 @@ getSingle()
 
     </section>
 
-    <section class="px-[80px]">
+    <!-- <section class="px-[80px] fade-in">
+        <ViewComponentSliderTrend></ViewComponentSliderTrend>
+    </section> -->
+
+    <section class="fade-in xs:px-4 xs:py-12 lg:px-[72px]">
         <ViewComponentSliderTrend></ViewComponentSliderTrend>
     </section>
 
-    <section>
-        <h3 class="text-4xl pb-6 pt-12 text-center font-bold capitalize text-[#0E101C]">all sport effect</h3>
+    <LayoutComponentTheEffects title="all sport effect" class="fade-in"></LayoutComponentTheEffects>
 
-
-        <LayoutComponentTheEffects title="all sport effect"></LayoutComponentTheEffects>
-
-        <div class="relative -top-32 py-4 hello-1">
-            <button
-                class="flex justify-center my-6 mx-auto py-2 px-4 rounded-lg capitalize text-[#025EFF] border-2 border-[#025EFF]">Load
-                more work</button>
-        </div>
-
-
-
-    </section>
-
-    <section class="pb-16">
+    <section class="pb-16 fade-in">
         <h4 class="text-5xl leading-[76px] font-semibold text-center">Do you need a sport <br>effect?
         </h4>
         <button
