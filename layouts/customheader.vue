@@ -70,7 +70,7 @@ const showCategory = () => {
                         </li>
 
                     </ul>
-                    <ViewComponentBaseButton size="2xl">
+                    <ViewComponentBaseButton size="2xl" class="ml-16">
                         contact
                     </ViewComponentBaseButton>
                 </div>
