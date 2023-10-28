@@ -16,8 +16,8 @@ definePageMeta({
                     AR magic as a
                     TikTok Effect House Ambassador,
                     spreading joy and wonder. Let's create enchanting experiences together!</p>
-                <button
-                    class="flex justify-center my-6 mx-auto py-2 px-4 rounded-lg capitalize text-[#025EFF] border-2 border-[#025EFF]">more</button>
+
+                    <ViewComponentBaseButton class="mx-auto">more</ViewComponentBaseButton>
             </article>
         </section>
 
@@ -44,9 +44,8 @@ definePageMeta({
                         ullamcorper. Rhoncus habitant consectetur egestas mi purus sagittis neque. Suspendisse interdum
                         viverra phasellus convallis at viverra. Habitant in mus libero enim quam est morbi urna nulla.
                         Turpis sed commodo justo lectus sed leo aliquam eget cursus.</p>
-                    <button
-                        class="flex justify-center w-full mx-auto py-2 px-4 rounded-lg capitalize text-[#025EFF] border-2 border-[#025EFF]">open
-                        blog</button>
+                    
+                        <ViewComponentBaseButton>open blog</ViewComponentBaseButton>
                 </div>
             </div>
         </section>

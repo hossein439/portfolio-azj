@@ -2,25 +2,27 @@
 const props = defineProps({
     size: {
         type: String,
-        require: true,
+        default: 'base',
     },
     iconName: {
         type: String,
     }
 });
 
+
+const isExistIcon = props.iconName ? '2rem' : '1rem';
 const getComponent = computed(() => defineAsyncComponent(() => import(`../../common/${props.iconName}.vue`)))
 </script>
 
-
+<!-- ml-16 -->
 <template>
-    <button class="base-button flex justify-center ml-16 py-2 px-4 rounded-lg capitalize text-[#025EFF] border-2 border-[#025EFF] hover:bg-[#025EFF] hover:text-[#E6EFFF] transition-all"
+    <button class="base-button flex justify-center py-2 px-4 rounded-lg capitalize text-[#025EFF] border-2 border-[#025EFF] hover:bg-[#025EFF] hover:text-[#E6EFFF] transition-all"
         :class="`text-${size}`">
         <span>
             <slot></slot>
         </span>
-        <span class="base-button__icon">
-            <component v-if="iconName" :is="getComponent"></component>
+        <span v-if="iconName" class="base-button__icon">
+            <component :is="getComponent"></component>
         </span>
     </button>
 </template>
@@ -34,7 +36,7 @@ const getComponent = computed(() => defineAsyncComponent(() => import(`../../com
     align-items: center;
 }
 .base-button:hover {
-    padding-right: 2rem ;
+    padding-right: v-bind(isExistIcon);
 }
 .base-button__icon {
     position: absolute;
