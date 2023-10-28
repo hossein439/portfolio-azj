@@ -1,4 +1,5 @@
 const db = require('../db/mysql.js');
+const { generateAuthToken } = require('../utils/generateAuthToken.js');
 
 module.exports = {
 
@@ -10,19 +11,27 @@ module.exports = {
             const rows = await db.query(
                 `SELECT * FROM users WHERE email='${email}' AND password='${password}'`
             );
+            const { id } = rows[0];
+            const token = await generateAuthToken(id);
 
             if(rows.length) {
-                res.send(rows);
+                // res.cookie('auth_token', token, { secure: false, httpOnly: false }).send({
+                //     rows,
+                //     token
+                // });
+                console.log(token);
+                res.send(
+                    {
+                        user: rows,
+                        token: token
+                    }
+                )
             } else {
                 res.status(404).send('not found');
             }
-            // res.cookie('auth_token', token, { secure: false, httpOnly: false }).send({
-            //     user,
-            //     token
-            // });
 
         } catch (err) {
-            res.status(404).send(err);
+            res.send(err);
         }
     },
 

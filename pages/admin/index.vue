@@ -1,11 +1,17 @@
 <script setup>
 definePageMeta({
     layout: "adminlayout",
+    middleware: ['auth']
 });
 
-if (0) {
-    await navigateTo('/admin/auth/login')
-}
+// const { getCookie } = useCookie();
+
+// const isSetCookie = getCookie('auth_token');
+
+
+// if (!isSetCookie) {
+//     await navigateTo('/admin/auth/login');
+// }
 
 
 </script>
