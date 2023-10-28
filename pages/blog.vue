@@ -2,10 +2,16 @@
 import axios from 'axios';
 import { format } from 'date-fns';
 
-const singleBlog = ref();
+const isLoadedBlog = ref(false);
+const singleBlog = reactive({
+    title: '',
+    created_at: '',
+    description: '',
+});
 const imageSrc = ref();
+
 const setImageUrl = (imageName) => {
-    const path = `../uploads/${imageName}`;
+    const path = `../../uploads/${imageName}`;
     return new URL(path, import.meta.url).href;
 }
 
@@ -14,14 +20,18 @@ const getLastBlog = async () => {
         method: 'get',
         url: 'http://localhost:4000/blog/last'
     });
-    singleBlog.value = data.data[0];
-    imageSrc.value = setImageUrl(singleBlog.value.image);
-    console.log(singleBlog.value);
+    const blog = data.data[0];
+    singleBlog.title = blog.title;
+    singleBlog.created_at = blog.created_at;
+    singleBlog.description = blog.description;
+
+    imageSrc.value = setImageUrl(blog.image);
+    isLoadedBlog.value = true;
+    console.log(imageSrc.value);
 }
 getLastBlog();
 
 const showTime = (date, formatDate) => {
-    console.log(date, formatDate)
     return format(new Date(date), formatDate);
 }
 
@@ -30,30 +40,30 @@ const showTime = (date, formatDate) => {
 
 <template>
     <Title>Blog</Title>
-        <section class="px-[176px]">
-            <div class="h-[446px]">
-                <img class="rounded-lg h-full w-full object-cover" :src="imageSrc" alt="">
-            </div>
-            <div class="flex items-center justify-between py-8">
-                <h1 class="text-4xl">{{ singleBlog?.title }}</h1>
-                <div class="flex items-center gap-6">
-                    <div class="flex items-center gap-3">
-                        <img src="~/assets/images/icons/clock.svg" alt="">
-                        <time>
-                            {{ showTime(singleBlog?.created_at, 'HH:mm') }}
-                        </time>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <img src="~/assets/images/icons/calendar.svg" alt="">
-                        {{ showTime(singleBlog?.created_at, 'yyyy/MM/dd') }}
-                    </div>
+    <section v-if="isLoadedBlog" class="px-[176px]">
+        <div class="h-[446px]">
+            <img class="rounded-lg h-full w-full object-cover" :src="imageSrc" alt="">
+        </div>
+        <div class="flex items-center justify-between py-8">
+            <h1 class="text-4xl capitalize">{{ singleBlog.title }}</h1>
+            <div class="flex items-center gap-6">
+                <div class="flex items-center gap-3">
+                    <img src="~/assets/images/icons/clock.svg" alt="">
+                    <time>
+                        {{ showTime(singleBlog.created_at, 'HH:mm') }}
+                    </time>
+                </div>
+                <div class="flex items-center gap-3">
+                    <img src="~/assets/images/icons/calendar.svg" alt="">
+                    {{ showTime(singleBlog.created_at, 'yyyy/MM/dd') }}
                 </div>
             </div>
-            <p class="text-2xl pb-12">
-                {{ singleBlog?.description }}
-            </p>
+        </div>
+        <p class="text-2xl pb-12">
+            {{ singleBlog.description }}
+        </p>
 
-        </section>
+    </section>
 
     <section class="px-[176px] fade-in">
         <h2 class="text-5xl pt-8 pb-12 text-center font-semibold capitalize text-[#0E101C]">more content</h2>

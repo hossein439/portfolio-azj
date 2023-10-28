@@ -1,3 +1,4 @@
+console.log('animation')
 function checkFadeIn() {
     console.log('animation client')
     const fadeIns = document.querySelectorAll('.fade-in');

@@ -15,7 +15,6 @@ const getAllEffects = async () => {
         url: 'http://localhost:4000/effect',
     });
     effects.value = data.data;
-    console.log(effects.value)
 }
 
 const setImageUrl = (imageName) => {

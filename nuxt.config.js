@@ -5,6 +5,12 @@ export default defineNuxtConfig({
         },
     },
     css: ['~/assets/css/custom.css', '~/assets/css/aos.css'],
+    scripts: [
+        {
+            src: '~/assets/js/fadeIn.js',
+            body: true
+        }
+    ],
     modules: [
         '@nuxtjs/tailwindcss',
         '@pinia/nuxt',

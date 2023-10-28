@@ -8,7 +8,7 @@ const getAllCollaboration = async () => {
         url: 'http://localhost:4000/collaboration',
     });
     collaborations.value = data.data;
-    checkFadeIn();
+    // checkFadeIn();
 }
 
 const setImageUrl = (imageName) => {
@@ -18,28 +18,28 @@ const setImageUrl = (imageName) => {
 
 getAllCollaboration();
 
-function checkFadeIn() {
-    const fadeIns = document.querySelectorAll('.fade-in');
-    let counter = 0;
-    fadeIns.forEach((fade, index) => {
-        const rect = fade.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
+// function checkFadeIn() {
+//     const fadeIns = document.querySelectorAll('.fade-in');
+//     let counter = 0;
+//     fadeIns.forEach((fade, index) => {
+//         const rect = fade.getBoundingClientRect();
+//         const windowHeight = window.innerHeight;
 
-        if (rect.top >= 0 && rect.top <= windowHeight) {
-            if (!fade.classList.contains('active')) {
-                counter = counter + .5;
-                fade.classList.add('active');
-                fade.style.animationDelay = `${counter}s`;
-            }
-        } 
-    });
-}
+//         if (rect.top >= 0 && rect.top <= windowHeight) {
+//             if (!fade.classList.contains('active')) {
+//                 counter = counter + .5;
+//                 fade.classList.add('active');
+//                 fade.style.animationDelay = `${counter}s`;
+//             }
+//         } 
+//     });
+// }
 
-onMounted(() => {
-    window.addEventListener('scroll', checkFadeIn);
-    window.addEventListener('resize', checkFadeIn);
-    checkFadeIn();
-})
+// onMounted(() => {
+//     window.addEventListener('scroll', checkFadeIn);
+//     window.addEventListener('resize', checkFadeIn);
+//     checkFadeIn();
+// })
 
 </script>
 
