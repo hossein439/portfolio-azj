@@ -20,6 +20,7 @@ const login = async () => {
     });
     const { token } = data.data;
     setCookie(token);
+    await navigateTo('/admin');
 } 
 
 

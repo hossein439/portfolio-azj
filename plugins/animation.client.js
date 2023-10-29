@@ -1,5 +1,4 @@
-function checkFadeIn() {
-    console.log('animation client')
+export default function checkFadeIn() {
     const fadeIns = document.querySelectorAll('.fade-in');
     fadeIns.forEach(fade => {
 

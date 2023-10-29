@@ -2,6 +2,8 @@
 definePageMeta({
     layout: "customheader",
 });
+// const { useFadeIn } = checkFadeIn();
+// onMounted(() => useFadeIn())
 
 </script>
 
@@ -17,7 +19,7 @@ definePageMeta({
                     TikTok Effect House Ambassador,
                     spreading joy and wonder. Let's create enchanting experiences together!</p>
 
-                    <ViewComponentBaseButton class="mx-auto">more</ViewComponentBaseButton>
+                <ViewComponentBaseButton class="mx-auto">more</ViewComponentBaseButton>
             </article>
         </section>
 
@@ -44,8 +46,8 @@ definePageMeta({
                         ullamcorper. Rhoncus habitant consectetur egestas mi purus sagittis neque. Suspendisse interdum
                         viverra phasellus convallis at viverra. Habitant in mus libero enim quam est morbi urna nulla.
                         Turpis sed commodo justo lectus sed leo aliquam eget cursus.</p>
-                    
-                        <ViewComponentBaseButton>open blog</ViewComponentBaseButton>
+
+                    <ViewComponentBaseButton>open blog</ViewComponentBaseButton>
                 </div>
             </div>
         </section>

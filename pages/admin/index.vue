@@ -4,14 +4,17 @@ definePageMeta({
     middleware: ['auth']
 });
 
-// const { getCookie } = useCookie();
 
-// const isSetCookie = getCookie('auth_token');
+const { getCookie } = useCookie();
 
-
-// if (!isSetCookie) {
-//     await navigateTo('/admin/auth/login');
-// }
+onMounted(async () => {
+    const isSetCookie = getCookie('auth_token');
+    
+    if (!isSetCookie) {
+        console.log('hello index', isSetCookie)
+        await navigateTo('/admin/auth/login');
+    }
+})
 
 
 </script>
