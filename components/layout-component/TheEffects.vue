@@ -7,14 +7,26 @@ defineProps({
     }
 });
 
-const effects = ref();
+const effects = ref([]);
+const limit = 6;
+const isExistEffects = ref(false);
+const moreEffect = ref(null);
+let offset = 0;
 
 const getAllEffects = async () => {
     const data = await axios({
         method: 'get',
         url: 'http://localhost:4000/effect',
+        params: {
+            offset,
+            limit
+        }
     });
-    effects.value = data.data;
+    effects.value = [...effects.value, ...data.data];
+    if (data.data.length < limit) isExistEffects.value = true;
+    if (data.data.length > 0) {
+        offset += effects.value.length;
+    } 
 }
 
 const setImageUrl = (imageName) => {
@@ -27,8 +39,8 @@ getAllEffects();
 </script>
 
 <template>
-    <section class="px-[176px]">
-        <h3 class="text-4xl pb-6 pt-12 text-center font-bold text-[#0E101C]">{{title}}</h3>
+    <section class="xs:px-4 xl:px-[176px]">
+        <h3 class="text-4xl pb-6 pt-12 text-center font-bold text-[#0E101C]">{{ title }}</h3>
 
         <div class="grid grid-cols-6 justify-center gap-1 xs:px-10 lg:px-24">
             <template v-for="effect in effects" :key="effect.id">
@@ -37,13 +49,20 @@ getAllEffects();
                         width="158" height="160" :src="setImageUrl(effect.image)" :alt="effect.alt">
                 </a>
             </template>
-
         </div>
+        <div v-if="!isExistEffects">
+            <div class="grid grid-cols-6 justify-center gap-1 xs:px-10 lg:px-24 opacity-5">
+                <img src="~/assets/images/effects/effect-21.png" alt="">
+                <img src="~/assets/images/effects/effect-22.png" alt="">
+                <img src="~/assets/images/effects/effect-23.png" alt="">
+                <img src="~/assets/images/effects/effect-24.png" alt="">
+                <img src="~/assets/images/effects/effect-25.png" alt="">
+                <img src="~/assets/images/effects/effect-26.png" alt="">
 
-        <button
-            class="flex justify-center my-6 mx-auto py-2 px-4 rounded-lg capitalize text-[#025EFF] border-2 border-[#025EFF]">Load
-            more work</button>
-
+            </div>
+            <ViewComponentBaseButton @click="getAllEffects()" class=" top-[-5.5rem] mx-auto">load more
+            </ViewComponentBaseButton>
+        </div>
     </section>
 </template>
 

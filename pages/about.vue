@@ -3,7 +3,7 @@
     <section class="px-[110px]">
         <div class="flex justify-between items-center">
             <div class="h-[418px] w-[397px]"><img class="inline-block h-full w-full" src="~/assets/images/client/about-me.jpeg" alt=""></div>
-            <h1 class="text-5xl hello">I'm Jawad
+            <h1 class="text-5xl bg-about">I'm Jawad
                 <div><img src="~/assets/images/client/sign.png" alt=""></div>
             </h1>
         </div>
@@ -30,7 +30,7 @@
     </section>
 
     <section class="fade-in">
-        <h2 class="bye">Software Expertise</h2>
+        <h2 class="software-expertise">Software Expertise</h2>
         <div class="relative top-[-150px] overflow-hidden h-[350px]">
             <div class="absolute top-32 w-full h-24 rotate-[3.811deg] bg-[#025EFF]">
                 <div class="h-full absolute w-12 -left-4 bg-[#025EFF]"></div>
@@ -63,10 +63,7 @@
     <section class="py-8 px-[176px] fade-in">
         <h4 class="text-5xl leading-[76px] font-semibold text-center">Ready to see your ideas <br /> Come to life?
         </h4>
-        <button
-            class="flex justify-center mx-auto mt-4 py-2 px-4 rounded-lg capitalize text-[#025EFF] border-2 border-[#025EFF] shadow-md">
-            get in touch
-        </button>
+        <ViewComponentBaseButton class="mx-auto mt-4">get in touch</ViewComponentBaseButton>
     </section>
 </template>
 

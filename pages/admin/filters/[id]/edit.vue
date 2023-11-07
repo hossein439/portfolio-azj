@@ -50,7 +50,6 @@ getSingle()
 
 const edit = async () => {
     const formData = new FormData();
-    console.log(filter);
     formData.append('link', filter.link);
     formData.append('feature', filter.feature);
     formData.append('category', filter.category);

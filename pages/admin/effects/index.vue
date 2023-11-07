@@ -11,7 +11,7 @@ const effects = ref([]);
 const getAllEffects = async () => {
     const data = await axios({
         method: 'get',
-        url: 'http://localhost:4000/effect',
+        url: 'http://localhost:4000/read-all-effect',
     });
     effects.value = data.data;
 }

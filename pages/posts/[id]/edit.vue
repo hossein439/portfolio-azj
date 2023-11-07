@@ -44,7 +44,6 @@ async function editPost(e) {
     e.preventDefault();
     try {
         isLoading.value = true;
-        console.log(post.value);
         useNuxtApp().$apiFetch(`/post/${post.value._id}`, {
             // headers: {
             //     Authorization: getUser('token'),
@@ -70,7 +69,6 @@ async function editPost(e) {
         });
 
     } catch (e) {
-        console.log(e)
         isLoading.value = false;
         // error.value = Object.values(e.data.errors).flat();
     }

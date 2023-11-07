@@ -12,7 +12,7 @@ const blogs = ref([]);
 const getAllBlog = async () => {
     const data = await axios({
         method: 'get',
-        url: 'http://localhost:4000/blog',
+        url: 'http://localhost:4000/read-all-blog',
     });
     blogs.value = data.data;
 }

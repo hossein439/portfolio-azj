@@ -28,7 +28,18 @@ const options = reactive({
     rewind: true,
     gap: '24px',
     perMove: 1,
-    pagination: false
+    pagination: false,
+    breakpoints: {
+        320: {
+            perPage: 1
+        },
+        425: {
+            perPage: 1
+        },
+        768: {
+            perPage: 3 
+        }
+    }
 });
 
 </script>
@@ -37,9 +48,9 @@ const options = reactive({
         <Splide :options="options" :has-track="false">
             <SplideTrack>
                 <SplideSlide v-for="filter in filters" :key="filter.id">
-                    <div class="two h-[465px] relative z-10">
+                    <div class="slide-container h-[465px] relative z-10">
                         <img class="h-full object-cover rounded-2xl" :src="`_nuxt/uploads/${filter.gif}`" alt="">
-                        <div class="one absolute right-0 left-0 rounded-2xl flex flex-col text-center">
+                        <div class="slide-item absolute right-0 left-0 rounded-2xl flex flex-col text-center">
                             <div class="w-[30px] absolute z-50 top-4 left-4">
                                 <img class="inline-block h-full w-full object-cover" src="~/assets/images/icons/icon-tiktok.svg"
                                     alt="">

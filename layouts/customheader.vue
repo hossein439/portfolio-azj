@@ -23,8 +23,8 @@ const showCategory = () => {
     <header class="relative overflow-hidden transition-all">
 
 
-        <div class=" relative flex flex-col justify-between hello-bg">
-            <nav class="lg:hidden xs:flex justify-between px-4 py-[50px]">
+        <div class="relative flex flex-col justify-between bg-home-page">
+            <nav class="xl:hidden xs:flex justify-between px-4 py-[50px]">
                 <img src="~/assets/images/client/logo.svg" alt="">
                 <button id="open-btn" data-status="open">
                     <img src="~/assets/images/icons/menu.svg" alt="">
@@ -32,8 +32,6 @@ const showCategory = () => {
             </nav>
 
             <nav :class="['xs:hidden lg:flex justify-evenly items-center py-8', isMouseEnter && 'bg-white relative z-30']">
-
-
                 <div class="">
                     <img src="~/assets/images/client/logo.svg" alt="">
                 </div>
@@ -88,22 +86,6 @@ const showCategory = () => {
             <div v-show="isMouseEnter" @mouseover="isMouseEnter = false" class="absolute inset-0 overllay"></div>
 
             <div class="mt-[245px]">
-
-                <div class="absolute z-20 right-[40%] top-64">
-                    <a class="cursor-pointer" href="#">
-                        <img src="~/assets/images/icons/youtube-black.svg" alt="">
-                    </a>
-                </div>
-                <div class="absolute z-20 right-[49%] top-48">
-                    <a class="cursor-pointer" href="#">
-                        <img src="~/assets/images/icons/instagram-black.svg" alt="">
-                    </a>
-                </div>
-                <div class="absolute z-20 right-[60%] top-64">
-                    <a class="cursor-pointer" href="#">
-                        <img src="~/assets/images/icons/tiktok-black.svg" alt="">
-                    </a>
-                </div>
 
                 <div class="hello-bg absolute xs:bottom-0 lg:bottom-[-24rem] w-full p-[100px]">
                     <!-- <img class="inline-block w-full h-full mx-auto" src="~/assets/images/others/background-user.svg" alt=""> -->

@@ -32,6 +32,7 @@ router.post('/login', UserController.login);
 // Filter Routes
 router.post('/blog', upload.single('image'), blogController.create);
 router.get('/blog', blogController.read);
+router.get('/read-all-blog', blogController.readAll);
 router.get('/blog/last', blogController.getLast);
 router.get('/blog/:id', blogController.single);
 router.put('/blog/:id', upload.single('image'),blogController.update);
@@ -47,6 +48,7 @@ router.delete('/collaboration/:id/:image', collaborationController.delete);
 // effect Routes
 router.post('/effect', upload.fields([{name: 'image'}, {name: 'gif'}]), effectController.create);
 router.get('/effect', effectController.read);
+router.get('/read-all-effect', effectController.readAll);
 router.get('/effect/:id', effectController.single);
 router.put('/effect/:id', upload.fields([{name: 'image'}, {name: 'gif'}]), effectController.update);
 router.delete('/effect/:id/:image/:gif', effectController.delete);

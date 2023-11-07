@@ -5,21 +5,15 @@ module.exports = {
 
     async login(req, res) {
         try {
-
-            const  { email, password } = req.body;
+            console.log('login')
+            const { email, password } = req.body;
 
             const rows = await db.query(
                 `SELECT * FROM users WHERE email='${email}' AND password='${password}'`
             );
-            const { id } = rows[0];
-            const token = await generateAuthToken(id);
-
-            if(rows.length) {
-                // res.cookie('auth_token', token, { secure: false, httpOnly: false }).send({
-                //     rows,
-                //     token
-                // });
-                console.log(token);
+            if (rows.length) {
+                const { id } = rows[0];
+                const token = await generateAuthToken(id);
                 res.send(
                     {
                         user: rows,

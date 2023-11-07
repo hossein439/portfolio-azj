@@ -54,7 +54,14 @@ module.exports = {
     },
 
     async read(req, res) {
-        const getBlogs = await db.query('SELECT * FROM blogs ORDER BY created_at');
+        const { limit = 3, offset = 0 } = req.query;
+        const getBlogs = await db.query(`SELECT * FROM blogs ORDER BY created_at LIMIT ${offset}, ${limit}`);
+        res.send(getBlogs);
+    },
+
+
+    async readAll(req, res) {
+        const getBlogs = await db.query(`SELECT * FROM blogs ORDER BY created_at`);
         res.send(getBlogs);
     },
 

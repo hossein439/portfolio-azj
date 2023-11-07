@@ -39,7 +39,7 @@ const removeImage = (file) => {
         }
     });
 }
-
+let counter = 0;
 module.exports = {
 
     async create(req, res) {
@@ -66,7 +66,15 @@ module.exports = {
         }
     },
 
+
     async read(req, res) {
+        const { offset = 0, limit = 6 } = req.query;
+        const getEffects = await db.query(`SELECT effects.id, effects.name, effects.image, effects.alt, effects.link, effects.gif, effects.category_id, categories.name AS categoryName FROM effects CROSS JOIN categories WHERE effects.category_id = categories.id ORDER BY effects.created_at LIMIT ${offset}, ${limit}`)
+        res.send(getEffects);
+    },
+
+    async readAll(req, res) {
+        const { offset = 0, limit = 6 } = req.query;
         const getEffects = await db.query(`SELECT effects.id, effects.name, effects.image, effects.alt, effects.link, effects.gif, effects.category_id, categories.name AS categoryName FROM effects CROSS JOIN categories WHERE effects.category_id = categories.id ORDER BY effects.created_at`)
         res.send(getEffects);
     },
@@ -82,7 +90,7 @@ module.exports = {
         const { name, link, alt, categoryId, isChangedImg, isChangedGif, exFilenameImg, exFilenameGif } = req.body;
 
 
-        if (isChangedImg && ('image' in req.files) && !('gif' in req.files) ) {
+        if (isChangedImg && ('image' in req.files) && !('gif' in req.files)) {
 
             removeImage(exFilenameImg);
             const imageCreated = saveImage(req.files.image[0]);
@@ -129,7 +137,7 @@ module.exports = {
 
         removeImage(image);
         removeImage(gif);
-        
+
         const deleteCollaborationWithId = await db.query(`DELETE FROM effects WHERE id='${id}'`);
 
         res.send(deleteCollaborationWithId);

@@ -30,7 +30,6 @@ const getComponent = computed(() => defineAsyncComponent(() => import(`../../com
 <style scoped>
 
 .base-button {
-    position: relative;
     overflow: hidden;
     display: flex;
     align-items: center;

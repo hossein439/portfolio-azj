@@ -8,8 +8,8 @@ body {
     background-color: #FAFAFA;
 }
 
-.hello {
-    font-family: 'Krona One', sans-serif;
+.bg-about {
+    /* font-family: 'Krona One', sans-serif; */
     background: linear-gradient(90deg, #000 2.95%, #025EFF 102.24%);
     background-clip: text;
     -webkit-background-clip: text;
@@ -20,12 +20,7 @@ body {
     gap: 10px;
 }
 
-.hello-1 {
-    background: linear-gradient(0deg, #FAFAFA 0%, rgba(250, 250, 250, 0.95) 92.38%);
-    /* background-color: red; */
-}
-
-.bye {
+.software-expertise {
     font-size: 120px;
     font-weight: 800;
     background: linear-gradient(92deg, #000 5.41%, rgba(0, 0, 0, 0.50) 88.93%);
@@ -41,11 +36,11 @@ body {
     font-size: 12px;
 }
 
-.one {
+.slide-item {
     display: none;
 }
 
-.two:hover>.one {
+.slide-container:hover>.slide-item {
     top: 0;
     display: block;
     backdrop-filter: blur(5px);
@@ -60,22 +55,12 @@ body {
     display: none !important;
 }
 
-.hello-bg {
-    /* background: rgb(182, 212, 252);
-    background: radial-gradient(circle, rgba(182, 212, 252, 1) 0%, rgba(192, 218, 252, 1) 19%, rgba(229, 238, 250, 1) 42%, rgba(255, 255, 255, 1) 100%); */
-
-    /* background: rgb(182, 212, 252);
-    background: radial-gradient(circle, rgba(182, 212, 252, 1) 0%, rgba(192, 218, 252, 1) 15%, rgba(229, 238, 250, 1) 31%, rgba(255, 255, 255, 1) 100%); */
-
-    background: rgb(182, 212, 252);
+.bg-home-page {
     background: radial-gradient(circle, rgba(182, 212, 252, 1) 0%, rgba(192, 218, 252, 1) 22%, rgba(229, 238, 250, 1) 43%, rgba(255, 255, 255, 1) 84%);
-
-    /* background: rgb(182, 212, 252);
-    background: radial-gradient(circle, rgba(182, 212, 252, 1) 0%, rgba(192, 218, 252, 1) 22%, rgba(229, 238, 250, 1) 43%, rgba(255, 255, 255, 1) 79%); */
 }
 
 
-.fade-in {
+/* .fade-in {
     opacity: 0;
     transform: translateY(200px);
 }
@@ -94,4 +79,4 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
-}
+} */

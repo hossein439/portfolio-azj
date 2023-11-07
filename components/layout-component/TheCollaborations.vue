@@ -18,38 +18,38 @@ const setImageUrl = (imageName) => {
 
 getAllCollaboration();
 
-// function checkFadeIn() {
-//     const fadeIns = document.querySelectorAll('.fade-in');
-//     let counter = 0;
-//     fadeIns.forEach((fade, index) => {
-//         const rect = fade.getBoundingClientRect();
-//         const windowHeight = window.innerHeight;
+function checkFadeIn() {
+    const fadeIns = document.querySelectorAll('.fade-in-coll');
+    let counter = 0;
+    fadeIns.forEach((fade, index) => {
+        const rect = fade.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
 
-//         if (rect.top >= 0 && rect.top <= windowHeight) {
-//             if (!fade.classList.contains('active')) {
-//                 counter = counter + .5;
-//                 fade.classList.add('active');
-//                 fade.style.animationDelay = `${counter}s`;
-//             }
-//         } 
-//     });
-// }
+        if (rect.top >= 0 && rect.top <= windowHeight) {
+            if (!fade.classList.contains('active')) {
+                counter = counter + .5;
+                fade.classList.add('active');
+                fade.style.animationDelay = `${counter}s`;
+            }
+        } 
+    });
+}
 
-// onMounted(() => {
-//     window.addEventListener('scroll', checkFadeIn);
-//     window.addEventListener('resize', checkFadeIn);
-//     checkFadeIn();
-// })
+onMounted(() => {
+    window.addEventListener('scroll', checkFadeIn);
+    window.addEventListener('resize', checkFadeIn);
+    checkFadeIn();
+})
 
 </script>
 
 
 <template>
-    <section id="collaboration" class="py-60 px-32">
+    <section id="collaboration" class="py-60 xs:px-4 xl:px-32">
         <h3 class="text-4xl text-center font-bold text-[#0E101C]">Collaborations</h3>
-        <div class="grid grid-cols-4 items-center m-6">
+        <div class="flex flex-wrap items-center m-6">
             <template v-for="(collaboration, index) in collaborations" :key="collaboration.id">
-                <div class="flex px-4 py-8 h-[165px] bg-[#272727] fade-in">
+                <div class="flex px-4 py-8 w-1/4 h-[165px] bg-[#272727] fade-in-coll">
                     <img class="inline-block w-full h-full object-contain" :src="setImageUrl(collaboration.image)" alt="">
                 </div>
             </template>
@@ -58,12 +58,12 @@ getAllCollaboration();
 </template>
 
 <style scoped>
-.fade-in {
+.fade-in-coll {
     opacity: 0;
     transform: translateY(200px);
 }
 
-.fade-in.active {
+.fade-in-coll.active {
     animation: fade .5s ease-in-out forwards;
 }
 

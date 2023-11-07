@@ -2,7 +2,9 @@ import Cookies from 'js-cookie';
 
 export function useCookie() {
     function getCookie(cname) {
-        return Cookies.get(cname);
+        if (process.client) {
+            return Cookies.get(cname);
+        }
     }
 
     function setCookie(token) {

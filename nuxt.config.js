@@ -4,7 +4,7 @@ export default defineNuxtConfig({
             baseUrl: process.env.BASE_URL,
         },
     },
-    css: ['~/assets/css/custom.css', '~/assets/css/aos.css'],
+    css: ['~/assets/css/custom.css'],
     modules: [
         '@nuxtjs/tailwindcss',
         '@pinia/nuxt',
@@ -14,6 +14,5 @@ export default defineNuxtConfig({
             src: '~/plugins/animation.client.js',
             mode: 'client'
         },
-        // {src: '~/plugins/splide.client.js', mode: 'client'}
     ]
 })
