@@ -26,7 +26,7 @@ const getAllEffects = async () => {
     if (data.data.length < limit) isExistEffects.value = true;
     if (data.data.length > 0) {
         offset += effects.value.length;
-    } 
+    }
 }
 
 const setImageUrl = (imageName) => {
@@ -40,28 +40,35 @@ getAllEffects();
 
 <template>
     <section class="xs:px-4 xl:px-[176px]">
-        <h3 class="text-4xl pb-6 pt-12 text-center font-bold text-[#0E101C]">{{ title }}</h3>
+        <h3 class="text-4xl pb-6 text-center font-bold text-[#0E101C] capitalize">{{ title }}</h3>
 
         <div class="grid grid-cols-6 justify-center gap-1 xs:px-10 lg:px-24">
             <template v-for="effect in effects" :key="effect.id">
                 <a :href="effect.link">
-                    <img class="mx-auto object-contain border-2 border-transparent hover:drop-shadow-lg transition-all"
-                        width="158" height="160" :src="setImageUrl(effect.image)" :alt="effect.alt">
+                    <div class="cnt relative xs:w-[57px] lg:w-[160px] xs:h-[57px] lg:h-[160px] flex justify-center items-center">
+                        <div class="bg-first">
+                            <img class="mx-auto object-contain border-2 border-transparent transition-all"
+                                 :src="setImageUrl(effect.image)" :alt="effect.alt">
+                        </div>
+                        <div class="bg-second"></div>
+                        <div class="bg-third"></div>
+                    </div>
                 </a>
             </template>
         </div>
-        <div v-if="!isExistEffects">
-            <div class="grid grid-cols-6 justify-center gap-1 xs:px-10 lg:px-24 opacity-5">
-                <img src="~/assets/images/effects/effect-21.png" alt="">
-                <img src="~/assets/images/effects/effect-22.png" alt="">
-                <img src="~/assets/images/effects/effect-23.png" alt="">
-                <img src="~/assets/images/effects/effect-24.png" alt="">
-                <img src="~/assets/images/effects/effect-25.png" alt="">
-                <img src="~/assets/images/effects/effect-26.png" alt="">
-
+        <div v-if="!isExistEffects" class="relative">
+            <div class="grid grid-cols-6 justify-center gap-1 xs:px-10 lg:px-24">
+                <img class="opacity-5" src="~/assets/images/effects/effect-21.png" alt="">
+                <img class="opacity-5" src="~/assets/images/effects/effect-22.png" alt="">
+                <img class="opacity-5" src="~/assets/images/effects/effect-23.png" alt="">
+                <img class="opacity-5" src="~/assets/images/effects/effect-24.png" alt="">
+                <img class="opacity-5" src="~/assets/images/effects/effect-25.png" alt="">
+                <img class="opacity-5" src="~/assets/images/effects/effect-26.png" alt="">
             </div>
-            <ViewComponentBaseButton @click="getAllEffects()" class=" top-[-5.5rem] mx-auto">load more
-            </ViewComponentBaseButton>
+            <div class="absolute top-[2.7rem] left-0 right-0">
+                <ViewComponentBaseButton @click="getAllEffects()" class="mx-auto">load more
+                </ViewComponentBaseButton>
+            </div>
         </div>
     </section>
 </template>
@@ -91,5 +98,46 @@ getAllEffects();
     align-items: center;
     background: #FAFAFA;
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+.bg-first {
+
+    position: absolute;
+    margin: auto;
+    width: 90%;
+    height: 90%;
+    background-size: cover;
+    background-position: center;
+    -webkit-clip-path: polygon(50% 9%, 85% 29%, 85% 70%, 50% 91%, 14% 69%, 14% 29%);
+    clip-path: polygon(50% 9%, 85% 29%, 85% 70%, 50% 91%, 14% 69%, 14% 29%);
+    padding: 5px;
+    z-index: 2;
+}
+
+.bg-second {
+    position: absolute;
+    margin: auto;
+    width: 95%;
+    height: 95%;
+    z-index: 1;
+    background-color: white;
+    -webkit-clip-path: polygon(50% 9%, 85% 29%, 85% 70%, 50% 91%, 14% 69%, 14% 29%);
+    clip-path: polygon(50% 9%, 85% 29%, 85% 70%, 50% 91%, 14% 69%, 14% 29%)
+}
+
+.bg-third {
+    opacity: 0;
+    transition: all 1s;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /*  top: 0;
+  bottom: 0; */
+    background-color: #0043b4;
+    clip-path: polygon(50% 9%, 85% 29%, 85% 70%, 50% 91%, 14% 69%, 14% 29%);
+}
+
+.cnt:hover>.bg-third {
+    opacity: 1;
 }
 </style>

@@ -4,6 +4,7 @@ const { format } = require('date-fns');
 
 
 const saveImage = (file) => {
+    console.log(file)
     const filename = file.filename;
     fs.rename(file.path, `./uploads/${filename}.jpg`, (err) => {
         console.log('err', err)
@@ -55,13 +56,13 @@ module.exports = {
 
     async read(req, res) {
         const { limit = 3, offset = 0 } = req.query;
-        const getBlogs = await db.query(`SELECT * FROM blogs ORDER BY created_at LIMIT ${offset}, ${limit}`);
+        const getBlogs = await db.query(`SELECT * FROM blogs ORDER BY created_at DESC LIMIT ${offset}, ${limit}`);
         res.send(getBlogs);
     },
 
 
     async readAll(req, res) {
-        const getBlogs = await db.query(`SELECT * FROM blogs ORDER BY created_at`);
+        const getBlogs = await db.query(`SELECT * FROM blogs ORDER BY created_at DESC`);
         res.send(getBlogs);
     },
 

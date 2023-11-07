@@ -37,20 +37,21 @@ getSingle()
         <div class="w-full h-[400px]">
             <img class="inline-block w-full h-full object-cover rounded-lg" :src="imageSrc" alt="">
         </div>
-        <p class="text-2xl pt-8 pb-12">{{ category.name }}</p>
-        <p class="text-2xl pt-8 pb-12">{{ category.description }}</p>
+        <p class="text-[42px] font-[400] py-8">{{ category.name }}</p>
+        <p class="text-2xl">{{ category.description }}</p>
 
     </section>
 
-    <!-- <section class="px-[80px] fade-in">
-        <ViewComponentSliderTrend></ViewComponentSliderTrend>
-    </section> -->
-
-    <section class="fade-in xs:px-4 xs:py-12 lg:px-[72px]">
+    
+    <section class="fade-in xs:px-4 lg:px-[72px]">
         <ViewComponentSliderTrend></ViewComponentSliderTrend>
     </section>
 
-    <LayoutComponentTheEffects title="all sport effect" class="fade-in"></LayoutComponentTheEffects>
+    <div class="mb-[140px]"></div>
+
+    <LayoutComponentTheEffects :title="`all ${category.name} effect`" class="fade-in"></LayoutComponentTheEffects>
+
+    <div class="divider"></div>
 
     <section class="pb-16 fade-in">
         <h4 class="text-5xl leading-[76px] font-semibold text-center">Do you need a sport <br>effect?
@@ -60,4 +61,7 @@ getSingle()
             get in touch
         </button>
     </section>
+
+    <div class="divider"></div>
+
 </template>

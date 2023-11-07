@@ -8,7 +8,6 @@ const singleBlog = reactive({
     created_at: '',
     description: '',
 });
-const imageSrc = ref();
 
 const setImageUrl = (imageName) => {
     const path = `../uploads/${imageName}`;
@@ -24,8 +23,8 @@ const getLastBlog = async () => {
     singleBlog.title = blog.title;
     singleBlog.created_at = blog.created_at;
     singleBlog.description = blog.description;
-
-    imageSrc.value = setImageUrl(blog.image);
+    singleBlog.image = blog.image;
+    console.log(singleBlog.image)
     isLoadedBlog.value = true;
 }
 getLastBlog();
@@ -62,9 +61,10 @@ getMoreBlogs();
 
 <template>
     <Title>Blog</Title>
-    <section v-if="isLoadedBlog" class="px-[176px]">
+    <section v-if="isLoadedBlog" class="px-[176px] mt-[34px]">
+        
         <div class="h-[446px]">
-            <img class="rounded-lg h-full w-full object-cover" :src="imageSrc" alt="">
+            <img class="rounded-lg h-full w-full object-cover" :src="setImageUrl(singleBlog?.image)" alt="">
         </div>
         <div class="flex items-center justify-between py-8">
             <h1 class="text-4xl capitalize">{{ singleBlog.title }}</h1>
@@ -87,7 +87,9 @@ getMoreBlogs();
 
     </section>
 
-    <section class="px-[176px] pb-16 fade-in">
+    <div class="divider"></div>
+
+    <section class="px-[176px] fade-in">
         <h2 class="text-5xl pt-8 pb-12 text-center font-semibold capitalize text-[#0E101C]">more content</h2>
         <div class="grid lg:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 gap-6">
             <article v-for="blog in blogs" :key="blog.id" class="flex flex-col gap-2 text-2xl">
@@ -112,7 +114,7 @@ getMoreBlogs();
     </section>
 
     <div class="" v-if="!isExistBlogs">
-        <div class="px-[176px] pb-16 mt-10 grid lg:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 gap-6">
+        <div class="px-[176px] mt-6 pb-16 grid lg:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 gap-6">
 
             <div class="relative bg-red">
                 <div class="absolute w-full h-full bg-image z-10"></div>
@@ -138,6 +140,7 @@ getMoreBlogs();
         <ViewComponentBaseButton @click="getMoreBlogs()" class="relative z-20 top-[-11.5rem] mx-auto">load more
         </ViewComponentBaseButton>
     </div>
+    <div class="divider"></div>
 </template>
 
 <style scoped>

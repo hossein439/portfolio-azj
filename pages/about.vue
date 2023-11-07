@@ -2,7 +2,8 @@
     <Title>about</Title>
     <section class="px-[110px]">
         <div class="flex justify-between items-center">
-            <div class="h-[418px] w-[397px]"><img class="inline-block h-full w-full" src="~/assets/images/client/about-me.jpeg" alt=""></div>
+            <div class="h-[418px] w-[397px]"><img class="inline-block h-full w-full"
+                    src="~/assets/images/client/about-me.jpeg" alt=""></div>
             <h1 class="text-5xl bg-about">I'm Jawad
                 <div><img src="~/assets/images/client/sign.png" alt=""></div>
             </h1>
@@ -28,6 +29,8 @@
             cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </p>
     </section>
+
+
 
     <section class="fade-in">
         <h2 class="software-expertise">Software Expertise</h2>
@@ -65,6 +68,8 @@
         </h4>
         <ViewComponentBaseButton class="mx-auto mt-4">get in touch</ViewComponentBaseButton>
     </section>
+
+    <div class="divider"></div>
 </template>
 
 <style scoped>

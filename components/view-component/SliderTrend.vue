@@ -38,6 +38,9 @@ const options = reactive({
         },
         768: {
             perPage: 3 
+        },
+        1080: {
+            perPage: 3
         }
     }
 });
@@ -55,15 +58,17 @@ const options = reactive({
                                 <img class="inline-block h-full w-full object-cover" src="~/assets/images/icons/icon-tiktok.svg"
                                     alt="">
                             </div>
-                            <div class="h-[128px] w-[128px] mx-auto mt-[82px]">
-                                <img class="inline-block h-full w-full object-cover" :src="`_nuxt/uploads/${filter.image}`"
-                                    alt="">
+                            <div class="absolute w-full bottom-[80px]">
+                                <div class="h-[128px] w-[128px] mx-auto mt-[82px]">
+                                    <img class="inline-block h-full w-full object-cover" :src="`_nuxt/uploads/${filter.image}`"
+                                        alt="">
+                                </div>
+                                <span class="text-2xl text-white font-medium capitalize">{{ filter.name }}</span>
+                                <a :href="filter.link"
+                                    class="flex justify-center relative z-30 my-6 mx-9 py-2 px-12 rounded-lg capitalize text-white border-2 border-[#025EFF] bg-[#025EFF] cursor-pointer">
+                                    try effect
+                                </a>
                             </div>
-                            <span class="text-2xl text-white font-medium capitalize">{{ filter.name }}</span>
-                            <a :href="filter.link"
-                                class="flex justify-center relative z-30 my-6 mx-9 py-2 px-12 rounded-lg capitalize text-white border-2 border-[#025EFF] bg-[#025EFF] cursor-pointer">
-                                try effect
-                            </a>
                         </div>
                     </div>
                     <div class="flex flex-col">
@@ -80,13 +85,13 @@ const options = reactive({
             </SplideTrack>
     
             <div class="splide__arrows relative -z-10 bottom-[22rem] flex justify-between mx-auto">
-                <button class="splide__arrow--prev mb-10 -ml-28 cursor-pointer bg-[#5593FF] text-[#E6EFFF] w-[80px] h-[80px] rounded-full relative shadow-md hover:bg-[#025EFF] transition-all">
+                <button class="splide__arrow--prev mb-10 -ml-28 cursor-pointer bg-[#5593FF] text-[#E6EFFF] lg:w-[80px] xs:w-[33px] lg:h-[80px] xs:h-[33px] rounded-full relative shadow-md hover:bg-[#025EFF] transition-all">
                     <svg class="absolute inset-0 w-full m-auto" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
                         <path d="M12 24L20 16L12 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" />
                     </svg>
                 </button>
-                <button class="splide__arrow--next mb-10 -mr-28 cursor-pointer bg-[#5593FF] text-[#E6EFFF] w-[80px] h-[80px] rounded-full relative shadow-md hover:bg-[#025EFF] transition-all">
+                <button class="splide__arrow--next mb-10 -mr-28 cursor-pointer bg-[#5593FF] text-[#E6EFFF] lg:w-[80px] xs:w-[33px] lg:h-[80px] xs:h-[33px] rounded-full relative shadow-md hover:bg-[#025EFF] transition-all">
                     <svg class="absolute inset-0 w-full m-auto rotate-270" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
                         <path d="M12 24L20 16L12 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" />

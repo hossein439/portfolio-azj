@@ -3,7 +3,7 @@
         <g id="ð¦ icon &quot;unsplash&quot;">
             <path id="Vector"
                 d="M7.1875 6.46875V0H15.8125V6.46875H7.1875ZM15.8125 10.0625H23V23H0V10.0625H7.1875V16.5312H15.8125V10.0625Z"
-                fill="white" />
+                fill="currentColor" />
         </g>
     </svg>
 </template>

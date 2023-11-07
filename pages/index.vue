@@ -10,9 +10,10 @@ definePageMeta({
 
 <template>
     <main>
-        <section class="fade-in mx-[85px] xs:my-[128px] h-screen flex justify-center items-center xs:py-24 md:py-4 xs:px-4">
+        <div class="divider"></div>
+        <section class="fade-in xs:mx-4 lg:mx-[85px] flex justify-center items-center lg:py-24 md:py-4">
             <article
-                class="px-[85px] rounded-2xl py-16 shadow-[2px_2px_5px_0px_rgba(53,53,53,0.50)] bg-[#FFF] text-[#0E101C]">
+                class="xs:p-4 lg:px-[85px] rounded-2xl lg:py-16 shadow-[2px_2px_5px_0px_rgba(53,53,53,0.50)] bg-[#FFF] text-[#0E101C]">
                 <h2 class="text-5xl font-semibold capitalize">about me</h2>
                 <p class="pt-12 pb-16">Hi! I’m Jawad, also known as <strong class="text-[#025EFF]">AZJ</strong>. I weave
                     AR magic as a
@@ -25,18 +26,23 @@ definePageMeta({
             </article>
         </section>
 
-        <section class="fade-in xs:px-4 xs:py-12 lg:px-[72px]">
+        <div class="divider"></div>
+
+        <section class="fade-in xs:px-4 lg:px-[72px]">
             <h3 class="text-4xl text-center font-bold text-[#0E101C]">My trending filters</h3>
             <ViewComponentSliderTrend :show-category="true"></ViewComponentSliderTrend>
         </section>
 
+        <div class="mb-[140px]"></div>
 
         <LayoutComponentTheCollaborations></LayoutComponentTheCollaborations>
 
+        <div class="divider"></div>
         <LayoutComponentTheEffects class="fade-in" title="Try my effects"></LayoutComponentTheEffects>
 
-        <section class="fade-in mt-60">
-            <h3 class="text-4xl py-[30px] text-center font-bold text-[#0E101C] capitalize">blog</h3>
+        <div class="divider"></div>
+        <section class="fade-in">
+            <h3 class="text-4xl pb-[30px] text-center font-bold text-[#0E101C] capitalize">blog</h3>
             <div class="flex xs:flex-wrap xl:flex-nowrap gap-6 xs:w-auto xl:w-[1160px] mx-auto">
                 <div class="xs:w-full xl:w-1/3">
                     <img class="rounded-lg" src="~/assets/images/client/blog-image.png" alt="">
@@ -55,11 +61,13 @@ definePageMeta({
             </div>
         </section>
 
+        <div class="divider"></div>
 
-        <section class="py-8 px-[176px] fade-in">
+        <section class="xs:px-4 lg:px-[176px] fade-in">
             <h4 class="text-5xl leading-[76px] font-semibold text-center">Ready to see your ideas <br /> Come to life?
             </h4>
             <ViewComponentBaseButton class="mx-auto mt-4">get in touch</ViewComponentBaseButton>
         </section>
+        <div class="divider"></div>
     </main>
 </template>

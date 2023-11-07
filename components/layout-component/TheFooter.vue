@@ -17,25 +17,25 @@
                 <span class="inline-block pt-12 pb-6 text-2xl font-semibold text-[#E6EFFF] capitalize">social media</span>
                 <ul class="xs:grid xs:grid-cols-2 xs:w-1/3 lg:w-auto lg:flex gap-4 mx-auto justify-center items-end">
                     <li class="mx-auto">
-                        <IconsTiktokIcon></IconsTiktokIcon>
+                        <IconsTiktokIcon class="transition-all cursor-pointer hover:text-[#025EFF]"></IconsTiktokIcon>
                     </li>
                     <li class="mx-auto">
-                        <IconsInstagramIcon></IconsInstagramIcon>
+                        <IconsInstagramIcon class="transition-all cursor-pointer hover:text-[#025EFF]"></IconsInstagramIcon>
                     </li>
                     <li class="mx-auto">
-                        <IconsYoutubeIcon></IconsYoutubeIcon>
+                        <IconsYoutubeIcon class="transition-all cursor-pointer hover:text-[#025EFF]"></IconsYoutubeIcon>
                     </li>
                     <li class="mx-auto">
-                        <IconsSnapChat></IconsSnapChat>
+                        <IconsSnapChat class="transition-all cursor-pointer hover:text-[#025EFF]"></IconsSnapChat>
                     </li>
                     <li class="mx-auto">
-                        <IconsXIcon></IconsXIcon>
+                        <IconsXIcon class="transition-all cursor-pointer hover:text-[#025EFF]"></IconsXIcon>
                     </li>
                     <li class="mx-auto">
-                        <IconsUnsplashIcon></IconsUnsplashIcon>
+                        <IconsUnsplashIcon class="transition-all cursor-pointer hover:text-[#025EFF]"></IconsUnsplashIcon>
                     </li>
                     <li class="mx-auto">
-                        <IconsFiverrIcon></IconsFiverrIcon>
+                        <IconsFiverrIcon class="transition-all cursor-pointer hover:text-[#025EFF]"></IconsFiverrIcon>
                     </li>
                 </ul>
             </div>
