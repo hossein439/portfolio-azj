@@ -61,12 +61,12 @@ getMoreBlogs();
 
 <template>
     <Title>Blog</Title>
-    <section v-if="isLoadedBlog" class="px-[176px] mt-[34px]">
+    <section v-if="isLoadedBlog" class="xs:px-4 lg:px-[176px] mt-[34px]">
         
-        <div class="h-[446px]">
+        <div class="xs:h-[138px] lg:h-[446px]">
             <img class="rounded-lg h-full w-full object-cover" :src="setImageUrl(singleBlog?.image)" alt="">
         </div>
-        <div class="flex items-center justify-between py-8">
+        <div class="flex flex-wrap xs:gap-4 lg:gap-0 items-center justify-between xs:py-4 lg:py-8">
             <h1 class="text-4xl capitalize">{{ singleBlog.title }}</h1>
             <div class="flex items-center gap-6">
                 <div class="flex items-center gap-3">
@@ -81,7 +81,7 @@ getMoreBlogs();
                 </div>
             </div>
         </div>
-        <p class="text-2xl pb-12">
+        <p class="xs:text-[18px] lg:text-2xl pb-12">
             {{ singleBlog.description }}
         </p>
 
@@ -89,23 +89,25 @@ getMoreBlogs();
 
     <div class="divider"></div>
 
-    <section class="px-[176px] fade-in">
+    <section class="xs:px-4 lg:px-[176px] fade-in">
         <h2 class="text-5xl pt-8 pb-12 text-center font-semibold capitalize text-[#0E101C]">more content</h2>
         <div class="grid lg:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 gap-6">
             <article v-for="blog in blogs" :key="blog.id" class="flex flex-col gap-2 text-2xl">
-                <div class="h-[406px]">
+                <div class="xs:h-[316px] lg:h-[406px]">
                     <!-- <img class="rounded-lg h-full w-full object-cover" src="~/assets/images/client/blog-1.jpeg" alt=""> -->
                     <img class="rounded-lg h-full w-full object-cover" :src="setImageUrl(blog.image)" alt="">
                 </div>
-                <p class="font-semibold capitalize">{{ blog.title }}</p>
-                <div class="flex items-center gap-6">
-                    <div class="flex items-center gap-3">
-                        <img src="~/assets/images/icons/clock.svg" alt="">
-                        <time>{{ showTime(blog.created_at, 'HH:mm') }}</time>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <img src="~/assets/images/icons/calendar.svg" alt="">
-                        <time>{{ showTime(blog.created_at, 'yyyy/MM/dd') }}</time>
+                <div class="flex flex-wrap justify-between">
+                    <p class="font-semibold capitalize">{{ blog.title }}</p>
+                    <div class="flex items-center gap-6">
+                        <div class="flex items-center gap-3">
+                            <img src="~/assets/images/icons/clock.svg" alt="">
+                            <time>{{ showTime(blog.created_at, 'HH:mm') }}</time>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <img src="~/assets/images/icons/calendar.svg" alt="">
+                            <time>{{ showTime(blog.created_at, 'yyyy/MM/dd') }}</time>
+                        </div>
                     </div>
                 </div>
                 <p class="line-clamp-3">{{ blog.description }}</p>
@@ -114,7 +116,7 @@ getMoreBlogs();
     </section>
 
     <div class="" v-if="!isExistBlogs">
-        <div class="px-[176px] mt-6 pb-16 grid lg:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 gap-6">
+        <div class="xs:px-4 lg:px-[176px] mt-6 pb-16 grid lg:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 gap-6">
 
             <div class="relative bg-red">
                 <div class="absolute w-full h-full bg-image z-10"></div>
@@ -123,14 +125,14 @@ getMoreBlogs();
                 </div>
             </div>
 
-            <div class="relative">
+            <div class="relative xs:hidden lg:block">
                 <div class="absolute w-full h-full bg-image z-10"></div>
                 <div class="h-[206px] w-full">
                     <img class="rounded-lg h-full w-full object-cover" src="~/assets/images/client/blog-2.jpeg" alt="">
                 </div>
             </div>
 
-            <div class="relative">
+            <div class="relative xs:hidden lg:block">
                 <div class="absolute w-full h-full bg-image z-10"></div>
                 <div class="h-[206px] w-full">
                     <img class="rounded-lg h-full w-full object-cover" src="~/assets/images/client/blog-3.jpeg" alt="">

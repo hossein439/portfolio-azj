@@ -20,10 +20,8 @@ const showCategory = () => {
 </script>
 
 <template>
-    <header class="relative overflow-hidden transition-all">
-
-
-        <div class="relative flex flex-col justify-between bg-home-page">
+    <header class="relative overflow-hidden transition-all bg-home-page">
+        <div class="relative flex flex-col justify-between  xs:h-screen lg:h-auto">
             <nav class="xl:hidden xs:flex justify-between px-4 py-[50px]">
                 <img src="~/assets/images/client/logo.svg" alt="">
                 <button id="open-btn" data-status="open">
@@ -77,7 +75,8 @@ const showCategory = () => {
 
             <div :class="['absolute z-30 pb-12 pt-10 w-full top-24 opacity-0 bg-white', isMouseEnter && 'opacity-100']">
                 <ul class="grid grid-cols-3 gap-12 w-1/4 mx-auto">
-                    <li v-for="category in categories" :key="category.id" @click="isMouseEnter = false" class="text-2xl text-[#5F5F5F] capitalize">
+                    <li v-for="category in categories" :key="category.id" @click="isMouseEnter = false"
+                        class="text-2xl text-[#5F5F5F] capitalize">
                         <NuxtLink :to="`/categories/${category.id}`">{{ category.name }}</NuxtLink>
                     </li>
                 </ul>
@@ -100,11 +99,11 @@ const showCategory = () => {
 
                 <div class="overflow-hidden lg:px-12">
                     <h1
-                        class="to-right lg:text-[225px] leading-[194px] -z-10 bottom-[12rem] font-bold whitespace-nowrap text-[62.877px] text-[#1C1C1C]">
+                        class="to-right lg:text-[225px] lg:leading-[194px] -z-10 bottom-[12rem] font-bold whitespace-nowrap text-[62.877px] text-[#1C1C1C]">
                         AZJ
                         EFFECT AZJ EFFECT AZJ EFFECT</h1>
                     <h1
-                        class="to-left lg:text-[225px] leading-[194px] -z-10 bottom-[7rem] font-bold whitespace-nowrap text-[62.877px] text-[#025EFF]">
+                        class="to-left lg:text-[225px] lg:leading-[194px] -z-10 bottom-[7rem] font-bold whitespace-nowrap text-[62.877px] text-[#025EFF]">
                         AZJ
                         EFFECT AZJ EFFECT AZJ EFFECT</h1>
                 </div>
@@ -123,6 +122,14 @@ const showCategory = () => {
     align-items: center;
 }
 
+.bg-home-page {
+    background: radial-gradient(circle, rgba(182, 212, 252, 1) 0%, rgba(192, 218, 252, 1) 22%, rgba(229, 238, 250, 1) 43%, rgba(255, 255, 255, 1) 84%);
+    background-position: bottom;
+    
+    /* background: rgb(182, 212, 252); */
+    /* background: linear-gradient(0deg, rgba(182, 212, 252, 1) 0%, rgba(192, 218, 252, 1) 22%, rgba(229, 238, 250, 1) 43%, rgba(255, 255, 255, 1) 79%); */
+}
+
 .nav-item::after {
     content: '';
     display: inline-block;
@@ -138,6 +145,7 @@ const showCategory = () => {
 .router-link-active {
     color: #025EFF;
 }
+
 .router-link-active::after {
     background-color: #025EFF;
 }
@@ -152,11 +160,11 @@ const showCategory = () => {
 }
 
 .to-left {
-    animation: left 15s infinite linear;
+    animation: left 10s infinite linear;
 }
 
 .to-right {
-    animation: right 15s infinite linear;
+    animation: right 10s infinite linear;
 }
 
 @keyframes left {
@@ -165,13 +173,13 @@ const showCategory = () => {
     }
 
     to {
-        transform: translate(-2800px);
+        transform: translate(-800px);
     }
 }
 
 @keyframes right {
     from {
-        transform: translate(-2800px);
+        transform: translate(-800px);
     }
 
     to {
@@ -179,9 +187,31 @@ const showCategory = () => {
     }
 }
 
+@media (min-width: 480px) {
+    @keyframes left {
+        from {
+            transform: translate(0px);
+        }
+
+        to {
+            transform: translate(-2800px);
+        }
+    }
+
+    @keyframes right {
+        from {
+            transform: translate(-2800px);
+        }
+
+        to {
+            transform: translate(0px);
+        }
+    }
+}
+
 .overllay {
     opacity: 0.9;
-    background:  #000;
+    background: #000;
     backdrop-filter: blur(50px);
     z-index: 20;
 }

@@ -45,9 +45,9 @@ onMounted(() => {
 
 
 <template>
-    <section id="collaboration" class="xs:px-4 xl:px-32">
-        <h3 class="text-4xl text-center font-bold text-[#0E101C]">Collaborations</h3>
-        <div class="flex flex-wrap items-center m-6">
+    <section id="collaboration" class="xs:px-8 xl:px-32">
+        <h3 class="xs:text-[32px] lg:text-4xl text-center font-bold text-[#0E101C]">Collaborations</h3>
+        <div class="flex flex-wrap items-center my-6">
             <template v-for="(collaboration, index) in collaborations" :key="collaboration.id">
                 <div class="flex xs:px-[6px] xs:py-[14px] lg:px-4 lg:py-8 w-1/4 xs:h-12 lg:h-[165px] bg-[#272727] fade-in-coll">
                     <img class="inline-block w-full h-full object-contain" :src="setImageUrl(collaboration.image)" alt="">

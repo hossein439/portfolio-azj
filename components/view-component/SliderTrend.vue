@@ -31,7 +31,7 @@ const options = reactive({
     pagination: false,
     breakpoints: {
         320: {
-            perPage: 1
+            perPage: 2
         },
         425: {
             perPage: 1
@@ -71,27 +71,29 @@ const options = reactive({
                             </div>
                         </div>
                     </div>
-                    <div class="flex flex-col">
+                    <div class="flex flex-col xs:mt-2">
                         <p class="flex items-center gap-2">
-                            <img src="~/assets/images/icons/stars.svg" alt="">
-                            <span class="text-[28px] font-medium capitalize">{{ filter.name }}</span>
+                            <IconsStarIcon class="xs:w-[11px] lg:w-[24px] xs:h-[11px] lg:h-[24px]"></IconsStarIcon>
+                            <!-- <img src="~/assets/images/icons/stars.svg" alt=""> -->
+                            <span class="xs:text-[11px] lg:text-[28px] font-medium capitalize">{{ filter.name }}</span>
                         </p>
                         <p v-if="showCategory" class="flex items-center gap-2">
-                            <img src="~/assets/images/icons/menu.svg" alt="">
-                            <span class="text-[28px] font-medium capitalize">{{ filter.categoryName }}</span>
+                            <IconsMenuIcon class="xs:w-[11px] lg:w-[24px] xs:h-[11px] lg:h-[24px]"></IconsMenuIcon>
+                            <!-- <img src="~/assets/images/icons/menu.svg" alt=""> -->
+                            <span class="xs:text-[11px] lg:text-[28px] font-medium capitalize">{{ filter.categoryName }}</span>
                         </p>
                     </div>
                 </SplideSlide>
             </SplideTrack>
     
-            <div class="splide__arrows relative -z-10 bottom-[22rem] flex justify-between mx-auto">
-                <button class="splide__arrow--prev mb-10 xs:-ml-12 lg:-ml-28 cursor-pointer bg-[#5593FF] text-[#E6EFFF] lg:w-[80px] xs:w-[33px] lg:h-[80px] xs:h-[33px] rounded-full relative shadow-md hover:bg-[#025EFF] transition-all">
+            <div class="splide__arrows relative -z-10 xs:bottom-[7.5rem] lg:bottom-[22rem] flex justify-between mx-auto">
+                <button class="splide__arrow--prev mb-10 xs:-ml-[3.5rem] lg:-ml-28 cursor-pointer bg-[#5593FF] text-[#E6EFFF] lg:w-[80px] xs:w-[33px] lg:h-[80px] xs:h-[33px] rounded-full relative shadow-md hover:bg-[#025EFF] transition-all">
                     <svg class="absolute inset-0 w-full m-auto" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
                         <path d="M12 24L20 16L12 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" />
                     </svg>
                 </button>
-                <button class="splide__arrow--next mb-10 xs:-mr-12 lg:-mr-28 cursor-pointer bg-[#5593FF] text-[#E6EFFF] lg:w-[80px] xs:w-[33px] lg:h-[80px] xs:h-[33px] rounded-full relative shadow-md hover:bg-[#025EFF] transition-all">
+                <button class="splide__arrow--next mb-10 xs:-mr-[3.5rem] lg:-mr-28 cursor-pointer bg-[#5593FF] text-[#E6EFFF] lg:w-[80px] xs:w-[33px] lg:h-[80px] xs:h-[33px] rounded-full relative shadow-md hover:bg-[#025EFF] transition-all">
                     <svg class="absolute inset-0 w-full m-auto rotate-270" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
                         <path d="M12 24L20 16L12 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" />

@@ -1,21 +1,21 @@
 <template>
     <footer class="bg-[#272727] text-white">
-        <div class="grid grid-cols-8 pt-12 w-4/5 mx-auto">
-            <div class="col-span-4">
-                <img class="flex pb-6" src="~/assets/images/client/Symbol-logo.png" alt="">
+        <div class="grid xs:grid-cols-1 lg:grid-cols-8 pt-12 lg:w-4/5 xs:w-auto mx-auto">
+            <div class="col-span-4 w-full mx-auto">
+                <img class="flex mt-[106px] mb-[43px] lg:my-auto xs:h-[90px] xs:w-[74px] lg:h-auto lg:w-auto mx-auto object-cover pb-6" src="~/assets/images/client/Symbol-logo.png" alt="">
 
                 <h5 class="xs:px-16 lg:px-0 font-bold text-2xl text-[#E6EFFF] xs:text-center lg:text-left">AR & Graphic
                     Designer + Content Creator</h5>
 
-                <span class="inline-block pt-3 pb-8 text-2xl">@azjeffects</span>
+                <span class="inline-block text-center w-full pt-8 py-8 text-2xl">@azjeffects</span>
 
                 <div class="flex flex-col xs:items-center lg:items-start gap-2">
                     <span class="text-2xl font-bold">Frankfurt, Germany</span>
                     <span class="text-2xl">Contact@azj.cam</span>
                 </div>
 
-                <span class="inline-block pt-12 pb-6 text-2xl font-semibold text-[#E6EFFF] capitalize">social media</span>
-                <ul class="xs:grid xs:grid-cols-2 xs:w-1/3 lg:w-auto lg:flex gap-4 mx-auto justify-center items-end">
+                <span class="xs:hidden lg:inline-block pt-12 pb-6 text-2xl font-semibold text-[#E6EFFF] capitalize">social media</span>
+                <ul class="xs:hidden lg:grid xs:grid-cols-2 xs:w-1/3 lg:w-auto gap-4 mx-auto justify-center items-end">
                     <li class="mx-auto">
                         <IconsTiktokIcon class="transition-all cursor-pointer hover:text-[#025EFF]"></IconsTiktokIcon>
                     </li>

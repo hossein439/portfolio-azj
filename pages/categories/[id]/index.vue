@@ -33,12 +33,12 @@ getSingle()
 
 <template>
     <Title>categories</Title>
-    <section class="px-[176px]">
-        <div class="w-full h-[400px]">
+    <section class="xs:px-4 lg:px-[176px]">
+        <div class="w-full xs:h-[130px] lg:h-[400px]">
             <img class="inline-block w-full h-full object-cover rounded-lg" :src="imageSrc" alt="">
         </div>
-        <p class="text-[42px] font-[400] py-8">{{ category.name }}</p>
-        <p class="text-2xl">{{ category.description }}</p>
+        <p class="xs:text-[28px] lg:text-[42px] font-[400] xs:py-4 lg:py-8">{{ category.name }}</p>
+        <p class="xs:text-[18px] lg:text-2xl">{{ category.description }}</p>
 
     </section>
 
@@ -54,7 +54,7 @@ getSingle()
     <div class="divider"></div>
 
     <section class="pb-16 fade-in">
-        <h4 class="text-5xl leading-[76px] font-semibold text-center">Do you need a sport <br>effect?
+        <h4 class="xs:text-[28px] lg:text-5xl lg:leading-[76px] font-semibold text-center">Do you need a sport <br>effect?
         </h4>
         <button
             class="flex justify-center mx-auto mt-4 py-2 px-4 rounded-lg capitalize text-[#025EFF] border-2 border-[#025EFF] shadow-md">

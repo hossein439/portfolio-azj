@@ -40,9 +40,9 @@ getAllEffects();
 
 <template>
     <section class="xs:px-4 xl:px-[176px]">
-        <h3 class="text-4xl pb-6 text-center font-bold text-[#0E101C] capitalize">{{ title }}</h3>
+        <h3 class="xs:text-[32px] lg:text-4xl pb-6 text-center font-bold text-[#0E101C] capitalize">{{ title }}</h3>
 
-        <div class="grid grid-cols-6 justify-center gap-1 xs:px-10 lg:px-24">
+        <div class="grid xs:grid-cols-4 lg:grid-cols-6 justify-center xs:gap-0 lg:gap-1 xs:px-8 lg:px-24">
             <template v-for="effect in effects" :key="effect.id">
                 <a :href="effect.link">
                     <div class="cnt relative xs:w-[57px] lg:w-[160px] xs:h-[57px] lg:h-[160px] flex justify-center items-center">
