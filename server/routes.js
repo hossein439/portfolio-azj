@@ -8,8 +8,7 @@ const blogController = require('./controllers/blogController');
 const collaborationController = require('./controllers/collaborationController');
 const effectController = require('./controllers/effectController');
 const categoryController = require('./controllers/categoryController');
-
-
+const settingController = require('./controllers/settingController');
 
 
 const upload = multer({
@@ -44,6 +43,13 @@ router.get('/collaboration', collaborationController.read);
 router.get('/collaboration/:id', collaborationController.single);
 router.put('/collaboration/:id', upload.single('image'),collaborationController.update);
 router.delete('/collaboration/:id/:image', collaborationController.delete);
+
+// Settings Routes
+router.post('/setting', upload.single('image'), settingController.create);
+router.get('/setting', settingController.read);
+router.get('/setting/:id', settingController.single);
+router.put('/setting/:id', upload.single('image'),settingController.update);
+router.delete('/setting/:id/:image', settingController.delete);
 
 // effect Routes
 router.post('/effect', upload.fields([{name: 'image'}, {name: 'gif'}]), effectController.create);

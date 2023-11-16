@@ -42,30 +42,43 @@ getAllEffects();
     <section class="xs:px-4 xl:px-[176px]">
         <h3 class="xs:text-[32px] lg:text-4xl pb-6 text-center font-bold text-[#0E101C] capitalize">{{ title }}</h3>
 
-        <div class="grid xs:grid-cols-4 lg:grid-cols-6 justify-center xs:gap-0 lg:gap-1 xs:px-8 lg:px-24">
+        <div class="grid xs:grid-cols-4 lg:grid-cols-6 justify-center xs:gap-0 lg:gap-1 xs:px-8 lg:px-18">
             <template v-for="effect in effects" :key="effect.id">
-                <a :href="effect.link">
-                    <div class="cnt relative xs:w-[57px] lg:w-[160px] xs:h-[57px] lg:h-[160px] flex justify-center items-center">
+                <a :href="effect.link" class="w-min h-min mx-auto">
+                    <div
+                        class="cnt relative xs:w-[57px] lg:w-[160px] xs:h-[57px] lg:h-[160px] flex justify-center items-center">
                         <div class="bg-first">
                             <img class="mx-auto object-contain border-2 border-transparent transition-all"
-                                 :src="setImageUrl(effect.image)" :alt="effect.alt">
+                                :src="setImageUrl(effect.image)" :alt="effect.alt">
                         </div>
-                        <div class="bg-second"></div>
-                        <div class="bg-third"></div>
+                        <div class="xs:hidden bg-second"></div>
+                        <div class="xs:hidden bg-third"></div>
                     </div>
                 </a>
             </template>
         </div>
         <div v-if="!isExistEffects" class="relative">
-            <div class="grid grid-cols-6 justify-center gap-1 xs:px-10 lg:px-24">
-                <img class="opacity-5" src="~/assets/images/effects/effect-21.png" alt="">
-                <img class="opacity-5" src="~/assets/images/effects/effect-22.png" alt="">
-                <img class="opacity-5" src="~/assets/images/effects/effect-23.png" alt="">
-                <img class="opacity-5" src="~/assets/images/effects/effect-24.png" alt="">
-                <img class="opacity-5" src="~/assets/images/effects/effect-25.png" alt="">
-                <img class="opacity-5" src="~/assets/images/effects/effect-26.png" alt="">
+            <div class="grid xs:grid-cols-4 lg:grid-cols-6 justify-center xs:px-8 lg:px-18">
+                <div class="lg:h-[160px] lg:w-[160px] mx-auto xs:w-9 lg:p-4">
+                    <img class="opacity-5 h-full w-full object-cover" src="~/assets/images/effects/effect-21.png" alt="">
+                </div>
+                <div class="lg:h-[160px] lg:w-[160px] mx-auto xs:w-9 lg:p-4">
+                    <img class="opacity-5 h-full w-full object-cover" src="~/assets/images/effects/effect-22.png" alt="">
+                </div>
+                <div class="lg:h-[160px] lg:w-[160px] mx-auto xs:w-9 lg:p-4">
+                    <img class="opacity-5 h-full w-full object-cover" src="~/assets/images/effects/effect-23.png" alt="">
+                </div>
+                <div class="lg:h-[160px] lg:w-[160px] mx-auto xs:w-9 lg:p-4">
+                    <img class="opacity-5 h-full w-full object-cover" src="~/assets/images/effects/effect-24.png" alt="">
+                </div>
+                <div class="lg:h-[160px] lg:w-[160px] mx-auto xs:w-9 lg:p-4 xs:hidden lg:inline">
+                    <img class="opacity-5 h-full w-full object-cover" src="~/assets/images/effects/effect-25.png" alt="">
+                </div>
+                <div class="lg:h-[160px] lg:w-[160px] mx-auto xs:w-9 lg:p-4 xs:hidden lg:inline">
+                    <img class="opacity-5 h-full w-full object-cover" src="~/assets/images/effects/effect-26.png" alt="">
+                </div>
             </div>
-            <div class="absolute top-[2.7rem] left-0 right-0">
+            <div class="absolute top-[3.7rem] left-0 right-0">
                 <ViewComponentBaseButton @click="getAllEffects()" class="mx-auto">load more
                 </ViewComponentBaseButton>
             </div>

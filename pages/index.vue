@@ -4,8 +4,6 @@ import { format } from 'date-fns';
 definePageMeta({
     layout: "customheader",
 });
-// const { useFadeIn } = checkFadeIn();
-// onMounted(() => useFadeIn())
 
 const isLoadedBlog = ref(false);
 const singleBlog = reactive({
@@ -46,8 +44,8 @@ getLastBlog();
         <section class="fade-in xs:mx-4 lg:mx-[85px] flex justify-center items-center lg:py-24 md:py-4">
             <article
                 class="xs:p-4 lg:px-[85px] rounded-2xl lg:py-16 shadow-[2px_2px_5px_0px_rgba(53,53,53,0.50)] bg-[#FFF] text-[#0E101C]">
-                <h2 class="text-5xl font-semibold capitalize">about me</h2>
-                <p class="pt-12 pb-16">Hi! I’m Jawad, also known as <strong class="text-[#025EFF]">AZJ</strong>. I weave
+                <h2 class="text-5xl leading-[76px] font-semibold capitalize">about me</h2>
+                <p class="xs:pt-6 xs:pb-8 lg:pt-12 lg:pb-16">Hi! I’m Jawad, also known as <strong class="text-[#025EFF]">AZJ</strong>. I weave
                     AR magic as a
                     TikTok Effect House Ambassador,
                     spreading joy and wonder. Let's create enchanting experiences together!</p>
@@ -65,7 +63,7 @@ getLastBlog();
             <ViewComponentSliderTrend :show-category="true"></ViewComponentSliderTrend>
         </section>
 
-        <div class="mb-[140px]"></div>
+        <div class="xs:mb-[60px] lg:mb-[140px]"></div>
 
         <LayoutComponentTheCollaborations></LayoutComponentTheCollaborations>
 

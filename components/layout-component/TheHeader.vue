@@ -17,13 +17,74 @@ const showCategory = () => {
     isMouseEnter.value = true;
     // document.querySelector('.router-link-active').classList.remove('router-link-active');
 }
+
+function toggle(e) {
+    const menuElement = document.querySelector("#menu")
+
+    const { status } = e.currentTarget.dataset;
+    const currentElement = e.currentTarget;
+    if (status === 'open') {
+        menuElement.classList.remove('-right-full');
+    }
+    if (status === 'close') {
+        menuElement.classList.add('-right-full');
+    }
+}
+
+onMounted(() => {
+    const btnTimes = document.querySelector('#close-btn');
+    const btnHamberger = document.querySelector('#open-btn');
+    const menuElement = document.querySelector("#menu");
+
+    [btnTimes, btnHamberger].forEach((item) => {
+        item.addEventListener('click', toggle);
+    })
+})
 </script>
 <template>
+    <div id="menu" class="h-screen fixed w-full z-[60] top-0 -right-full flex flex-col gap-12 bg-[#1C1C1C]">
+        <div class="flex justify-between px-4 py-[50px]">
+            <!-- <img src="~/assets/images/client/logo.svg" alt=""> -->
+            <IconsLogoIcon></IconsLogoIcon>
+            <button id="close-btn" data-status="close">
+                <img src="~/assets/images/icons/times.svg" alt="">
+            </button>
+        </div>
+
+        <ul class="flex flex-col gap-8 items-center relative z-30">
+
+            <li>
+                <NuxtLink class="text-2xl border-transparent cursor-pointer text-[#FFFFFF] capitalize py-2 transition-all"
+                    to="/">Home
+                </NuxtLink>
+            </li>
+
+            <li>
+                <NuxtLink class="text-2xl border-transparent cursor-pointer text-[#FFFFFF] capitalize py-2 transition-all"
+                    href="/about">about me
+                </NuxtLink>
+            </li>
+
+            <li @mouseover="showCategory()" class="flex flex-col items-center">
+                <button class="text-2xl border-transparent cursor-pointer text-[#FFFFFF] capitalize py-2 transition-all"
+                    href="#">Categories
+                </button>
+            </li>
+
+            <li>
+                <NuxtLink class="text-2xl border-transparent cursor-pointer text-[#FFFFFF] capitalize py-2 transition-all"
+                    href="/blog">Blog
+                </NuxtLink>
+            </li>
+
+        </ul>
+    </div>
     <header class="relative transition-all">
 
         <div class="flex flex-col justify-between">
             <nav class="lg:hidden xs:flex justify-between px-4 py-[50px]">
-                <img src="~/assets/images/client/logo.svg" alt="">
+                <!-- <img src="~/assets/images/client/logo.svg" alt=""> -->
+                <IconsLogoIcon></IconsLogoIcon>
                 <button id="open-btn" data-status="open">
                     <img src="~/assets/images/icons/menu.svg" alt="">
                 </button>
@@ -55,8 +116,7 @@ const showCategory = () => {
 
                         <li @mouseover="showCategory()" class="flex flex-col items-center">
                             <button
-                                class="nav-item text-2xl cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
-                                >Categories
+                                class="nav-item text-2xl cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all">Categories
                             </button>
                         </li>
 
@@ -75,9 +135,11 @@ const showCategory = () => {
                 </div>
             </nav>
 
-            <div :class="['absolute h-[200px] z-30 pb-12 pt-10 w-full top-24 opacity-0 bg-white', isMouseEnter && 'opacity-100']">
+            <div
+                :class="['absolute h-[200px] z-30 pb-12 pt-10 w-full top-24 opacity-0 bg-white', isMouseEnter && 'opacity-100']">
                 <ul class="grid grid-cols-3 gap-12 w-1/4 mx-auto">
-                    <li v-for="category in categories" :key="category.id" @click="isMouseEnter = false" class="text-2xl text-[#5F5F5F] capitalize">
+                    <li v-for="category in categories" :key="category.id" @click="isMouseEnter = false"
+                        class="text-2xl text-[#5F5F5F] capitalize">
                         <NuxtLink :to="`/categories/${category.id}`">{{ category.name }}</NuxtLink>
                     </li>
                 </ul>
@@ -110,6 +172,7 @@ const showCategory = () => {
 .router-link-active {
     color: #025EFF;
 }
+
 .router-link-active::after {
     background-color: #025EFF;
 }
@@ -122,6 +185,7 @@ const showCategory = () => {
 .router-link-active:hover {
     width: 100%;
 }
+
 .overllay {
     opacity: 0.9;
     background: #000;

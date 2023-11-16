@@ -17,13 +17,74 @@ const showCategory = () => {
     isMouseEnter.value = true;
     // document.querySelector('.router-link-active').classList.remove('router-link-active');
 }
+
+onMounted(() => {
+    const btnTimes = document.querySelector('#close-btn');
+    const btnHamberger = document.querySelector('#open-btn');
+    const menuElement = document.querySelector("#menu");
+
+    [btnTimes, btnHamberger].forEach((item) => {
+        item.addEventListener('click', (e) => {
+            const { status } = e.currentTarget.dataset;
+            const currentElement = e.currentTarget;
+            if (status === 'open') {
+                menuElement.classList.remove('-right-full');
+            }
+            if (status === 'close') {
+                menuElement.classList.add('-right-full');
+            }
+        });
+    })
+})
 </script>
 
 <template>
+    <div id="menu" class="h-screen fixed w-full z-[60] top-0 -right-full flex flex-col gap-12 bg-[#1C1C1C]">
+        <div class="flex justify-between px-4 py-[50px]">
+            <!-- <img src="~/assets/images/client/logo.svg" alt=""> -->
+            <IconsLogoIcon></IconsLogoIcon>
+            <button id="close-btn" data-status="close">
+                <img src="~/assets/images/icons/times.svg" alt="">
+            </button>
+        </div>
+
+        <ul class="flex flex-col gap-8 items-center relative z-30">
+
+            <li>
+                <NuxtLink
+                    class="text-2xl border-transparent cursor-pointer text-[#FFFFFF] capitalize py-2 transition-all"
+                    to="/">Home
+                </NuxtLink>
+            </li>
+
+            <li>
+                <NuxtLink
+                    class="text-2xl border-transparent cursor-pointer text-[#FFFFFF] capitalize py-2 transition-all"
+                    href="/about">about me
+                </NuxtLink>
+            </li>
+
+            <li @mouseover="showCategory()" class="flex flex-col items-center">
+                <button
+                    class="text-2xl border-transparent cursor-pointer text-[#FFFFFF] capitalize py-2 transition-all"
+                    href="#">Categories
+                </button>
+            </li>
+
+            <li>
+                <NuxtLink
+                    class="text-2xl border-transparent cursor-pointer text-[#FFFFFF] capitalize py-2 transition-all"
+                    href="/blog">Blog
+                </NuxtLink>
+            </li>
+
+        </ul>
+    </div>
     <header class="relative overflow-hidden transition-all bg-home-page">
         <div class="relative flex flex-col justify-between  xs:h-screen lg:h-auto">
-            <nav class="xl:hidden xs:flex justify-between px-4 py-[50px]">
-                <img src="~/assets/images/client/logo.svg" alt="">
+            <nav class="lg:hidden xs:flex justify-between px-4 py-[50px]">
+                <!-- <img src="~/assets/images/client/logo.svg" alt=""> -->
+                <IconsLogoIcon></IconsLogoIcon>
                 <button id="open-btn" data-status="open">
                     <img src="~/assets/images/icons/menu.svg" alt="">
                 </button>
@@ -84,14 +145,9 @@ const showCategory = () => {
 
             <div v-show="isMouseEnter" @mouseover="isMouseEnter = false" class="absolute inset-0 overllay"></div>
 
-            <div class="mt-[245px]">
+            <div class="lg:pt-[245px]">
 
-                <div class="hello-bg absolute xs:bottom-0 lg:bottom-[-24rem] w-full p-[100px]">
-                    <!-- <img class="inline-block w-full h-full mx-auto" src="~/assets/images/others/background-user.svg" alt=""> -->
-                    <!-- <img class="inline-block mx-auto" src="~/assets/images/others/bg-desktop.png" alt=""> -->
-                </div>
-
-                <div class="absolute z-10 bottom-0 w-full px-10">
+                <div class="bg-user-mobile absolute z-10 bottom-0 w-full px-10">
                     <img class="xs:inline-block lg:hidden w-full mx-auto" src="~/assets/images/client/user.png" alt="">
                     <img class="xs:hidden lg:flex mx-auto" width="500" src="~/assets/images/client/userimg-desktop.png"
                         alt="">
@@ -101,11 +157,11 @@ const showCategory = () => {
                     <h1
                         class="to-right lg:text-[225px] lg:leading-[194px] -z-10 bottom-[12rem] font-bold whitespace-nowrap text-[62.877px] text-[#1C1C1C]">
                         AZJ
-                        EFFECT AZJ EFFECT AZJ EFFECT</h1>
+                        EFFECTS AZJ EFFECTS AZJ EFFECTS</h1>
                     <h1
                         class="to-left lg:text-[225px] lg:leading-[194px] -z-10 bottom-[7rem] font-bold whitespace-nowrap text-[62.877px] text-[#025EFF]">
                         AZJ
-                        EFFECT AZJ EFFECT AZJ EFFECT</h1>
+                        EFFECTS AZJ EFFECTS AZJ EFFECTS</h1>
                 </div>
             </div>
         </div>
@@ -123,11 +179,21 @@ const showCategory = () => {
 }
 
 .bg-home-page {
+    background: transparent;
+}
+
+.bg-user-mobile {
     background: radial-gradient(circle, rgba(182, 212, 252, 1) 0%, rgba(192, 218, 252, 1) 22%, rgba(229, 238, 250, 1) 43%, rgba(255, 255, 255, 1) 84%);
-    background-position: bottom;
-    
-    /* background: rgb(182, 212, 252); */
-    /* background: linear-gradient(0deg, rgba(182, 212, 252, 1) 0%, rgba(192, 218, 252, 1) 22%, rgba(229, 238, 250, 1) 43%, rgba(255, 255, 255, 1) 79%); */
+}
+
+@media (min-width: 780px) {
+    .bg-home-page {
+        background: radial-gradient(circle, rgba(182, 212, 252, 1) 0%, rgba(192, 218, 252, 1) 22%, rgba(229, 238, 250, 1) 43%, rgba(255, 255, 255, 1) 84%);
+    }
+
+    .bg-user-mobile {
+        background: transparent;
+    }
 }
 
 .nav-item::after {
@@ -142,8 +208,15 @@ const showCategory = () => {
     transition: all .3s;
 }
 
+
 .router-link-active {
     color: #025EFF;
+}
+
+@media screen and (min-width: 480px) {
+    .router-link-active {
+        color: #025EFF;
+    }
 }
 
 .router-link-active::after {

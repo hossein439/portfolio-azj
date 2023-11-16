@@ -69,13 +69,13 @@ getMoreBlogs();
         <div class="flex flex-wrap xs:gap-4 lg:gap-0 items-center justify-between xs:py-4 lg:py-8">
             <h1 class="text-4xl capitalize">{{ singleBlog.title }}</h1>
             <div class="flex items-center gap-6">
-                <div class="flex items-center gap-3">
+                <div class="flex items-center xs:gap-2 lg:gap-3">
                     <img src="~/assets/images/icons/clock.svg" alt="">
                     <time>
                         {{ showTime(singleBlog.created_at, 'HH:mm') }}
                     </time>
                 </div>
-                <div class="flex items-center gap-3">
+                <div class="flex items-center xs:gap-2 lg:gap-3">
                     <img src="~/assets/images/icons/calendar.svg" alt="">
                     {{ showTime(singleBlog.created_at, 'yyyy/MM/dd') }}
                 </div>
