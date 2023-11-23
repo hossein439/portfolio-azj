@@ -45,6 +45,11 @@ const options = reactive({
     }
 });
 
+const setImageUrl = (imageName) => {
+    const path = `../../uploads/${imageName}`;
+    return new URL(path, import.meta.url).href;
+}
+
 </script>
 <template>
     <div class="xs:mx-8 lg:mx-12 mt-12">
@@ -52,16 +57,15 @@ const options = reactive({
             <SplideTrack>
                 <SplideSlide v-for="filter in filters" :key="filter.id">
                     <div class="slide-container xs:h-[130px] lg:h-[465px] relative z-10">
-                        <img class="h-full object-cover rounded-2xl" :src="`_nuxt/uploads/${filter.gif}`" alt="">
+                        <img class="h-full object-cover rounded-2xl" :src="setImageUrl(filter.gif)" :alt="filter.alt">
                         <div class="slide-item absolute right-0 left-0 rounded-2xl flex flex-col text-center">
                             <div class="w-[30px] absolute z-50 top-4 left-4">
                                 <img class="inline-block h-full w-full object-cover" src="~/assets/images/icons/icon-tiktok.svg"
-                                    alt="">
+                                    alt="tiktok icon">
                             </div>
                             <div class="absolute w-full bottom-[80px]">
                                 <div class="h-[128px] w-[128px] mx-auto mt-[82px]">
-                                    <img class="inline-block h-full w-full object-cover" :src="`_nuxt/uploads/${filter.image}`"
-                                        alt="">
+                                    <img class="inline-block h-full w-full object-cover" :src="setImageUrl(filter.image)" :alt="filter.alt">
                                 </div>
                                 <span class="text-2xl text-white font-medium capitalize">{{ filter.name }}</span>
                                 <a :href="filter.link"

@@ -76,8 +76,8 @@ const showCategory = () => {
             </nav>
 
             <div
-                :class="['absolute h-[200px] z-30 pb-12 pt-10 w-full top-24 opacity-0 bg-white', isMouseEnter && 'opacity-100']">
-                <ul class="grid grid-cols-3 gap-12 w-1/4 mx-auto">
+                :class="['absolute z-30 pb-12 pt-10 w-full top-24 opacity-0 bg-white', isMouseEnter && 'opacity-100']">
+                <ul class="grid grid-cols-3 gap-12 w-1/2 mx-auto">
                     <li v-for="category in categories" :key="category.id" @click="isMouseEnter = false"
                         class="text-2xl text-[#5F5F5F] capitalize">
                         <NuxtLink :to="`/categories/${category.id}`">{{ category.name }}</NuxtLink>

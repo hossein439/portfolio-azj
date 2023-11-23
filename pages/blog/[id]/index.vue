@@ -2,6 +2,7 @@
 import axios from 'axios';
 import { format } from 'date-fns';
 
+const route = useRoute();
 const isLoadedBlog = ref(false);
 const singleBlog = reactive({
     title: '',
@@ -10,14 +11,14 @@ const singleBlog = reactive({
 });
 
 const setImageUrl = (imageName) => {
-    const path = `../uploads/${imageName}`;
+    const path = `../../../uploads/${imageName}`;
     return new URL(path, import.meta.url).href;
 }
 
-const getLastBlog = async () => {
+const getSingleBlog = async () => {
     const data = await axios({
         method: 'get',
-        url: 'http://localhost:4000/blog/last'
+        url: `http://localhost:4000/blog/${route.params.id}`
     });
     const blog = data.data[0];
     singleBlog.title = blog.title;
@@ -27,7 +28,7 @@ const getLastBlog = async () => {
     console.log(singleBlog.image)
     isLoadedBlog.value = true;
 }
-getLastBlog();
+getSingleBlog();
 
 const showTime = (date, formatDate) => {
     return format(new Date(date), formatDate);
@@ -58,11 +59,10 @@ const getMoreBlogs = async () => {
 getMoreBlogs();
 </script>
 
-
 <template>
     <Title>Blog</Title>
     <section v-if="isLoadedBlog" class="xs:px-4 lg:px-[176px] mt-[34px]">
-        
+
         <div class="xs:h-[138px] lg:h-[446px]">
             <img class="rounded-lg h-full w-full object-cover" :src="setImageUrl(singleBlog?.image)" alt="">
         </div>
@@ -92,26 +92,29 @@ getMoreBlogs();
     <section class="xs:px-4 lg:px-[176px] fade-in">
         <h2 class="text-5xl pt-8 pb-12 text-center font-semibold capitalize text-[#0E101C]">more content</h2>
         <div class="grid lg:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 gap-6">
-            <article v-for="blog in blogs" :key="blog.id" class="flex flex-col gap-2 text-2xl">
-                <div class="xs:h-[316px] lg:h-[406px]">
-                    <!-- <img class="rounded-lg h-full w-full object-cover" src="~/assets/images/client/blog-1.jpeg" alt=""> -->
-                    <img class="rounded-lg h-full w-full object-cover" :src="setImageUrl(blog.image)" alt="">
-                </div>
-                <div class="flex flex-wrap justify-between">
-                    <p class="font-semibold capitalize">{{ blog.title }}</p>
-                    <div class="flex items-center gap-6">
-                        <div class="flex items-center gap-3">
-                            <img src="~/assets/images/icons/clock.svg" alt="">
-                            <time>{{ showTime(blog.created_at, 'HH:mm') }}</time>
+            <template v-for="blog in blogs" :key="blog.id">
+                <NuxtLink :to="`/blog/${blog.id}`">
+                    <article class="flex flex-col gap-2 text-2xl">
+                        <div class="xs:h-[316px] lg:h-[406px]">
+                            <img class="rounded-lg h-full w-full object-cover" :src="setImageUrl(blog.image)" alt="">
                         </div>
-                        <div class="flex items-center gap-3">
-                            <img src="~/assets/images/icons/calendar.svg" alt="">
-                            <time>{{ showTime(blog.created_at, 'yyyy/MM/dd') }}</time>
+                        <div class="flex flex-wrap justify-between">
+                            <p class="font-semibold capitalize">{{ blog.title }}</p>
+                            <div class="flex items-center gap-6">
+                                <div class="flex items-center gap-3">
+                                    <img src="~/assets/images/icons/clock.svg" alt="">
+                                    <time>{{ showTime(blog.created_at, 'HH:mm') }}</time>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <img src="~/assets/images/icons/calendar.svg" alt="">
+                                    <time>{{ showTime(blog.created_at, 'yyyy/MM/dd') }}</time>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <p class="line-clamp-3">{{ blog.description }}</p>
-            </article>
+                        <p class="line-clamp-3">{{ blog.description }}</p>
+                    </article>
+                </NuxtLink>
+            </template>
         </div>
     </section>
 
