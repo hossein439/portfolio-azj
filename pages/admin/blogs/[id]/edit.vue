@@ -71,7 +71,7 @@ const edit = () => {
 
 <template>
     <form @submit.prevent="edit()">
-        <div class="w-1/3 flex flex-col gap-2">
+        <div class="grid grid-cols-2 gap-2">
             <div>
                 <label for="title" class="block text-sm font-medium leading-6 text-gray-900">Title</label>
                 <div class="mt-2">
