@@ -28,14 +28,14 @@ const uiStore = useUiStore()
 
             <ul class="flex flex-col gap-8 items-center relative z-30">
 
-                <li>
+                <li @click="uiStore.isToggled = false">
                     <NuxtLink
                         class="text-2xl border-transparent cursor-pointer text-[#FFFFFF] capitalize py-2 transition-all"
                         to="/">Home
                     </NuxtLink>
                 </li>
 
-                <li>
+                <li @click="uiStore.isToggled = false">
                     <NuxtLink
                         class="text-2xl border-transparent cursor-pointer text-[#FFFFFF] capitalize py-2 transition-all"
                         href="/about">about me
@@ -48,7 +48,7 @@ const uiStore = useUiStore()
                     </button>
                 </li>
 
-                <li>
+                <li @click="uiStore.isToggled = false">
                     <NuxtLink
                         class="text-2xl border-transparent cursor-pointer text-[#FFFFFF] capitalize py-2 transition-all"
                         href="/blog">Blog
@@ -68,7 +68,7 @@ const uiStore = useUiStore()
             </div>
 
             <ul class="flex flex-col items-center h-full overflow-auto pb-5 gap-8">
-                <li v-for="category in categories" :key="category.id" class="text-2xl text-[#5F5F5F] capitalize">
+                <li v-for="category in categories" :key="category.id" @click="uiStore.isToggled = false" class="text-2xl text-[#5F5F5F] capitalize">
                     <NuxtLink :to="`/categories/${category.id}`">{{ category.name }}</NuxtLink>
                 </li>
             </ul>
