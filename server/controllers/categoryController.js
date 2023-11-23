@@ -52,7 +52,7 @@ module.exports = {
     },
 
     async read(req, res) {
-        const getFilters = await db.query('SELECT * FROM categories ORDER BY created_at');
+        const getFilters = await db.query('SELECT * FROM categories ORDER BY created_at DESC');
         res.send(getFilters);
     },
 

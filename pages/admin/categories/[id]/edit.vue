@@ -58,7 +58,7 @@ const edit = async () => {
     formData.append('exFileName', exFile.value);
     formData.append('isChangedImage', isChangedImage.value);
 
-    axios.put(`http://localhost:4000/category/${route.params.id}`, formData)
+    await axios.put(`http://localhost:4000/category/${route.params.id}`, formData)
 
 
     successAlert('Updated', 'You updated a category');

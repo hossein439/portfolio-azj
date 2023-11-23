@@ -29,7 +29,7 @@ const create = async () => {
     formData.append('alt', category.alt);
     formData.append('image', category.image);
 
-    axios({
+    await axios({
         method: 'post',
         url: 'http://localhost:4000/category',
         data: formData

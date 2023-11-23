@@ -1,5 +1,8 @@
 <script setup>
 import axios from 'axios';
+import { useUiStore } from '@/stores/panel/ui'
+
+const uiStore = useUiStore()
 
 const categories = ref([]);
 const getGategories = async () => {
@@ -15,79 +18,17 @@ getGategories();
 const isMouseEnter = ref(false);
 const showCategory = () => {
     isMouseEnter.value = true;
-    // document.querySelector('.router-link-active').classList.remove('router-link-active');
 }
 
-onMounted(() => {
-    const btnTimes = document.querySelector('#close-btn');
-    const btnHamberger = document.querySelector('#open-btn');
-    const menuElement = document.querySelector("#menu");
-
-    [btnTimes, btnHamberger].forEach((item) => {
-        item.addEventListener('click', (e) => {
-            const { status } = e.currentTarget.dataset;
-            const currentElement = e.currentTarget;
-            if (status === 'open') {
-                menuElement.classList.remove('-right-full');
-            }
-            if (status === 'close') {
-                menuElement.classList.add('-right-full');
-            }
-        });
-    })
-})
 </script>
 
 <template>
-    <div id="menu" class="h-screen fixed w-full z-[60] top-0 -right-full flex flex-col gap-12 bg-[#1C1C1C]">
-        <div class="flex justify-between px-4 py-[50px]">
-            <!-- <img src="~/assets/images/client/logo.svg" alt=""> -->
-            <IconsLogoIcon></IconsLogoIcon>
-            <button id="close-btn" data-status="close">
-                <img src="~/assets/images/icons/times.svg" alt="">
-            </button>
-        </div>
-
-        <ul class="flex flex-col gap-8 items-center relative z-30">
-
-            <li>
-                <NuxtLink
-                    class="text-2xl border-transparent cursor-pointer text-[#FFFFFF] capitalize py-2 transition-all"
-                    to="/">Home
-                </NuxtLink>
-            </li>
-
-            <li>
-                <NuxtLink
-                    class="text-2xl border-transparent cursor-pointer text-[#FFFFFF] capitalize py-2 transition-all"
-                    href="/about">about me
-                </NuxtLink>
-            </li>
-
-            <li @mouseover="showCategory()" class="flex flex-col items-center">
-                <button
-                    class="text-2xl border-transparent cursor-pointer text-[#FFFFFF] capitalize py-2 transition-all"
-                    href="#">Categories
-                </button>
-            </li>
-
-            <li>
-                <NuxtLink
-                    class="text-2xl border-transparent cursor-pointer text-[#FFFFFF] capitalize py-2 transition-all"
-                    href="/blog">Blog
-                </NuxtLink>
-            </li>
-
-        </ul>
-    </div>
+    <ViewComponentMoblieNav></ViewComponentMoblieNav>
     <header class="relative overflow-hidden transition-all bg-home-page">
         <div class="relative flex flex-col justify-between  xs:h-screen lg:h-auto">
             <nav class="lg:hidden xs:flex justify-between px-4 py-[50px]">
-                <!-- <img src="~/assets/images/client/logo.svg" alt=""> -->
                 <IconsLogoIcon></IconsLogoIcon>
-                <button id="open-btn" data-status="open">
-                    <img src="~/assets/images/icons/menu.svg" alt="">
-                </button>
+                <ViewComponentHamburgerMenu></ViewComponentHamburgerMenu>
             </nav>
 
             <nav :class="['xs:hidden lg:flex justify-evenly items-center py-8', isMouseEnter && 'bg-white relative z-30']">
