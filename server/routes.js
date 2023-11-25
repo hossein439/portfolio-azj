@@ -47,7 +47,7 @@ router.delete('/collaboration/:id/:image', collaborationController.delete);
 // Settings Routes
 router.post('/setting', upload.single('image'), settingController.create);
 router.get('/setting', settingController.read);
-router.get('/setting/:id', settingController.single);
+router.get('/setting/:meta', settingController.single);
 router.put('/setting/:id', upload.single('image'),settingController.update);
 router.delete('/setting/:id/:image', settingController.delete);
 

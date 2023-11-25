@@ -33,12 +33,18 @@ module.exports = {
     async create(req, res) {
         try {
 
-            const { alt } = req.body;
+            const { alt, text, meta } = req.body;
             const image = saveImage(req.file);
             const date = new Date();
 
+            const data = JSON.stringify({
+                image,
+                alt,
+                text,
+            });
+
             const createSettings = await db.query(
-                `INSERT INTO settings (image, alt, created_at) VALUES ('${image}', '${alt}', '${format(date, 'yyyy-MM-dd HH:mm')}')`
+                `INSERT INTO settings (data, meta, created_at) VALUES ('${data}', '${meta}', '${format(date, 'yyyy-MM-dd HH:mm')}')`
             );
 
             if (createSettings) {
@@ -58,8 +64,8 @@ module.exports = {
     },
 
     async single(req, res) {
-        const { id } = req.params;
-        const getCollaborationWithId = await db.query(`SELECT * FROM settings WHERE id='${id}'`);
+        const { meta } = req.params;
+        const getCollaborationWithId = await db.query(`SELECT * FROM settings WHERE meta='${meta}'`);
         res.send(getCollaborationWithId);
     },
 

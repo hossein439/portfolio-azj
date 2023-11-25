@@ -1,9 +1,11 @@
 <script setup>
 import axios from 'axios'
 import { format } from 'date-fns';
+
 definePageMeta({
     layout: "customheader",
 });
+
 
 const isLoadedBlog = ref(false);
 const singleBlog = reactive({
@@ -45,7 +47,8 @@ getLastBlog();
             <article
                 class="xs:p-4 lg:px-[85px] rounded-2xl lg:py-16 shadow-[2px_2px_5px_0px_rgba(53,53,53,0.50)] bg-[#FFF] text-[#0E101C]">
                 <h2 class="text-5xl leading-[76px] font-semibold capitalize">about me</h2>
-                <p class="xs:pt-6 xs:pb-8 lg:pt-12 lg:pb-16">Hi! I’m Jawad, also known as <strong class="text-[#025EFF]">AZJ</strong>. I weave
+                <p class="xs:pt-6 xs:pb-8 lg:pt-12 lg:pb-16">Hi! I’m Jawad, also known as <strong
+                        class="text-[#025EFF]">AZJ</strong>. I weave
                     AR magic as a
                     TikTok Effect House Ambassador,
                     spreading joy and wonder. Let's create enchanting experiences together!</p>
@@ -107,7 +110,8 @@ getLastBlog();
         <div class="divider"></div>
 
         <section class="xs:px-4 lg:px-[176px] fade-in">
-            <h4 class="xs:text-[32px] lg:text-5xl lg:leading-[76px] font-semibold text-center">Ready to see your ideas <br /> Come to life?
+            <h4 class="xs:text-[32px] lg:text-5xl lg:leading-[76px] font-semibold text-center">Ready to see your ideas
+                <br /> Come to life?
             </h4>
             <ViewComponentBaseButton class="mx-auto mt-4">get in touch</ViewComponentBaseButton>
         </section>

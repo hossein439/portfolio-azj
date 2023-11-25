@@ -4,6 +4,24 @@ import { useUiStore } from '@/stores/panel/ui'
 
 const uiStore = useUiStore()
 
+const landingData = reactive({
+    text: null,
+    image: null,
+    alt: null 
+});
+const getImageLanding = async () => {
+    const data = await uiStore.getImageLanding();
+    landingData.text = data.text
+    landingData.image = data.image
+    landingData.alt = data.alt
+}
+getImageLanding();
+
+const setImageUrl = (imageName) => {
+    const path = `../uploads/${imageName}`;
+    return new URL(path, import.meta.url).href;
+}
+
 const categories = ref([]);
 const getGategories = async () => {
     const data = await axios({
@@ -89,20 +107,17 @@ const showCategory = () => {
             <div class="lg:pt-[245px]">
 
                 <div class="bg-user-mobile absolute z-10 bottom-0 w-full px-10">
-                    <img class="xs:inline-block lg:hidden w-full mx-auto" src="~/assets/images/client/user.png" alt="">
-                    <img class="xs:hidden lg:flex mx-auto" width="500" src="~/assets/images/client/userimg-desktop.png"
-                        alt="">
+                    <img class="xs:inline-block lg:hidden w-full mx-auto capitalize" :src="setImageUrl(landingData.image)" :alt="landingData.alt">
+                    <img class="xs:hidden lg:flex mx-auto capitalize" width="500" :src="setImageUrl(landingData.image)"
+                        :alt="landingData.alt">
                 </div>
-
                 <div class="overflow-hidden lg:px-12">
                     <h1
                         class="to-right lg:text-[225px] lg:leading-[194px] -z-10 bottom-[12rem] font-bold whitespace-nowrap text-[62.877px] text-[#1C1C1C]">
-                        AZJ
-                        EFFECTS AZJ EFFECTS AZJ EFFECTS</h1>
+                        {{landingData.text}}</h1>
                     <h1
                         class="to-left lg:text-[225px] lg:leading-[194px] -z-10 bottom-[7rem] font-bold whitespace-nowrap text-[62.877px] text-[#025EFF]">
-                        AZJ
-                        EFFECTS AZJ EFFECTS AZJ EFFECTS</h1>
+                        {{landingData.text}}</h1>
                 </div>
             </div>
         </div>
