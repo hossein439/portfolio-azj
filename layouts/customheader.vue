@@ -7,7 +7,7 @@ const uiStore = useUiStore()
 const landingData = reactive({
     text: null,
     image: null,
-    alt: null 
+    alt: null
 });
 const getImageLanding = async () => {
     const data = await uiStore.getImageLanding();
@@ -34,9 +34,7 @@ const getGategories = async () => {
 getGategories();
 
 const isMouseEnter = ref(false);
-const showCategory = () => {
-    isMouseEnter.value = true;
-}
+
 
 </script>
 
@@ -71,7 +69,7 @@ const showCategory = () => {
                             </NuxtLink>
                         </li>
 
-                        <li @mouseover="showCategory()" class="flex flex-col items-center">
+                        <li @mouseover="isMouseEnter = true" class="flex flex-col items-center">
                             <button
                                 class="nav-item text-2xl border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
                                 href="#">Categories
@@ -86,7 +84,7 @@ const showCategory = () => {
                         </li>
 
                     </ul>
-                    <ViewComponentBaseButton size="2xl" class="ml-16">
+                    <ViewComponentBaseButton size="2xl" class="ml-16 relative z-20">
                         contact
                     </ViewComponentBaseButton>
                 </div>
@@ -102,22 +100,23 @@ const showCategory = () => {
                 </ul>
             </div>
 
-            <div v-show="isMouseEnter" @mouseover="isMouseEnter = false" class="absolute inset-0 overllay"></div>
+            <div v-show="isMouseEnter" @mouseover="isMouseEnter = false" class="fixed inset-0 overllay"></div>
 
             <div class="lg:pt-[245px]">
 
                 <div class="bg-user-mobile absolute z-10 bottom-0 w-full px-10">
-                    <img class="xs:inline-block lg:hidden w-full mx-auto capitalize" :src="setImageUrl(landingData.image)" :alt="landingData.alt">
+                    <img class="xs:inline-block lg:hidden w-full mx-auto capitalize" :src="setImageUrl(landingData.image)"
+                        :alt="landingData.alt">
                     <img class="xs:hidden lg:flex mx-auto capitalize" width="500" :src="setImageUrl(landingData.image)"
                         :alt="landingData.alt">
                 </div>
                 <div class="overflow-hidden lg:px-12">
                     <h1
                         class="to-right lg:text-[225px] lg:leading-[194px] -z-10 bottom-[12rem] font-bold whitespace-nowrap text-[62.877px] text-[#1C1C1C]">
-                        {{landingData.text}}</h1>
+                        {{ landingData.text }}</h1>
                     <h1
                         class="to-left lg:text-[225px] lg:leading-[194px] -z-10 bottom-[7rem] font-bold whitespace-nowrap text-[62.877px] text-[#025EFF]">
-                        {{landingData.text}}</h1>
+                        {{ landingData.text }}</h1>
                 </div>
             </div>
         </div>
@@ -244,4 +243,5 @@ const showCategory = () => {
     backdrop-filter: blur(50px);
     z-index: 20;
 }
+
 </style>

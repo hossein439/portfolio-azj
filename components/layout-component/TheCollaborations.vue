@@ -78,8 +78,5 @@ onMounted(() => {
         transform: translateY(0);
     }
 }
-/* 
-.container {
-    display: flex;
-} */
+
 </style>

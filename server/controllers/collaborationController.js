@@ -54,7 +54,7 @@ module.exports = {
     },
 
     async read(req, res) {
-        const getAllCollaborations = await db.query('SELECT * FROM collaborations ORDER BY created_at');
+        const getAllCollaborations = await db.query('SELECT * FROM collaborations ORDER BY created_at DESC');
         res.send(getAllCollaborations);
     },
 

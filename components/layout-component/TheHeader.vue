@@ -15,7 +15,6 @@ getGategories();
 const isMouseEnter = ref(false);
 const showCategory = () => {
     isMouseEnter.value = true;
-    // document.querySelector('.router-link-active').classList.remove('router-link-active');
 }
 
 
@@ -87,7 +86,7 @@ const showCategory = () => {
 
         </div>
     </header>
-    <div v-show="isMouseEnter" @mouseover="isMouseEnter = false" class="absolute inset-0 overllay"></div>
+    <div v-show="isMouseEnter" @mouseover="isMouseEnter = false" class="fixed inset-0 overllay"></div>
 </template>
 
 <style scoped>

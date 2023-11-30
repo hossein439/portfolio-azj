@@ -69,13 +69,13 @@ module.exports = {
 
     async read(req, res) {
         const { offset = 0, limit = 6 } = req.query;
-        const getEffects = await db.query(`SELECT effects.id, effects.name, effects.image, effects.alt, effects.link, effects.gif, effects.category_id, categories.name AS categoryName FROM effects CROSS JOIN categories WHERE effects.category_id = categories.id ORDER BY effects.created_at LIMIT ${offset}, ${limit}`)
+        const getEffects = await db.query(`SELECT effects.id, effects.name, effects.image, effects.alt, effects.link, effects.gif, effects.category_id, categories.name AS categoryName FROM effects CROSS JOIN categories WHERE effects.category_id = categories.id ORDER BY effects.created_at DESC LIMIT ${offset}, ${limit}`)
         res.send(getEffects);
     },
 
     async readAll(req, res) {
         const { offset = 0, limit = 6 } = req.query;
-        const getEffects = await db.query(`SELECT effects.id, effects.name, effects.image, effects.alt, effects.link, effects.gif, effects.category_id, categories.name AS categoryName FROM effects CROSS JOIN categories WHERE effects.category_id = categories.id ORDER BY effects.created_at`)
+        const getEffects = await db.query(`SELECT effects.id, effects.name, effects.image, effects.alt, effects.link, effects.gif, effects.category_id, categories.name AS categoryName FROM effects CROSS JOIN categories WHERE effects.category_id = categories.id ORDER BY effects.created_at DESC`)
         res.send(getEffects);
     },
 

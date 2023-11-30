@@ -10,7 +10,6 @@ defineProps({
 const effects = ref([]);
 const limit = 6;
 const isExistEffects = ref(false);
-const moreEffect = ref(null);
 let offset = 0;
 
 const getAllEffects = async () => {
@@ -51,8 +50,8 @@ getAllEffects();
                             <img class="mx-auto object-contain border-2 border-transparent transition-all"
                                 :src="setImageUrl(effect.image)" :alt="effect.alt">
                         </div>
-                        <div class="xs:hidden bg-second"></div>
-                        <div class="xs:hidden bg-third"></div>
+                        <div class="xs:hidden md:block bg-second"></div>
+                        <div class="xs:hidden md:block bg-third"></div>
                     </div>
                 </a>
             </template>
