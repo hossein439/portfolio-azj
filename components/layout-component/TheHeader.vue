@@ -65,7 +65,7 @@ const showCategory = () => {
                                 href="/blog">Blog
                             </NuxtLink>
                         </li>
-                    </ul>
+                    </ul>   
 
                     <ViewComponentBaseButton size="2xl" class="ml-16">
                         contact
