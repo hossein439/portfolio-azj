@@ -1,6 +1,7 @@
 const db = require('../db/mysql.js');
 const fs = require('fs');
 const { format } = require('date-fns');
+const supabase = require('../subbase.js')
 
 
 const saveImage = (file) => {
@@ -59,8 +60,15 @@ module.exports = {
     },
 
     async read(req, res) {
-        const getAllCollaborations = await db.query('SELECT * FROM settings ORDER BY created_at');
-        res.send(getAllCollaborations);
+        // const getAllCollaborations = await db.query('SELECT * FROM settings ORDER BY created_at');
+
+        let { data: collaborations, error } = await supabase
+            .from('collaborations')
+            .select('*')
+
+        // res.send(getAllCollaborations);
+        console.log(collaborations);
+        res.send(collaborations)
     },
 
     async single(req, res) {
@@ -76,7 +84,7 @@ module.exports = {
         if (isChangedImage && req.file) {
 
             removeImage(exFileName);
-            const imageCreated = saveImage(req.file);    
+            const imageCreated = saveImage(req.file);
 
             const updateCollaborationWithId = await db.query(`UPDATE settings SET image='${imageCreated}', link='${link}' WHERE id='${id}'`);
 
