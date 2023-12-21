@@ -3,7 +3,9 @@ module.exports = {
         {
             name: 'nuxt-app',
             script: ".output/server/index.mjs",
-            port: 3001
+            env: {
+                "PORT": 3001,
+            }
         }
     ]
 }
