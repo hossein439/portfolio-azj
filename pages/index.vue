@@ -98,12 +98,12 @@ singleBlog.alt = blog.alt;
                     <div class="flex items-center gap-3">
                         <img src="~/assets/images/icons/clock.svg" alt="">
                         <time>
-                            {{ showTime(singleBlog?.created_at, 'HH:mm') }}
+                            {{ singleBlog?.created_at }}
                         </time>
                     </div>
                     <div class="flex items-center gap-3">
                         <img src="~/assets/images/icons/calendar.svg" alt="calendar icon">
-                        {{ showTime(singleBlog?.created_at, 'yyyy/MM/dd') }}
+                        {{ singleBlog?.created_at }}
                     </div>
                 </div>
             </div>

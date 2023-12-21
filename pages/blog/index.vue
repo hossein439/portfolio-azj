@@ -30,7 +30,7 @@ const getLastBlog = async () => {
 getLastBlog();
 
 const showTime = (date, formatDate) => {
-    return format(new Date(date), formatDate);
+    // return format(new Date(date), formatDate);
 }
 
 
@@ -73,12 +73,12 @@ getMoreBlogs();
                 <div class="flex items-center xs:gap-2 lg:gap-3">
                     <img src="~/assets/images/icons/clock.svg" alt="">
                     <time>
-                        {{ showTime(singleBlog.created_at, 'HH:mm') }}
+                        {{ singleBlog?.created_at }}
                     </time>
                 </div>
                 <div class="flex items-center xs:gap-2 lg:gap-3">
                     <img src="~/assets/images/icons/calendar.svg" alt="">
-                    {{ showTime(singleBlog.created_at, 'yyyy/MM/dd') }}
+                    {{ singleBlog?.created_at }}
                 </div>
             </div>
         </div>
@@ -104,11 +104,11 @@ getMoreBlogs();
                             <div class="flex items-center gap-6">
                                 <div class="flex items-center gap-3">
                                     <img src="~/assets/images/icons/clock.svg" alt="">
-                                    <time>{{ showTime(blog.created_at, 'HH:mm') }}</time>
+                                    <time>{{ blog.created_at }}</time>
                                 </div>
                                 <div class="flex items-center gap-3">
                                     <img src="~/assets/images/icons/calendar.svg" alt="">
-                                    <time>{{ showTime(blog.created_at, 'yyyy/MM/dd') }}</time>
+                                    <time>{{ blog.created_at }}</time>
                                 </div>
                             </div>
                         </div>
