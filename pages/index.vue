@@ -1,12 +1,13 @@
 <script setup>
-import { format } from 'date-fns';
+// import { format } from 'date-fns';
+import { format } from 'date-fns-tz';
+
 
 definePageMeta({
     layout: "customheader",
 });
 
 
-const isLoadedBlog = ref(false);
 const singleBlog = reactive({
     title: null,
     created_at: null,
@@ -17,12 +18,12 @@ const singleBlog = reactive({
 
 const setImageUrl = (imageName) => {
     const path = `${imageName}`;
-    console.log(import.meta)
     return new URL(path, import.meta.url).href;
 }
 
 const showTime = (date, formatDate) => {
-    return format(new Date(date), formatDate);
+    console.log(date)
+    // return format(new Date(date), formatDate, { timeZone: 'Europe/Berlin' });
 }
 
 // const getLastBlog = async () => {
@@ -62,7 +63,7 @@ singleBlog.alt = blog.alt;
                     TikTok Effect House Ambassador,
                     spreading joy and wonder. Let's create enchanting experiences together!</p>
 
-                <RouterLink to="about">
+                <RouterLink to="/about">
                     <ViewComponentBaseButton class="mx-auto">more</ViewComponentBaseButton>
                 </RouterLink>
             </article>

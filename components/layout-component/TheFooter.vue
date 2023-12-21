@@ -54,7 +54,7 @@
                     class="py-2 capitalize text-2xl text-[#5F5F5F] hover:text-[#E6EFFF] transition-all">about me
                 </RouterLink>
 
-                <RouterLink to="category/2"
+                <RouterLink to="/category/2"
                     class="py-2 capitalize text-2xl text-[#5F5F5F] hover:text-[#E6EFFF] transition-all">category
                 </RouterLink>
 
