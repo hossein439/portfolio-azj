@@ -1,7 +1,9 @@
 const db = require('../db/mysql.js');
 const fs = require('fs');
 const { format } = require('date-fns');
+const supabase = require('../subbase.js')
 
+const nameOfTable = 'categories'
 
 const saveImage = (file) => {
     const filename = file.filename;
@@ -36,12 +38,19 @@ module.exports = {
             const image = saveImage(req.file);
             const date = new Date();
 
-            const blogCreated = await db.query(
-                `INSERT INTO categories (name, image, description, alt, created_at) VALUES ('${name}', '${image}', '${description}', '${alt}', '${format(date, 'yyyy-MM-dd HH:mm')}')`
-            );
-            
-            if (blogCreated) {
-                res.send(blogCreated);
+            // const blogCreated = await db.query(
+            //     `INSERT INTO categories (name, image, description, alt, created_at) VALUES ('${name}', '${image}', '${description}', '${alt}', '${format(date, 'yyyy-MM-dd HH:mm')}')`
+            // );
+
+            const { data: categories, error } = await supabase
+                .from(nameOfTable)
+                .insert([
+                    { name, image, description, alt, created_at: format(date, 'yyyy-MM-dd HH:mm') },
+                ])
+                .select()
+
+            if (categories) {
+                res.send(categories);
             } else {
                 res.status(404).send('not found');
             }
@@ -52,14 +61,28 @@ module.exports = {
     },
 
     async read(req, res) {
-        const getFilters = await db.query('SELECT * FROM categories ORDER BY created_at DESC');
-        res.send(getFilters);
+        // const getFilters = await db.query('SELECT * FROM categories ORDER BY created_at DESC');
+
+        let { data: categories, error } = await supabase
+            .from(nameOfTable)
+            .select('*')
+            .order('created_at', { ascending: false })
+
+        res.send(categories);
     },
 
     async single(req, res) {
         const { id } = req.params;
-        const getFilterWithId = await db.query(`SELECT * FROM categories WHERE id='${id}'`);
-        res.send(getFilterWithId);
+
+        // const getFilterWithId = await db.query(`SELECT * FROM categories WHERE id='${id}'`);
+
+        let { data: categories, error } = await supabase
+            .from(nameOfTable)
+            .select('*')
+            .eq('id', id)
+
+
+        res.send(categories);
     },
 
     async update(req, res) {
@@ -69,15 +92,29 @@ module.exports = {
         if (isChangedImage && req.file) {
 
             removeImage(exFileName);
-            const imageCreated = saveImage(req.file);    
+            const imageCreated = saveImage(req.file);
 
-            const updateFilterWithId = await db.query(`UPDATE categories SET name='${name}', image='${imageCreated}', description='${description}', alt='${alt}' WHERE id='${id}'`);
+            // const updateFilterWithId = await db.query(`UPDATE categories SET name='${name}', image='${imageCreated}', description='${description}', alt='${alt}' WHERE id='${id}'`);
 
-            res.send(updateFilterWithId);
+            const { data: updateCategory, error } = await supabase
+                .from(nameOfTable)
+                .update({ name, image: imageCreated, description, alt })
+                .eq('id', id)
+                .select()
+
+
+            res.send(updateCategory);
         } else {
-            const updateFilterWithId = await db.query(`UPDATE categories SET name='${name}', description='${description}', alt='${alt}' WHERE id='${id}'`);
 
-            res.send(updateFilterWithId);
+            // const updateFilterWithId = await db.query(`UPDATE categories SET name='${name}', description='${description}', alt='${alt}' WHERE id='${id}'`);
+
+            const { data: updateCategory, error } = await supabase
+                .from(nameOfTable)
+                .update({ name, description, alt })
+                .eq('id', id)
+                .select()
+
+            res.send(updateCategory);
         }
 
     },
@@ -85,8 +122,19 @@ module.exports = {
     async delete(req, res) {
         const { id, image } = req.params;
         removeImage(image);
-        const deleteFilterWithId = await db.query(`DELETE FROM categories WHERE id='${id}'`);
-        res.send(deleteFilterWithId);
+
+        // const deleteFilterWithId = await db.query(`DELETE FROM categories WHERE id='${id}'`);
+
+        const { error } = await supabase
+            .from(nameOfTable)
+            .delete()
+            .eq('id', id)
+
+        if (error) {
+            res.status(400).send(`${nameOfTable} not deleted`);
+        } else {
+            res.send('okay');
+        }
     }
 
 }

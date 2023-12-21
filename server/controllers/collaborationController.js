@@ -3,6 +3,7 @@ const fs = require('fs');
 const { format } = require('date-fns');
 const supabase = require('../subbase.js')
 
+const nameOfTable = 'collaborations'
 
 const saveImage = (file) => {
     const filename = file.filename;
@@ -44,7 +45,7 @@ module.exports = {
 
 
             const { data: createCollaborations, error } = await supabase
-                .from('collaborations')
+                .from(nameOfTable)
                 .insert([
                     { image, link, alt, created_at: format(date, 'yyyy-MM-dd HH:mm') },
                 ])
@@ -66,12 +67,12 @@ module.exports = {
         // const getAllCollaborations = await db.query('SELECT * FROM collaborations ORDER BY created_at DESC');
         // res.send(getAllCollaborations);
 
-        let { data: collaborations, error } = await supabase
-            .from('collaborations')
+        let { data: readAllCollaborations, error } = await supabase
+            .from(nameOfTable)
             .select('*')
             .order('created_at', { ascending: false })
 
-        res.send(collaborations)
+        res.send(readAllCollaborations)
     },
 
     async single(req, res) {
@@ -79,12 +80,12 @@ module.exports = {
         // const getCollaborationWithId = await db.query(`SELECT * FROM collaborations WHERE id='${id}'`);
         // res.send(getCollaborationWithId);
 
-        let { data: collaborations, error } = await supabase
-            .from('collaborations')
+        let { data: singleCollaborations, error } = await supabase
+            .from(nameOfTable)
             .select('*')
             .eq('id', id)
 
-        res.send(collaborations)
+        res.send(singleCollaborations)
     },
 
     async update(req, res) {
@@ -99,8 +100,8 @@ module.exports = {
             // const updateCollaborationWithId = await db.query(`UPDATE collaborations SET image='${imageCreated}', link='${link}' WHERE id='${id}'`);
 
 
-            const { data:updateCollaborationWithId, error } = await supabase
-                .from('collaborations')
+            const { data: updateCollaborationWithId, error } = await supabase
+                .from(nameOfTable)
                 .update({ image: imageCreated, link, alt })
                 .eq('id', id)
                 .select()
@@ -110,11 +111,11 @@ module.exports = {
         } else {
             // const updateCollaborationWithId = await db.query(`UPDATE collaborations SET link='${link}' WHERE id='${id}'`);
 
-            const { data:updateCollaborationWithId, error } = await supabase
-            .from('collaborations')
-            .update({ link, alt })
-            .eq('id', id)
-            .select()
+            const { data: updateCollaborationWithId, error } = await supabase
+                .from(nameOfTable)
+                .update({ link, alt })
+                .eq('id', id)
+                .select()
 
             res.send(updateCollaborationWithId);
         }
@@ -127,10 +128,14 @@ module.exports = {
         // const deleteCollaborationWithId = await db.query(`DELETE FROM collaborations WHERE id='${id}'`);
 
         const { error } = await supabase
-            .from('collaborations')
+            .from(nameOfTable)
             .delete()
             .eq('id', id)
 
-        res.send(error);
+        if (error) {
+            res.status(400).send(`${nameOfTable} not deleted`);
+        } else {
+            res.send('okay');
+        }
     }
 }

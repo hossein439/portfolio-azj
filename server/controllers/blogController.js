@@ -3,7 +3,7 @@ const fs = require('fs');
 const { format } = require('date-fns');
 const supabase = require('../subbase.js')
 
-
+const nameOfTable = 'blogs'
 
 const saveImage = (file) => {
     console.log(file)
@@ -45,7 +45,7 @@ module.exports = {
             // );
 
             const { data: blogCreated, error } = await supabase
-                .from('blogs')
+                .from(nameOfTable)
                 .insert([
                     { title, image, description, alt, created_at: format(date, 'yyyy-MM-dd HH:mm') },
                 ])
@@ -69,7 +69,7 @@ module.exports = {
         // const getBlogs = await db.query(`SELECT * FROM blogs ORDER BY created_at DESC LIMIT ${offset}, ${limit}`);
 
         let { data: getBlogs, error } = await supabase
-            .from('blogs')
+            .from(nameOfTable)
             .select('*')
             .order('created_at', { ascending: false })
             .range(offset, offset + limit - 1)
@@ -81,7 +81,7 @@ module.exports = {
     async readAll(req, res) {
         // const getBlogs = await db.query(`SELECT * FROM blogs ORDER BY created_at DESC`);
         let { data: getBlogs, error } = await supabase
-            .from('blogs')
+            .from(nameOfTable)
             .select('*')
             .order('created_at', { ascending: false })
         res.send(getBlogs);
@@ -92,7 +92,7 @@ module.exports = {
         // const getFilterWithId = await db.query(`SELECT * FROM blogs WHERE id='${id}' ORDER BY created_at DESC LIMIT 1`);
 
         let { data: getFilterWithId, error } = await supabase
-            .from('blogs')
+            .from(nameOfTable)
             .select('*')
             .eq('id', id)
         res.send(getFilterWithId);
@@ -101,7 +101,7 @@ module.exports = {
     async getLast(req, res) {
         // const getFilterWithId = await db.query(`SELECT * FROM blogs ORDER BY created_at DESC LIMIT 1`);
         let { data: getFilterWithId, error } = await supabase
-            .from('blogs')
+            .from(nameOfTable)
             .select('*')
             .order('created_at', { ascending: false })
             .limit(1)
@@ -121,7 +121,7 @@ module.exports = {
 
 
             const { data: updateFilterWithId, error } = await supabase
-                .from('blogs')
+                .from(nameOfTable)
                 .update({ image: imageCreated, title, alt, description })
                 .eq('id', id)
                 .select()
@@ -133,7 +133,7 @@ module.exports = {
             // const updateFilterWithId = await db.query(`UPDATE blogs SET title='${title}', alt='${alt}',description='${description}' WHERE id='${id}'`);
 
             const { data: updateFilterWithId, error } = await supabase
-                .from('blogs')
+                .from(nameOfTable)
                 .update({ title, alt, description })
                 .eq('id', id)
                 .select()
@@ -148,7 +148,7 @@ module.exports = {
         // const deleteFilterWithId = await db.query(`DELETE FROM blogs WHERE id='${id}'`);
 
         const { error } = await supabase
-            .from('blogs')
+            .from(nameOfTable)
             .delete()
             .eq('id', id)
 
