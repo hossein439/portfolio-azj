@@ -13,7 +13,6 @@
     "vue": "latest"
   },
   "devDependencies": {
-    "@nuxtjs/proxy": "^2.1.0",
     "@nuxtjs/tailwindcss": "^6.6.5",
     "nuxt": "^3.6.1"
   },

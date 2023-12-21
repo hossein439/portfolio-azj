@@ -14,5 +14,5 @@ export default defineNuxtConfig({
             src: '~/plugins/animation.client.js',
             mode: 'client'
         },
-    ]
+    ],
 })
