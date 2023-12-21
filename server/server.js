@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 // app.use(express.json());
 
 app.use(function (req, res, next) {
-    const originAllow = ['http://localhost:3000', 'http://localhost:3001'];
+    const originAllow = ['http://localhost:3000', 'http://localhost:3001', 'http://jawaty.com'];
     const origin = req.headers.origin;
     if (originAllow.includes(origin)) {
         res.header("Access-Control-Allow-Origin", origin);
