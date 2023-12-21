@@ -1,4 +1,4 @@
-const db = require('../db/mysql.js');
+// const db = require('../db/mysql.js');
 const fs = require('fs');
 const { format } = require('date-fns');
 const supabase = require('../subbase.js')
@@ -44,8 +44,6 @@ module.exports = {
             //     `INSERT INTO blogs (title, image, description, alt, created_at) VALUES ('${title}', '${image}', '${description}', '${alt}', '${format(date, 'yyyy-MM-dd HH:mm')}')`
             // );
 
-
-
             const { data: blogCreated, error } = await supabase
                 .from('blogs')
                 .insert([
@@ -53,8 +51,6 @@ module.exports = {
                 ])
                 .select()
 
-            console.log(error)
-            console.log('supabase', blogCreated)
 
             if (blogCreated) {
                 res.send(blogCreated);
@@ -89,7 +85,6 @@ module.exports = {
             .select('*')
             .order('created_at', { ascending: false })
         res.send(getBlogs);
-        console.log(error)
     },
 
     async single(req, res) {
@@ -101,7 +96,6 @@ module.exports = {
             .select('*')
             .eq('id', id)
         res.send(getFilterWithId);
-        console.log('supabse single')
     },
 
     async getLast(req, res) {

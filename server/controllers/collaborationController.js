@@ -50,8 +50,6 @@ module.exports = {
                 ])
                 .select()
 
-            console.log(error)
-
 
             if (createCollaborations) {
                 res.send(createCollaborations);
@@ -71,7 +69,7 @@ module.exports = {
         let { data: collaborations, error } = await supabase
             .from('collaborations')
             .select('*')
-            .order('id', { ascending: false })
+            .order('created_at', { ascending: false })
 
         res.send(collaborations)
     },
@@ -92,8 +90,6 @@ module.exports = {
     async update(req, res) {
         const { id } = req.params;
         const { link, isChangedImage, exFileName, alt } = req.body;
-
-        console.log(alt)
 
         if (isChangedImage && req.file) {
 
