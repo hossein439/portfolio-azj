@@ -84,7 +84,7 @@ const setImageUrl = (imageName) => {
                         <p v-if="showCategory" class="flex items-center gap-2">
                             <IconsMenuIcon class="xs:w-[11px] lg:w-[24px] xs:h-[11px] lg:h-[24px]"></IconsMenuIcon>
                             <!-- <img src="~/assets/images/icons/menu.svg" alt=""> -->
-                            <span class="xs:text-[11px] lg:text-[28px] font-medium capitalize">{{ filter.categoryName }}</span>
+                            <span class="xs:text-[11px] lg:text-[28px] font-medium capitalize">{{ filter.categories.name }}</span>
                         </p>
                     </div>
                 </SplideSlide>

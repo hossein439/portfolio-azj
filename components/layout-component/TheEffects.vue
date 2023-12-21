@@ -24,7 +24,8 @@ const getAllEffects = async () => {
     effects.value = [...effects.value, ...data.data];
     if (data.data.length < limit) isExistEffects.value = true;
     if (data.data.length > 0) {
-        offset += effects.value.length;
+        // offset += effects.value.length;
+        offset += limit;
     }
 }
 
