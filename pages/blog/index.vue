@@ -51,7 +51,8 @@ const getMoreBlogs = async () => {
     blogs.value = [...blogs.value, ...data.data];
     if (data.data.length < limit) isExistBlogs.value = true;
     if (data.data.length > 0) {
-        offset += blogs.value.length;
+        // offset += blogs.value.length;
+        offset += limit
     }
     console.log(blogs.value)
 }
