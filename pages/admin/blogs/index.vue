@@ -21,10 +21,6 @@ const deleteBlog = (id, image) => {
     deleteAlert('Are you sure you want to remove this category?')
         .then(async (result) => {
             if (result.isConfirmed) {
-                // await axios({
-                //     method: 'delete',
-                //     url: `http://localhost:4000/blog/${id}/${image}`,
-                // });
 
                 await $fetch('/api/blogs/delete', {
                     method: 'POST',

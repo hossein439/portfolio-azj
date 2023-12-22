@@ -7,5 +7,5 @@ export default defineEventHandler(async (event) => {
         .order('created_at', { ascending: false })
         .limit(1)
 
-    return getLast
+    return getLast[0]
 })

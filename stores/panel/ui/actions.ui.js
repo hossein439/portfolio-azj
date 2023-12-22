@@ -1,4 +1,3 @@
-import axios from 'axios'
 const actions = {
     handleToggel() {
         this.isToggled = !this.isToggled
@@ -10,8 +9,8 @@ const actions = {
     },
 
     async getImageLanding() {
-        const dataImage = await axios.get(`http://localhost:4000/setting/landing`)
-        return dataImage.data[0].data;
+        const dataImage = await $fetch(`/api/settings/landing`, { method: 'GET' })
+        return dataImage[0].data;
     }
 }
 

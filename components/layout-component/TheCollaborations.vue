@@ -1,13 +1,12 @@
 <script setup>
-import axios from 'axios';
 const collaborations = ref();
 
 const getAllCollaboration = async () => {
-    const data = await axios({
-        method: 'get',
+    const data = await $fetch('/api/collaborations/getAll',{
+        method: 'GET',
         url: 'http://localhost:4000/collaboration',
     });
-    collaborations.value = data.data;
+    collaborations.value = data;
     // checkFadeIn();
 }
 

@@ -1,5 +1,4 @@
 <script setup>
-import axios from 'axios';
 
 definePageMeta({
     layout: "adminlayout",
@@ -28,10 +27,6 @@ const deleteEffect = async (id, image, gif) => {
                         gif
                     }
                 })
-                // axios({
-                //     method: 'delete',
-                //     url: `http://localhost:4000/effect/${id}/${image}/${gif}`,
-                // });
                 successAlert('', 'You deleted effect successfully');
                 getAllEffects();
             }

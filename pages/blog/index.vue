@@ -1,5 +1,4 @@
 <script setup>
-import axios from 'axios';
 import { format } from 'date-fns';
 
 const isLoadedBlog = ref(false);
@@ -15,11 +14,10 @@ const setImageUrl = (imageName) => {
 }
 
 const getLastBlog = async () => {
-    const data = await axios({
+    const data = await $fetch('/api/blogs/getLast',{
         method: 'get',
-        url: 'http://localhost:4000/blog/last'
     });
-    const blog = data.data[0];
+    const blog = data[0];
     singleBlog.title = blog.title;
     singleBlog.created_at = blog.created_at;
     singleBlog.description = blog.description;

@@ -1,13 +1,11 @@
 <script setup>
-import axios from 'axios';
 
 const categories = ref([]);
 const getGategories = async () => {
-    const data = await axios({
-        method: 'get',
-        url: 'http://localhost:4000/category',
+    const data = await $fetch('/api/categories/getAll',{
+        method: 'GET',
     });
-    categories.value = data.data;
+    categories.value = data;
 }
 
 getGategories();

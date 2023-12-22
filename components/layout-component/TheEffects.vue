@@ -1,5 +1,4 @@
 <script setup>
-import axios from 'axios';
 
 defineProps({
     title: {
@@ -13,18 +12,16 @@ const isExistEffects = ref(false);
 let offset = 0;
 
 const getAllEffects = async () => {
-    const data = await axios({
-        method: 'get',
-        url: 'http://localhost:4000/effect',
+    const data = await $fetch('/api/effects/getByLimit',{
+        method: 'GET',
         params: {
             offset,
             limit
         }
     });
-    effects.value = [...effects.value, ...data.data];
-    if (data.data.length < limit) isExistEffects.value = true;
-    if (data.data.length > 0) {
-        // offset += effects.value.length;
+    effects.value = [...effects.value, ...data];
+    if (data.length < limit) isExistEffects.value = true;
+    if (data.length > 0) {
         offset += limit;
     }
 }

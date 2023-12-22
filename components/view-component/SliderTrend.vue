@@ -1,7 +1,6 @@
 <script setup>
 import { Splide, SplideSlide, SplideTrack } from '@splidejs/vue-splide';
 import '@splidejs/vue-splide/css';
-import axios from 'axios';
 
 const props = defineProps({
     showCategory: {
@@ -13,11 +12,10 @@ const props = defineProps({
 const filters = ref();
 
 const getAllFilters = async () => {
-    const data = await axios({
-        method: 'get',
-        url: 'http://localhost:4000/effect',
+    const data = await $fetch('/api/effects/getAll',{
+        method: 'GET',
     });
-    filters.value = data.data;
+    filters.value = data;
 }
 
 getAllFilters();

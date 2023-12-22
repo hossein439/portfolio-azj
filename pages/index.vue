@@ -16,7 +16,7 @@ const singleBlog = reactive({
 });
 
 const setImageUrl = (imageName) => {
-    const path = `${imageName}`;
+    const path = `../uploads/${imageName}`;
     return new URL(path, import.meta.url).href;
 }
 
@@ -25,43 +25,9 @@ const showTime = (date, formatDate) => {
     // return format(new Date(date), formatDate, { timeZone: 'Europe/Berlin' });
 }
 
-// const getLastBlog = async () => {
-//     const data = await useNuxtApp().$apiFetch('/blog/last');
-//     const blog = data[0];
-//     singleBlog?.title = blog.title;
-//     singleBlog?.created_at = blog.created_at;
-//     singleBlog?.description = blog.description;
-//     singleBlog?.image = blog.image;
-//     isLoadedBlog.value = true;
-// }
-// getLastBlog();
-
-const getData = async () => {
-    try {
-        // const data1 = await axios.get('/api/hello');
-        const { body } = await $fetch('/api/hello', {
-            method: 'post',
-            body: { test: 123 }
-        })
-
-        console.log(body);
-
-    } catch (error) {
-        console.log(error)
-    }
-}
-
-// getData()
 
 
-// const data = await useNuxtApp().$apiFetch('/blog/last');
-// const blog = data[0];
-// singleBlog.title = blog.title;
-// singleBlog.created_at = blog.created_at;
-// singleBlog.description = blog.description;
-// singleBlog.image = blog.image;
-// singleBlog.alt = blog.alt;
-
+const { pending, data: lastBlog } = await useFetch('/api/blogs/getLast');
 
 </script>
 
@@ -106,26 +72,25 @@ const getData = async () => {
         <section class="fade-in xs:px-4 lg:px-[176px] mt-[34px] relative">
 
             <div class="h-[446px]">
-                <img class="rounded-lg h-full w-full object-cover" :src="setImageUrl(singleBlog?.image)"
-                    :alt="singleBlog?.alt">
+                <img class="rounded-lg h-full w-full object-cover" :src="setImageUrl(lastBlog?.image)" :alt="lastBlog?.alt">
             </div>
             <div class="flex flex-wrap xs:gap-4 items-center justify-between py-8">
-                <h1 class="text-4xl capitalize">{{ singleBlog?.title }}</h1>
+                <h1 class="text-4xl capitalize">{{ lastBlog?.title }}</h1>
                 <div class="flex items-center gap-6">
                     <div class="flex items-center gap-3">
                         <img src="~/assets/images/icons/clock.svg" alt="">
                         <time>
-                            {{ singleBlog?.created_at }}
+                            {{ lastBlog?.created_at }}
                         </time>
                     </div>
                     <div class="flex items-center gap-3">
                         <img src="~/assets/images/icons/calendar.svg" alt="calendar icon">
-                        {{ singleBlog?.created_at }}
+                        {{ lastBlog?.created_at }}
                     </div>
                 </div>
             </div>
             <p class="xs:text-[18px] lg:text-2xl pb-12 xs:h-[300px] lg:h-[130px] relative overflow-hidden">
-                {{ singleBlog?.description }}
+                {{ lastBlog?.description }}
             <div class="bg-opacity"></div>
 
             <RouterLink to="/blog" class="absolute bottom-0 left-0 right-0">
