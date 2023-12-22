@@ -1,7 +1,7 @@
 const db = require('../db/mysql.js');
 const fs = require('fs');
 const { format } = require('date-fns');
-const supabase = require('../subbase.js')
+const supabase = require('../supabase.js')
 
 const nameOfTable = 'collaborations'
 

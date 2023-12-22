@@ -1,12 +1,11 @@
 // const db = require('../db/mysql.js');
 const fs = require('fs');
 const { format } = require('date-fns');
-const supabase = require('../subbase.js')
+const supabase = require('../supabase.js')
 
 const nameOfTable = 'blogs'
 
 const saveImage = (file) => {
-    console.log(file)
     const filename = file.filename;
     fs.rename(file.path, `./uploads/${filename}.jpg`, (err) => {
         console.log('err', err)

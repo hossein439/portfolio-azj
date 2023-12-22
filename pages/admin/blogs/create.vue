@@ -17,27 +17,51 @@ const blog = reactive({
 const imageSrc = ref(null);
 
 const selectImage = (e) => {
+    // const file = e.target.files[0];
+    // imageSrc.value = URL.createObjectURL(file);
+    // blog.image = file;
+
     const file = e.target.files[0];
+    const reader = new FileReader();
     imageSrc.value = URL.createObjectURL(file);
-    blog.image = file;
+    reader.onloadend = () => (blog.image = reader.result);
+    reader.readAsDataURL(file);
 }
 
 
-const create = () => {
-    const formData = new FormData();
-    formData.append('title', blog.title);
-    formData.append('alt', blog.alt);
-    formData.append('description', blog.description);
-    formData.append('image', blog.image);
+const create = async() => {
+    // const formData = new FormData();
+    // formData.append('title', blog.title);
+    // formData.append('alt', blog.alt);
+    // formData.append('description', blog.description);
+    // formData.append('image', blog.image);
 
-    axios({
+    // const { body } = await $fetch('/api/blog', {
+    //     method: 'post',
+    //     body: formData
+    // })
+
+    // const { data } = await useFetch('/api/blog', {
+    //     method: 'post',
+    //     body: formData
+    // })
+
+    
+    // const data = await axios({
+    //     method: 'post',
+    //     url: 'http://localhost:4000/blog',
+    //     data: formData
+    // });
+
+    const data = await axios({
         method: 'post',
-        url: 'http://localhost:4000/blog',
-        data: formData
+        url: '/api/blogs/save',
+        data: blog
     });
+    console.log(data)
 
-    successAlert('Created', 'You created a blog');
-    navigateTo('/admin/blogs')
+    // successAlert('Created', 'You created a blog');
+    // navigateTo('/admin/blogs')
 }
 
 </script>

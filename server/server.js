@@ -4,7 +4,6 @@ const routes = require('./routes');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const app = express();
-const supabase = require('./subbase')
 
 
 app.use(cookieParser())

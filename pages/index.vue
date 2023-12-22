@@ -1,4 +1,5 @@
 <script setup>
+import axios from 'axios'
 // import { format } from 'date-fns';
 import { format } from 'date-fns-tz';
 
@@ -37,13 +38,31 @@ const showTime = (date, formatDate) => {
 // }
 // getLastBlog();
 
-const data = await useNuxtApp().$apiFetch('/blog/last');
-const blog = data[0];
-singleBlog.title = blog.title;
-singleBlog.created_at = blog.created_at;
-singleBlog.description = blog.description;
-singleBlog.image = blog.image;
-singleBlog.alt = blog.alt;
+const getData = async () => {
+    try {
+        // const data1 = await axios.get('/api/hello');
+        const { body } = await $fetch('/api/hello', {
+            method: 'post',
+            body: { test: 123 }
+        })
+
+        console.log(body);
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+getData()
+
+
+// const data = await useNuxtApp().$apiFetch('/blog/last');
+// const blog = data[0];
+// singleBlog.title = blog.title;
+// singleBlog.created_at = blog.created_at;
+// singleBlog.description = blog.description;
+// singleBlog.image = blog.image;
+// singleBlog.alt = blog.alt;
 
 
 </script>

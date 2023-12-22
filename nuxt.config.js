@@ -16,4 +16,8 @@ export default defineNuxtConfig({
         },
     ],
 
+    // serverMiddleware: [
+    //     { path: '/api', handler: '~/server/index.js' },
+    // ],
+
 })
