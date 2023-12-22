@@ -25,7 +25,8 @@ const showTime = (date, formatDate) => {
     // return format(new Date(date), formatDate, { timeZone: 'Europe/Berlin' });
 }
 
-
+const { data: simple } = await useFetch('/api/simple');
+console.log(simple.value)
 
 const { pending, data: lastBlog } = await useFetch('/api/blogs/getLast');
 

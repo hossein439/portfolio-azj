@@ -4,10 +4,8 @@ const collaborations = ref();
 const getAllCollaboration = async () => {
     const data = await $fetch('/api/collaborations/getAll',{
         method: 'GET',
-        url: 'http://localhost:4000/collaboration',
     });
     collaborations.value = data;
-    // checkFadeIn();
 }
 
 const setImageUrl = (imageName) => {
