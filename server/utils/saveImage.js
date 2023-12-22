@@ -1,6 +1,6 @@
 import { writeFileSync } from 'node:fs';
 
-const saveImage = (file) => {
+const saveImage = (file, type = 'jpg') => {
     const date = new Date();
     const filename = date.getTime();
 
@@ -9,10 +9,10 @@ const saveImage = (file) => {
 
     const buffer = Buffer.from(data, 'base64');
 
-    const imagePath = `./uploads/${filename}.jpg`;
+    const imagePath = `./uploads/${filename}.${type}`;
     writeFileSync(imagePath, buffer);
 
-    return `${filename}.jpg`
+    return `${filename}.${type}`
 }
 
 export default saveImage

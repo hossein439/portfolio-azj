@@ -9,23 +9,30 @@ const { deleteAlert, successAlert } = useAlert();
 const effects = ref([]);
 
 const getAllEffects = async () => {
-    const data = await axios({
-        method: 'get',
-        url: 'http://localhost:4000/read-all-effect',
-    });
-    effects.value = data.data;
+    const data = await $fetch('/api/effects/getAll', {
+        method: 'GET'
+    })
+    effects.value = data;
 }
 getAllEffects();
 
 const deleteEffect = async (id, image, gif) => {
     deleteAlert('Are you sure you want to remove this effect?')
-        .then(result => {
+        .then(async (result) => {
             if (result.isConfirmed) {
-                axios({
-                    method: 'delete',
-                    url: `http://localhost:4000/effect/${id}/${image}/${gif}`,
-                });
-                successAlert('','You deleted effect successfully');
+                await $fetch('/api/effects/delete', {
+                    method: 'POST',
+                    body: {
+                        id,
+                        image,
+                        gif
+                    }
+                })
+                // axios({
+                //     method: 'delete',
+                //     url: `http://localhost:4000/effect/${id}/${image}/${gif}`,
+                // });
+                successAlert('', 'You deleted effect successfully');
                 getAllEffects();
             }
         })
@@ -45,15 +52,21 @@ const deleteEffect = async (id, image, gif) => {
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th scope="col"
-                                        class="capitalize py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">id
+                                        class="capitalize py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                        id
                                     </th>
-                                    <th scope="col" class="capitalize px-3 py-3.5 text-left text-sm font-semibold text-gray-900">name
+                                    <th scope="col"
+                                        class="capitalize px-3 py-3.5 text-left text-sm font-semibold text-gray-900">name
                                     </th>
-                                    <th scope="col" class="capitalize px-3 py-3.5 text-left text-sm font-semibold text-gray-900">link
+                                    <th scope="col"
+                                        class="capitalize px-3 py-3.5 text-left text-sm font-semibold text-gray-900">link
                                     </th>
-                                    <th scope="col" class="capitalize px-3 py-3.5 text-left text-sm font-semibold text-gray-900">category
+                                    <th scope="col"
+                                        class="capitalize px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                        category
                                     </th>
-                                    <th scope="col" class="capitalize px-3 py-3.5 text-left text-sm font-semibold text-gray-900">alt
+                                    <th scope="col"
+                                        class="capitalize px-3 py-3.5 text-left text-sm font-semibold text-gray-900">alt
                                     </th>
                                     <th scope="col" class="capitalize relative py-3.5 pl-3 pr-4 sm:pr-6">
                                         <span class="sr-only">Edit</span>
