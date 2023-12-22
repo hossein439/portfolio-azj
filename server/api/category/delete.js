@@ -1,13 +1,14 @@
 import supabase from '../../supabase.js'
 import removeImage from '../../utils/removeImage.js';
 
+const nameOfTable = 'blogs';
 
 export default defineEventHandler(async (event) => {
     const { id, image } = await readBody(event);
     removeImage(image);
 
     const { error } = await supabase
-        .from(process.env.TABLE_NAME_BLOG)
+        .from(nameOfTable)
         .delete()
         .eq('id', id)
 
