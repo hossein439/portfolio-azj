@@ -1,7 +1,7 @@
 <script setup>
-import { useUiStore } from '@/stores/panel/ui'
+// import { useUiStore } from '@/stores/panel/ui'
 
-const uiStore = useUiStore()
+// const uiStore = useUiStore()
 
 const landingData = reactive({
     text: null,
@@ -9,10 +9,11 @@ const landingData = reactive({
     alt: null
 });
 const getImageLanding = async () => {
-    const data = await uiStore.getImageLanding();
-    landingData.text = data.text
-    landingData.image = data.image
-    landingData.alt = data.alt
+    // const data = await uiStore.getImageLanding();
+    const dataImage = await $fetch(`/api/settings/landing`, { method: 'GET' })
+    landingData.text = dataImage[0].data.text
+    landingData.image = dataImage[0].data.image
+    landingData.alt = dataImage[0].data.alt
 }
 getImageLanding();
 
