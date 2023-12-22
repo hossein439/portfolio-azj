@@ -6,7 +6,6 @@ export default defineEventHandler(async (event) => {
     const { title, alt, description, image, isChangedImage, exFileName, id } = await readBody(event)
 
     if (isChangedImage && image) {
-        console.log(exFileName)
         removeImage(exFileName);
         const imageCreated = saveImage(image);
 
