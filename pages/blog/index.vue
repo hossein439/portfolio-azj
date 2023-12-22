@@ -15,9 +15,9 @@ const setImageUrl = (imageName) => {
 
 const getLastBlog = async () => {
     const data = await $fetch('/api/blogs/getLast',{
-        method: 'get',
+        method: 'GET',
     });
-    const blog = data[0];
+    const blog = data;
     singleBlog.title = blog.title;
     singleBlog.created_at = blog.created_at;
     singleBlog.description = blog.description;
@@ -50,7 +50,6 @@ const getMoreBlogs = async () => {
     if (data.length > 0) {
         offset += limit
     }
-    console.log(blogs.value)
 }
 getMoreBlogs();
 </script>

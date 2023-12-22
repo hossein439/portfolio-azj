@@ -31,15 +31,11 @@ export default defineEventHandler(async (event) => {
             image: exFileName
         }
 
-        console.log(data)
-
         const { data: updateSetting, error } = await supabase
             .from(process.env.TABLE_NAME_SETTING)
             .update({ data, meta, created_at: format(date, 'yyyy-MM-dd HH:mm') })
             .eq('id', id)
             .select()
-
-            console.log(error)
 
         return updateSetting;
     }

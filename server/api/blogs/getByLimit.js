@@ -11,7 +11,6 @@ export default defineEventHandler(async (event) => {
         .range(offset, offset + limit - 1)
         .limit(limit)
 
-    console.log(getBlogs);
 
     return getBlogs 
 })

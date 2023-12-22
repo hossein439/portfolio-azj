@@ -19,13 +19,11 @@ const getSingleBlog = async () => {
     const data = await $fetch(`/api/blogs/${route.params.id}`, {
         method: 'GET'
     })
-
     const blog = data[0];
     singleBlog.title = blog.title;
     singleBlog.created_at = blog.created_at;
     singleBlog.description = blog.description;
     singleBlog.image = blog.image;
-    console.log(singleBlog.image)
     isLoadedBlog.value = true;
 }
 getSingleBlog();
@@ -54,7 +52,6 @@ const getMoreBlogs = async () => {
     if (data.length > 0) {
         offset += limit
     }
-    console.log(blogs.value)
 }
 getMoreBlogs();
 </script>
