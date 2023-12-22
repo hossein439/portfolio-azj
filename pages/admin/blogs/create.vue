@@ -1,5 +1,4 @@
 <script setup>
-import axios from 'axios';
 
 definePageMeta({
     layout: "adminlayout",
@@ -17,10 +16,6 @@ const blog = reactive({
 const imageSrc = ref(null);
 
 const selectImage = (e) => {
-    // const file = e.target.files[0];
-    // imageSrc.value = URL.createObjectURL(file);
-    // blog.image = file;
-
     const file = e.target.files[0];
     const reader = new FileReader();
     imageSrc.value = URL.createObjectURL(file);
@@ -29,39 +24,15 @@ const selectImage = (e) => {
 }
 
 
-const create = async() => {
-    // const formData = new FormData();
-    // formData.append('title', blog.title);
-    // formData.append('alt', blog.alt);
-    // formData.append('description', blog.description);
-    // formData.append('image', blog.image);
+const create = async () => {
 
-    // const { body } = await $fetch('/api/blog', {
-    //     method: 'post',
-    //     body: formData
-    // })
-
-    // const { data } = await useFetch('/api/blog', {
-    //     method: 'post',
-    //     body: formData
-    // })
-
-    
-    // const data = await axios({
-    //     method: 'post',
-    //     url: 'http://localhost:4000/blog',
-    //     data: formData
-    // });
-
-    const data = await axios({
+    await $fetch('/api/blogs/create', {
         method: 'post',
-        url: '/api/blogs/save',
-        data: blog
+        body: blog
     });
-    console.log(data)
 
-    // successAlert('Created', 'You created a blog');
-    // navigateTo('/admin/blogs')
+    successAlert('Created', 'You created a blog');
+    navigateTo('/admin/blogs')
 }
 
 </script>

@@ -53,7 +53,7 @@ const getData = async () => {
     }
 }
 
-getData()
+// getData()
 
 
 // const data = await useNuxtApp().$apiFetch('/blog/last');

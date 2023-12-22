@@ -1,5 +1,4 @@
 <script setup>
-import axios from 'axios';
 definePageMeta({
     layout: "adminlayout",
 });
@@ -12,18 +11,21 @@ const blog = reactive({
     title: null,
     alt: null,
     description: null,
-    image: null
+    image: null,
+    isChangedImage: false,
+    exFileName: null,
+    id: route.params.id
 });
 
 const imageSrc = ref(null);
-const isChangedImage = ref(false);
-const exFile = ref(false);
 
 const selectImage = (e) => {
     const file = e.target.files[0];
+    const reader = new FileReader();
     imageSrc.value = URL.createObjectURL(file);
-    blog.image = file;
-    isChangedImage.value = true;
+    reader.onloadend = () => (blog.image = reader.result);
+    reader.readAsDataURL(file);
+    blog.isChangedImage = true;
 }
 
 const setImageUrl = (imageName) => {
@@ -32,36 +34,27 @@ const setImageUrl = (imageName) => {
 }
 
 const getSingle = async () => {
-    const data = await axios({
-        method: 'get',
-        url: `http://localhost:4000/blog/${route.params.id}`,
-    });
-    const { title, image, description, alt } = data.data[0];
+    const data = await $fetch(`/api/blogs/${route.params.id}`, {
+        method: 'GET'
+    })
+
+    const { title, image, description, alt } = data[0];
     blog.title = title;
     blog.image = image;
     blog.alt = alt;
     blog.description = description;
-
-    exFile.value = image;
+    blog.exFileName = image
 
     imageSrc.value = setImageUrl(image);
 }
 
 getSingle()
 
-const edit = () => {
-    const formData = new FormData();
-
-    formData.append('title', blog.title);
-    formData.append('alt', blog.alt);
-    formData.append('description', blog.description);
-    formData.append('image', blog.image);
-
-    formData.append('exFileName', exFile.value);
-    formData.append('isChangedImage', isChangedImage.value);
-
-    axios.put(`http://localhost:4000/blog/${route.params.id}`, formData)
-
+const edit = async () => {
+    await $fetch('/api/blogs/update', {
+        method: 'POST',
+        body: blog
+    })
 
     successAlert('Updated', 'You updated a blog');
     navigateTo('/admin/blogs')

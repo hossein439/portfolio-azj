@@ -9,10 +9,6 @@ export default defineEventHandler(async (event) => {
         .from(nameOfTable)
         .select('*')
         .order('created_at', { ascending: false })
-        .range(offset, offset + limit - 1)
-        .limit(limit)
 
-    console.log(getBlogs);
-
-    return getBlogs 
+    return getBlogs
 })

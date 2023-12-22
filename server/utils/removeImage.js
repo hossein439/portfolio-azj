@@ -1,5 +1,7 @@
+import { unlink } from 'node:fs';
+
 const removeImage = (file) => {
-    fs.unlink('./uploads/' + file, (err) => {
+    unlink('./uploads/' + file, (err) => {
         console.log(err);
         if (err && err.code == 'ENOENT') {
             console.info("File doesn't exist, won't remove it.");

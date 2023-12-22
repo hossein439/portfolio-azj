@@ -1,5 +1,4 @@
 <script setup>
-import axios from 'axios';
 import { format } from 'date-fns';
 
 const route = useRoute();
@@ -16,11 +15,12 @@ const setImageUrl = (imageName) => {
 }
 
 const getSingleBlog = async () => {
-    const data = await axios({
-        method: 'get',
-        url: `http://localhost:4000/blog/${route.params.id}`
-    });
-    const blog = data.data[0];
+
+    const data = await $fetch(`/api/blogs/${route.params.id}`, {
+        method: 'GET'
+    })
+
+    const blog = data[0];
     singleBlog.title = blog.title;
     singleBlog.created_at = blog.created_at;
     singleBlog.description = blog.description;
@@ -41,18 +41,18 @@ const isExistBlogs = ref(false);
 let offset = 0;
 
 const getMoreBlogs = async () => {
-    const data = await axios({
-        method: 'get',
-        url: 'http://localhost:4000/blog',
+    const data = await $fetch('/api/blogs/getByLimit',{
+        method: 'GET',
         params: {
             offset,
             limit
         }
-    });
-    blogs.value = [...blogs.value, ...data.data];
-    if (data.data.length < limit) isExistBlogs.value = true;
-    if (data.data.length > 0) {
-        offset += blogs.value.length;
+    })
+
+    blogs.value = [...blogs.value, ...data];
+    if (data.length < limit) isExistBlogs.value = true;
+    if (data.length > 0) {
+        offset += limit
     }
     console.log(blogs.value)
 }

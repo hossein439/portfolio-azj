@@ -1,5 +1,4 @@
 <script setup>
-import axios from 'axios';
 
 definePageMeta({
     layout: "adminlayout",
@@ -10,29 +9,35 @@ const { deleteAlert, successAlert } = useAlert();
 const blogs = ref([]);
 
 const getAllBlog = async () => {
-    const data = await axios({
-        method: 'get',
-        url: 'http://localhost:4000/read-all-blog',
-    });
-    blogs.value = data.data;
+    const data = await $fetch('/api/blogs/getAll', {
+        method: 'GET'
+    })
+    blogs.value = data;
 }
-
 getAllBlog();
 
-
 const deleteBlog = (id, image) => {
-    
+
     deleteAlert('Are you sure you want to remove this category?')
-    .then(result => {
-        if(result.isConfirmed) {
-            axios({
-                method: 'delete',
-                url: `http://localhost:4000/blog/${id}/${image}`,
-            });
-            successAlert('', 'You deleted blog successfully');
-            getAllBlog()
-        }
-    })
+        .then(async (result) => {
+            if (result.isConfirmed) {
+                // await axios({
+                //     method: 'delete',
+                //     url: `http://localhost:4000/blog/${id}/${image}`,
+                // });
+
+                await $fetch('/api/blogs/delete', {
+                    method: 'POST',
+                    body: {
+                        id,
+                        image
+                    }
+                })
+
+                successAlert('', 'You deleted blog successfully');
+                getAllBlog()
+            }
+        })
 
 }
 
@@ -54,7 +59,8 @@ const deleteBlog = (id, image) => {
                                     </th>
                                     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">title
                                     </th>
-                                    <th scope="col" class="px-12 py-3.5 text-right text-sm font-semibold text-gray-900">actions
+                                    <th scope="col" class="px-12 py-3.5 text-right text-sm font-semibold text-gray-900">
+                                        actions
                                     </th>
                                 </tr>
                             </thead>
