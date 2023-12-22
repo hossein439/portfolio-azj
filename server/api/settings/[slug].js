@@ -9,5 +9,10 @@ export default defineEventHandler(async (event) => {
         .select('*')
         .eq('meta', meta)
 
-    return getById
+    if (error) {
+        return error
+    } else {
+
+        return getById
+    }
 })
