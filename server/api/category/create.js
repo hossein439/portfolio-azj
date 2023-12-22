@@ -1,19 +1,18 @@
 
 import { format } from 'date-fns';
 import supabase from '../../supabase.js'
-const nameOfTable = 'blogs';
 
 export default defineEventHandler(async (event) => {
-    const { title, alt, description, image } = await readBody(event)
+    const { alt, description, image, name } = await readBody(event)
     const imageCreated = saveImage(image);
     const date = new Date();
 
-    const { data: blogCreated, error } = await supabase
-        .from(nameOfTable)
+    const { data: categoryCreated, error } = await supabase
+        .from(process.env.TABLE_NAME_CATEGORY)
         .insert([
-            { title, image: imageCreated, description, alt, created_at: format(date, 'yyyy-MM-dd HH:mm') },
+            { name, image: imageCreated, description, alt, created_at: format(date, 'yyyy-MM-dd HH:mm') },
         ])
         .select()
 
-    return { blogCreated }
+    return { categoryCreated }
 })

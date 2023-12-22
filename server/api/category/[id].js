@@ -1,12 +1,11 @@
 import supabase from '../../supabase.js'
-const nameOfTable = 'categories'
 
 export default defineEventHandler(async (event) => {
 
     const id = getRouterParam(event, 'id')
 
     let { data: getById, error } = await supabase
-        .from(nameOfTable)
+        .from(process.env.TABLE_NAME_CATEGORY)
         .select('*')
         .eq('id', id)
 

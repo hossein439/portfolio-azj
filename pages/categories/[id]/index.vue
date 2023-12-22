@@ -1,5 +1,4 @@
 <script setup>
-import axios from 'axios'
 
 const route = useRoute();
 
@@ -16,11 +15,12 @@ const setImageUrl = (imageName) => {
 }
 
 const getSingle = async () => {
-    const data = await axios({
-        method: 'get',
-        url: `http://localhost:4000/category/${route.params.id}`,
-    });
-    const { name, image, description } = data.data[0];
+
+    const data = await $fetch(`/api/category/${route.params.id}`, {
+        method: 'GET'
+    })
+
+    const { name, image, description } = data[0];
     category.name = name;
     category.image = image;
     category.description = description;

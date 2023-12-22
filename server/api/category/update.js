@@ -2,10 +2,8 @@ import supabase from '../../supabase.js'
 import removeImage from '../../utils/removeImage.js';
 import saveImage from '../../utils/saveImage.js';
 
-const nameOfTable = 'blogs';
-
 export default defineEventHandler(async (event) => {
-    const { title, alt, description, image, isChangedImage, exFileName, id } = await readBody(event)
+    const { name, alt, description, image, isChangedImage, exFileName, id } = await readBody(event)
 
     if (isChangedImage && image) {
         console.log(exFileName)
@@ -13,8 +11,8 @@ export default defineEventHandler(async (event) => {
         const imageCreated = saveImage(image);
 
         const { data: updateBlog, error } = await supabase
-            .from(nameOfTable)
-            .update({ image: imageCreated, title, alt, description })
+            .from(process.env.TABLE_NAME_CATEGORY)
+            .update({ name, image: imageCreated, alt, description })
             .eq('id', id)
             .select()
 
@@ -23,8 +21,8 @@ export default defineEventHandler(async (event) => {
     } else {
 
         const { data: updateBlog, error } = await supabase
-            .from(nameOfTable)
-            .update({ title, alt, description })
+            .from(process.env.TABLE_NAME_CATEGORY)
+            .update({ name, alt, description })
             .eq('id', id)
             .select()
 

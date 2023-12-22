@@ -1,5 +1,4 @@
 <script setup>
-import axios from 'axios';
 
 definePageMeta({
     layout: "adminlayout",
@@ -7,33 +6,23 @@ definePageMeta({
 
 const { successAlert } = useAlert();
 
+const { selectImage, imageSrc, fileImage } = useImage()
+
 const category = reactive({
-    name: null,
-    description: null,
     alt: null,
-    image: null
+    description: null,
+    image: null,
+    name: null,
 });
 
-const imageSrc = ref(null);
-
-const selectImage = (e) => {
-    const file = e.target.files[0];
-    imageSrc.value = URL.createObjectURL(file);
-    category.image = file;
-}
-
 const create = async () => {
-    const formData = new FormData();
-    formData.append('name', category.name);
-    formData.append('description', category.description);
-    formData.append('alt', category.alt);
-    formData.append('image', category.image);
 
-    await axios({
-        method: 'post',
-        url: 'http://localhost:4000/category',
-        data: formData
-    });
+    category.image = fileImage.value
+    console.log(category);
+    await $fetch('/api/category/create', {
+        method: 'POST',
+        body: category
+    })
 
     successAlert('Created', 'You created a category');
     navigateTo('/admin/categories')

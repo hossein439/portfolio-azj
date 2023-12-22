@@ -1,30 +1,23 @@
 <script setup>
-import axios from 'axios';
 definePageMeta({
     layout: "adminlayout",
 });
 
 const route = useRoute();
 const { successAlert } = useAlert();
+const { selectImage, imageSrc, fileImage, isChangedImage } = useImage()
 
 
 const category = reactive({
     name: null,
     description: null,
     alt: null,
-    image: null
+    image: null,
+    exFileName: null,
+    isChangedImage: false,
+    id: route.params.id
 });
 
-const imageSrc = ref(null);
-const isChangedImage = ref(false);
-const exFile = ref(null);
-
-const selectImage = (e) => {
-    const file = e.target.files[0];
-    imageSrc.value = URL.createObjectURL(file);
-    category.image = file;
-    isChangedImage.value = true;
-}
 
 const setImageUrl = (imageName) => {
     const path = `../../../../uploads/${imageName}`;
@@ -32,16 +25,17 @@ const setImageUrl = (imageName) => {
 }
 
 const getSingle = async () => {
-    const data = await axios({
-        method: 'get',
-        url: `http://localhost:4000/category/${route.params.id}`,
-    });
-    const { name, image, description, alt } = data.data[0];
+
+    const data = await $fetch(`/api/category/${route.params.id}`, {
+        method: 'GET'
+    })
+
+    const { name, image, description, alt } = data[0];
     category.name = name;
     category.image = image;
     category.alt = alt;
     category.description = description;
-    exFile.value = image;
+    category.exFileName = image;
 
     imageSrc.value = setImageUrl(image);
 }
@@ -49,21 +43,16 @@ const getSingle = async () => {
 getSingle()
 
 const edit = async () => {
-    const formData = new FormData();
-    console.log(category);
-    formData.append('name', category.name);
-    formData.append('description', category.description);
-    formData.append('alt', category.alt);
-    formData.append('image', category.image);
-    formData.append('exFileName', exFile.value);
-    formData.append('isChangedImage', isChangedImage.value);
+    category.image = fileImage.value;
+    category.isChangedImage = isChangedImage.value;
 
-    await axios.put(`http://localhost:4000/category/${route.params.id}`, formData)
-
+    await $fetch('/api/category/update', {
+        method: 'POST',
+        body: category
+    })
 
     successAlert('Updated', 'You updated a category');
     navigateTo('/admin/categories')
-
 }
 
 </script>

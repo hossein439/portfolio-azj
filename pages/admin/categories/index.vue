@@ -1,5 +1,4 @@
 <script setup>
-import axios from 'axios';
 
 definePageMeta({
     layout: "adminlayout",
@@ -9,27 +8,33 @@ const categories = ref([]);
 const { deleteAlert, successAlert } = useAlert();
 
 const getAllcategories = async () => {
-    const data = await axios({
-        method: 'get',
-        url: 'http://localhost:4000/category',
-    });
-    categories.value = data.data;
+
+    const data = await $fetch('/api/category/getAll', {
+        method: 'GET'
+    })
+
+    categories.value = data;
 }
 
 getAllcategories();
 
 const deleteCategory = async (id, image) => {
     deleteAlert('Are you sure you want to remove this category?')
-    .then(result => {
-        if(result.isConfirmed) {
-            axios({
-                method: 'delete',
-                url: `http://localhost:4000/category/${id}/${image}`,
-            });
-            successAlert('', 'You deleted category successfully');
-            getAllcategories();
-        }
-    })
+        .then(async (result) => {
+            if (result.isConfirmed) {
+
+                await $fetch('/api/category/delete', {
+                    method: 'POST',
+                    body: {
+                        id,
+                        image
+                    }
+                })
+
+                successAlert('', 'You deleted category successfully');
+                getAllcategories();
+            }
+        })
 }
 
 </script>
