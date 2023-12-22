@@ -1,9 +1,9 @@
 import supabase from '../../supabase.js'
-import removeImage from '../../utils/removeImage.js';
-import saveImage from '../../utils/saveImage.js';
+import { format } from 'date-fns';
 
 export default defineEventHandler(async (event) => {
     const { title, alt, description, image, isChangedImage, exFileName, id } = await readBody(event)
+    const date = new Date();
 
     if (isChangedImage && image) {
         removeImage(exFileName);
@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
 
         const { data: updateBlog, error } = await supabase
             .from(process.env.TABLE_NAME_BLOG)
-            .update({ image: imageCreated, title, alt, description })
+            .update({ image: imageCreated, title, alt, description, created_at: format(date, 'yyyy-MM-dd HH:mm') })
             .eq('id', id)
             .select()
 
@@ -21,7 +21,7 @@ export default defineEventHandler(async (event) => {
 
         const { data: updateBlog, error } = await supabase
             .from(process.env.TABLE_NAME_BLOG)
-            .update({ title, alt, description })
+            .update({ title, alt, description, created_at: format(date, 'yyyy-MM-dd HH:mm') })
             .eq('id', id)
             .select()
 

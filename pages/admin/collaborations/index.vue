@@ -1,6 +1,4 @@
 <script setup>
-import axios from 'axios';
-
 definePageMeta({
     layout: "adminlayout",
 });
@@ -10,29 +8,33 @@ const { deleteAlert, successAlert } = useAlert();
 const collaborations = ref([]);
 
 const getAllCollaboration = async () => {
-    const data = await axios({
-        method: 'get',
-        url: 'http://localhost:4000/collaboration',
-    });
-    collaborations.value = data.data;
+    const data = await $fetch('/api/collaboration/getAll', {
+        method: 'GET'
+    })
+    collaborations.value = data;
 }
 
 getAllCollaboration();
 
 
 const deleteCollaboration = (id, image) => {
-    
+
     deleteAlert('Are you sure you want to remove this category?')
-    .then(result => {
-        if(result.isConfirmed) {
-            axios({
-                method: 'delete',
-                url: `http://localhost:4000/collaboration/${id}/${image}`,
-            });
-            successAlert('', 'You deleted collaboration successfully');
-            getAllCollaboration()
-        }
-    })
+        .then(async (result) => {
+            if (result.isConfirmed) {
+
+                await $fetch('/api/collaboration/delete', {
+                    method: 'POST',
+                    body: {
+                        id,
+                        image
+                    }
+                })
+
+                successAlert('', 'You deleted collaboration successfully');
+                getAllCollaboration()
+            }
+        })
 
 }
 
@@ -54,7 +56,8 @@ const deleteCollaboration = (id, image) => {
                                     </th>
                                     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">link
                                     </th>
-                                    <th scope="col" class="px-12 py-3.5 text-right text-sm font-semibold text-gray-900">actions
+                                    <th scope="col" class="px-12 py-3.5 text-right text-sm font-semibold text-gray-900">
+                                        actions
                                     </th>
                                 </tr>
                             </thead>

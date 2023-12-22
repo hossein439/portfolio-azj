@@ -1,6 +1,4 @@
 import supabase from '../../supabase.js'
-import removeImage from '../../utils/removeImage.js';
-
 
 export default defineEventHandler(async (event) => {
     const { id, image } = await readBody(event);
