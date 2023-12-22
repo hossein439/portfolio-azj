@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
         const imageCreated = saveImage(image);
 
         const { data: updateCategory, error } = await supabase
-            .from(process.env.TABLE_NAME_CATEGORY)
+            .from('categories')
             .update({ name, image: imageCreated, alt, description, created_at: format(date, 'yyyy-MM-dd HH:mm') })
             .eq('id', id)
             .select()
@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
     } else {
 
         const { data: updateCategory, error } = await supabase
-            .from(process.env.TABLE_NAME_CATEGORY)
+            .from('categories')
             .update({ name, alt, description, created_at: format(date, 'yyyy-MM-dd HH:mm') })
             .eq('id', id)
             .select()

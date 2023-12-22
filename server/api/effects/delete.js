@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
     removeImage(gif);
 
     const { error } = await supabase
-        .from(process.env.TABLE_NAME_EFFECT)
+        .from('effects')
         .delete()
         .eq('id', id)
 

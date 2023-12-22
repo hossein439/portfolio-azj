@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
     const date = new Date();
 
     const { data: collaboration, error } = await supabase
-        .from(process.env.TABLE_NAME_COLLABORATION)
+        .from('collaborations')
         .insert([
             { link, image: imageCreated, alt, created_at: format(date, 'yyyy-MM-dd HH:mm') },
         ])

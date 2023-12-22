@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
     removeImage(image);
 
     const { error } = await supabase
-        .from(process.env.TABLE_NAME_SETTING)
+        .from('settings')
         .delete()
         .eq('id', id)
 

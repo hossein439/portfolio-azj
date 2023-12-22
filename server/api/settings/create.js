@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
     }
 
     const { data: setting, error } = await supabase
-        .from(process.env.TABLE_NAME_SETTING)
+        .from('settings')
         .insert([
             { data, meta, created_at: format(date, 'yyyy-MM-dd HH:mm') },
         ])

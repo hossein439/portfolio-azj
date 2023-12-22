@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
     const date = new Date();
 
     const { data: categoryCreated, error } = await supabase
-        .from(process.env.TABLE_NAME_CATEGORY)
+        .from('categories')
         .insert([
             { name, image: imageCreated, description, alt, created_at: format(date, 'yyyy-MM-dd HH:mm') },
         ])

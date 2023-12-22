@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
     const date = new Date();
 
     const { data: effectCreated, error } = await supabase
-        .from(process.env.TABLE_NAME_EFFECT)
+        .from('effects')
         .insert([
             { name, image: imageCreated, gif: gifCreated, link, alt, category_id: categoryId, created_at: format(date, 'yyyy-MM-dd HH:mm') },
         ])

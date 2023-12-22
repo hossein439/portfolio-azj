@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
         const imageCreated = saveImage(image);
 
         const { data: updateEffectNewImage, error } = await supabase
-            .from(process.env.TABLE_NAME_EFFECT)
+            .from('effects')
             .update({ name, image: imageCreated, link, alt, category_id: categoryId, created_at: format(date, 'yyyy-MM-dd HH:mm') })
             .eq('id', id)
             .select()
@@ -26,7 +26,7 @@ export default defineEventHandler(async (event) => {
         const gifCreated = saveImage(gif, 'gif');
 
         const { data: updateEffectNewGif, error } = await supabase
-            .from(process.env.TABLE_NAME_EFFECT)
+            .from('effects')
             .update({ name, gif: gifCreated, link, alt, category_id: categoryId, created_at: format(date, 'yyyy-MM-dd HH:mm') })
             .eq('id', id)
             .select()
@@ -43,7 +43,7 @@ export default defineEventHandler(async (event) => {
         const imageCreated = saveImage(image);
 
         const { data: updateEffectBoth, error } = await supabase
-            .from(process.env.TABLE_NAME_EFFECT)
+            .from('effects')
             .update({ name, image: imageCreated, link, alt, gif: gifCreated, category_id: categoryId, created_at: format(date, 'yyyy-MM-dd HH:mm') })
             .eq('id', id)
             .select()
@@ -52,7 +52,7 @@ export default defineEventHandler(async (event) => {
     }
 
     const { data: updateEffect, error } = await supabase
-        .from(process.env.TABLE_NAME_EFFECT)
+        .from('effects')
         .update({ name, link, alt, category_id: categoryId, created_at: format(date, 'yyyy-MM-dd HH:mm') })
         .eq('id', id)
         .select()

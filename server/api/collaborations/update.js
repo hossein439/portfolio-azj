@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
         const imageCreated = saveImage(image);
 
         const { data: updateCollaboration, error } = await supabase
-            .from(process.env.TABLE_NAME_COLLABORATION)
+            .from('collaborations')
             .update({ link, image: imageCreated, alt, created_at: format(date, 'yyyy-MM-dd HH:mm') })
             .eq('id', id)
             .select()
@@ -21,7 +21,7 @@ export default defineEventHandler(async (event) => {
     } else {
 
         const { data: updateCollaboration, error } = await supabase
-            .from(process.env.TABLE_NAME_COLLABORATION)
+            .from('collaborations')
             .update({ link, alt, created_at: format(date, 'yyyy-MM-dd HH:mm') })
             .eq('id', id)
             .select()

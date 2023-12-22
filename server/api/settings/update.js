@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
         }
 
         const { data: updateSetting, error } = await supabase
-            .from(process.env.TABLE_NAME_SETTING)
+            .from('settings')
             .update({ data, meta, created_at: format(date, 'yyyy-MM-dd HH:mm') })
             .eq('id', id)
             .select()
@@ -32,7 +32,7 @@ export default defineEventHandler(async (event) => {
         }
 
         const { data: updateSetting, error } = await supabase
-            .from(process.env.TABLE_NAME_SETTING)
+            .from('settings')
             .update({ data, meta, created_at: format(date, 'yyyy-MM-dd HH:mm') })
             .eq('id', id)
             .select()

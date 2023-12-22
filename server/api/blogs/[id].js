@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
     const id = getRouterParam(event, 'id')
 
     let { data: getById, error } = await supabase
-        .from(process.env.TABLE_NAME_BLOG)
+        .from('blogs')
         .select('*')
         .eq('id', id)
 

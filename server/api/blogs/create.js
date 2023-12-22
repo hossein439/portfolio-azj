@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
     const date = new Date();
 
     const { data: blogCreated, error } = await supabase
-        .from(process.env.TABLE_NAME_BLOG)
+        .from('blogs')
         .insert([
             { title, image: imageCreated, description, alt, created_at: format(date, 'yyyy-MM-dd HH:mm') },
         ])
