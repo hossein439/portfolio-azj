@@ -1,5 +1,4 @@
 <script setup>
-import axios from 'axios';
 
 definePageMeta({
     layout: "adminlayout",
@@ -10,29 +9,29 @@ const { deleteAlert, successAlert } = useAlert();
 const settings = ref([]);
 
 const getAllsetting = async () => {
-    const data = await axios({
-        method: 'get',
-        url: 'http://localhost:4000/setting',
-    });
-    settings.value = data.data;
+    const data = await $fetch('/api/settings/getAll', { method: 'GET' })
+    settings.value = data;
 }
 
 getAllsetting();
 
 
 const deletesetting = (id, image) => {
-    
+
     deleteAlert('Are you sure you want to remove this category?')
-    .then(result => {
-        if(result.isConfirmed) {
-            axios({
-                method: 'delete',
-                url: `http://localhost:4000/setting/${id}/${image}`,
-            });
-            successAlert('', 'You deleted setting successfully');
-            getAllsetting()
-        }
-    })
+        .then(async (result) => {
+            if (result.isConfirmed) {
+                await $fetch('/api/settings/delete', {
+                    method: 'POST',
+                    body: {
+                        id,
+                        image
+                    }
+                });
+                successAlert('', 'You deleted setting successfully');
+                getAllsetting()
+            }
+        })
 
 }
 
@@ -52,9 +51,10 @@ const deletesetting = (id, image) => {
                                     <th scope="col"
                                         class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">id
                                     </th>
-                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">link
+                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">meta
                                     </th>
-                                    <th scope="col" class="px-12 py-3.5 text-right text-sm font-semibold text-gray-900">actions
+                                    <th scope="col" class="px-12 py-3.5 text-right text-sm font-semibold text-gray-900">
+                                        actions
                                     </th>
                                 </tr>
                             </thead>
@@ -64,7 +64,7 @@ const deletesetting = (id, image) => {
                                         {{ setting.id }}
                                     </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                        {{ setting.link }}
+                                        {{ setting.meta }}
                                     </td>
                                     <td
                                         class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">

@@ -2,29 +2,45 @@ import { format } from 'date-fns';
 import supabase from '../../supabase.js'
 
 export default defineEventHandler(async (event) => {
-    const { name, alt, description, image, isChangedImage, exFileName, id } = await readBody(event)
+    const { alt, text, image, meta, isChangedImage, exFileName, id } = await readBody(event)
     const date = new Date();
 
     if (isChangedImage && image) {
         removeImage(exFileName);
         const imageCreated = saveImage(image);
 
-        const { data: updateCategory, error } = await supabase
-            .from(process.env.TABLE_NAME_CATEGORY)
-            .update({ name, image: imageCreated, alt, description, created_at: format(date, 'yyyy-MM-dd HH:mm') })
+        const data = {
+            text,
+            alt,
+            image: imageCreated
+        }
+
+        const { data: updateSetting, error } = await supabase
+            .from(process.env.TABLE_NAME_SETTING)
+            .update({ data, meta, created_at: format(date, 'yyyy-MM-dd HH:mm') })
             .eq('id', id)
             .select()
 
-        return updateCategory
+        return updateSetting
 
     } else {
+        
+        const data = {
+            text,
+            alt,
+            image: exFileName
+        }
 
-        const { data: updateCategory, error } = await supabase
-            .from(process.env.TABLE_NAME_CATEGORY)
-            .update({ name, alt, description, created_at: format(date, 'yyyy-MM-dd HH:mm') })
+        console.log(data)
+
+        const { data: updateSetting, error } = await supabase
+            .from(process.env.TABLE_NAME_SETTING)
+            .update({ data, meta, created_at: format(date, 'yyyy-MM-dd HH:mm') })
             .eq('id', id)
             .select()
 
-        return updateCategory;
+            console.log(error)
+
+        return updateSetting;
     }
 })

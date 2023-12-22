@@ -1,5 +1,4 @@
 <script setup>
-import axios from 'axios'
 // import { format } from 'date-fns';
 import { format } from 'date-fns-tz';
 
@@ -7,7 +6,6 @@ import { format } from 'date-fns-tz';
 definePageMeta({
     layout: "customheader",
 });
-
 
 const singleBlog = reactive({
     title: null,
