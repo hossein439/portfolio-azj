@@ -9,8 +9,8 @@ const landingData = reactive({
     alt: null
 });
 const getImageLanding = async () => {
-    // const data = await uiStore.getImageLanding();
     const dataImage = await $fetch(`/api/settings/landing`, { method: 'GET' })
+    console.log(dataImage)
     landingData.text = dataImage[0].data.text
     landingData.image = dataImage[0].data.image
     landingData.alt = dataImage[0].data.alt
