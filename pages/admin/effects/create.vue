@@ -17,7 +17,7 @@ const selectCategory = (category) => {
 }
 
 const getAllcategories = async () => {
-    const data = await $fetch('/api/category/getAll', { method: 'GET' })
+    const data = await $fetch('/api/categories/getAll', { method: 'GET' })
     categories.value = data;
 }
 getAllcategories();

@@ -16,7 +16,7 @@ const setImageUrl = (imageName) => {
 
 const getSingle = async () => {
 
-    const data = await $fetch(`/api/category/${route.params.id}`, {
+    const data = await $fetch(`/api/categories/${route.params.id}`, {
         method: 'GET'
     })
 

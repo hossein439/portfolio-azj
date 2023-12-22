@@ -8,7 +8,7 @@ const { deleteAlert, successAlert } = useAlert();
 const collaborations = ref([]);
 
 const getAllCollaboration = async () => {
-    const data = await $fetch('/api/collaboration/getAll', {
+    const data = await $fetch('/api/collaborations/getAll', {
         method: 'GET'
     })
     collaborations.value = data;
@@ -23,7 +23,7 @@ const deleteCollaboration = (id, image) => {
         .then(async (result) => {
             if (result.isConfirmed) {
 
-                await $fetch('/api/collaboration/delete', {
+                await $fetch('/api/collaborations/delete', {
                     method: 'POST',
                     body: {
                         id,

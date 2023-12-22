@@ -26,7 +26,7 @@ const setImageUrl = (imageName) => {
 
 const getSingle = async () => {
 
-    const data = await $fetch(`/api/category/${route.params.id}`, {
+    const data = await $fetch(`/api/categories/${route.params.id}`, {
         method: 'GET'
     })
 
@@ -46,7 +46,7 @@ const edit = async () => {
     category.image = fileImage.value;
     category.isChangedImage = isChangedImage.value;
 
-    await $fetch('/api/category/update', {
+    await $fetch('/api/categories/update', {
         method: 'POST',
         body: category
     })

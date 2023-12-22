@@ -9,7 +9,7 @@ const { deleteAlert, successAlert } = useAlert();
 
 const getAllcategories = async () => {
 
-    const data = await $fetch('/api/category/getAll', {
+    const data = await $fetch('/api/categories/getAll', {
         method: 'GET'
     })
 
@@ -23,7 +23,7 @@ const deleteCategory = async (id, image) => {
         .then(async (result) => {
             if (result.isConfirmed) {
 
-                await $fetch('/api/category/delete', {
+                await $fetch('/api/categories/delete', {
                     method: 'POST',
                     body: {
                         id,

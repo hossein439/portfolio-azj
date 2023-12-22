@@ -19,7 +19,7 @@ const create = async () => {
 
     category.image = fileImage.value
     console.log(category);
-    await $fetch('/api/category/create', {
+    await $fetch('/api/categories/create', {
         method: 'POST',
         body: category
     })

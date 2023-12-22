@@ -13,28 +13,10 @@ const collaboration = reactive({
     image: null
 });
 
-// const imageSrc = ref(null);
-
-// const selectImage = (e) => {
-//     const file = e.target.files[0];
-//     imageSrc.value = URL.createObjectURL(file);
-//     collaboration.image = file;
-// }
-
-
 const create = async() => {
-    // const formDate = new FormData();
-    // formDate.append('link', collaboration.link);
-    // formDate.append('alt', collaboration.alt);
-    // formDate.append('image', collaboration.image);
 
-    // axios({
-    //     method: 'post',
-    //     url: 'http://localhost:4000/collaboration',
-    //     data: formDate
-    // });
     collaboration.image = fileImage.value
-    await $fetch('/api/collaboration/create', {
+    await $fetch('/api/collaborations/create', {
         method: 'POST',
         body: collaboration
     })

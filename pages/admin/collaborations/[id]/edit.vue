@@ -23,7 +23,7 @@ const setImageUrl = (imageName) => {
 
 const getSingle = async () => {
 
-    const data = await $fetch(`/api/collaboration/${route.params.id}`, { method: 'GET' })
+    const data = await $fetch(`/api/collaborations/${route.params.id}`, { method: 'GET' })
 
     const { link, image, alt } = data[0];
     collaboration.link = link;
@@ -40,7 +40,7 @@ const edit = async () => {
     collaboration.image = fileImage.value
     collaboration.isChangedImage = isChangedImage.value
 
-    await $fetch('/api/collaboration/update', {
+    await $fetch('/api/collaborations/update', {
         method: 'POST',
         body: collaboration
     })
