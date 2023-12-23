@@ -1,30 +1,28 @@
 <script setup>
-// import { useUiStore } from '@/stores/panel/ui'
 
-// const uiStore = useUiStore()
+const isLoading = ref(true);
+const landing = ref()
 
-const landingData = reactive({
-    text: null,
-    image: null,
-    alt: null
-});
-const getImageLanding = async () => {
-    const dataImage = await $fetch(`/api/settings/landing`, { method: 'GET' })
-    console.log(dataImage)
-    landingData.text = dataImage[0].data.text
-    landingData.image = dataImage[0].data.image
-    landingData.alt = dataImage[0].data.alt
+const getLandigData = async () => {
+    const { data } = await useFetch('/api/settings/landing');
+    landing.value = data.value;
 }
-getImageLanding();
+getLandigData();
 
 const setImageUrl = (imageName) => {
     const path = `../uploads/${imageName}`;
     return new URL(path, import.meta.url).href;
 }
 
+async function fetch() {
+    await new Promise(resolve => setTimeout(resolve, 3000));
+    isLoading.value = false;
+}
+fetch()
+
 const categories = ref([]);
 const getGategories = async () => {
-    const data = await $fetch('/api/categories/getAll',{
+    const data = await $fetch('/api/categories/getAll', {
         method: 'GET',
     });
     categories.value = data;
@@ -38,94 +36,139 @@ const isMouseEnter = ref(false);
 </script>
 
 <template>
-    <ViewComponentMoblieNav></ViewComponentMoblieNav>
-    <header class="relative overflow-hidden transition-all bg-home-page">
-        <div class="relative flex flex-col justify-between  xs:h-screen lg:h-auto">
-            <nav class="lg:hidden xs:flex justify-between px-4 py-[50px]">
-                <IconsLogoIcon></IconsLogoIcon>
-                <ViewComponentHamburgerMenu></ViewComponentHamburgerMenu>
-            </nav>
-
-            <nav :class="['xs:hidden lg:flex justify-evenly items-center py-8', isMouseEnter && 'bg-white relative z-30']">
-                <div class="">
-                    <img src="~/assets/images/client/logo.svg" alt="">
-                </div>
-                <div class="flex justify-between items-center">
-
-                    <ul class="flex gap-8 items-center relative z-30">
-
-                        <li @click="isMouseEnter = false">
-                            <NuxtLink
-                                class="nav-item text-2xl border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
-                                to="/">Home
-                            </NuxtLink>
-                        </li>
-
-                        <li @click="isMouseEnter = false">
-                            <NuxtLink
-                                class="nav-item text-2xl border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
-                                href="/about">about me
-                            </NuxtLink>
-                        </li>
-
-                        <li @mouseover="isMouseEnter = true" class="flex flex-col items-center">
-                            <button
-                                class="nav-item text-2xl border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
-                                href="#">Categories
-                            </button>
-                        </li>
-
-                        <li @click="isMouseEnter = false">
-                            <NuxtLink
-                                class="nav-item text-2xl border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
-                                href="/blog">Blog
-                            </NuxtLink>
-                        </li>
-
-                    </ul>
-                    <ViewComponentBaseButton size="2xl" class="ml-16 relative z-20">
-                        contact
-                    </ViewComponentBaseButton>
-                </div>
-
-            </nav>
-
-            <div :class="['absolute z-30 pb-12 pt-10 w-full top-24 opacity-0 bg-white', isMouseEnter && 'opacity-100']">
-                <ul class="grid grid-cols-3 gap-12 w-1/2 mx-auto">
-                    <li v-for="category in categories" :key="category.id" @click="isMouseEnter = false"
-                        class="text-2xl text-[#5F5F5F] capitalize">
-                        <NuxtLink :to="`/categories/${category.id}`">{{ category.name }}</NuxtLink>
-                    </li>
-                </ul>
-            </div>
-
-            <div v-show="isMouseEnter" @mouseover="isMouseEnter = false" class="fixed inset-0 overllay"></div>
-
-            <div class="lg:pt-[245px]">
-
-                <div class="bg-user-mobile absolute z-10 bottom-0 w-full px-10">
-                    <img class="xs:inline-block lg:hidden w-full mx-auto capitalize" :src="setImageUrl(landingData.image)"
-                        :alt="landingData.alt">
-                    <img class="xs:hidden lg:flex mx-auto capitalize" width="500" :src="setImageUrl(landingData.image)"
-                        :alt="landingData.alt">
-                </div>
-                <div class="overflow-hidden lg:px-12">
-                    <h1
-                        class="to-right lg:text-[225px] lg:leading-[194px] -z-10 bottom-[12rem] font-bold whitespace-nowrap text-[62.877px] text-[#1C1C1C]">
-                        {{ landingData.text }}</h1>
-                    <h1
-                        class="to-left lg:text-[225px] lg:leading-[194px] -z-10 bottom-[7rem] font-bold whitespace-nowrap text-[62.877px] text-[#025EFF]">
-                        {{ landingData.text }}</h1>
-                </div>
+    <div v-if="isLoading" class="loading h-screen flex justify-center items-center">
+        <div class="w-[200px] h-[200px] relative">
+            <IconsLogoIcon class="h-full w-full object-cover"></IconsLogoIcon>
+            <div class="absolute top-[10px] right-[60px] -z-10">
+                <span class="circle"></span>
+                <span class="circle circle-2"></span>
+                <span class="circle circle-3"></span>
             </div>
         </div>
+    </div>
+    <div v-else>
+        <ViewComponentMoblieNav></ViewComponentMoblieNav>
+        <header class="relative overflow-hidden transition-all bg-home-page">
+            <div class="relative flex flex-col justify-between  xs:h-screen lg:h-auto">
+                <nav class="lg:hidden xs:flex justify-between px-4 py-[50px]">
+                    <IconsLogoIcon></IconsLogoIcon>
+                    <ViewComponentHamburgerMenu></ViewComponentHamburgerMenu>
+                </nav>
 
-    </header>
-    <slot></slot>
-    <LayoutComponentTheFooter></LayoutComponentTheFooter>
+                <nav
+                    :class="['xs:hidden lg:flex justify-evenly items-center py-8', isMouseEnter && 'bg-white relative z-30']">
+                    <div class="">
+                        <img src="~/assets/images/client/logo.svg" alt="">
+                    </div>
+                    <div class="flex justify-between items-center">
+
+                        <ul class="flex gap-8 items-center relative z-30">
+
+                            <li @click="isMouseEnter = false">
+                                <NuxtLink
+                                    class="nav-item text-2xl border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
+                                    to="/">Home
+                                </NuxtLink>
+                            </li>
+
+                            <li @click="isMouseEnter = false">
+                                <NuxtLink
+                                    class="nav-item text-2xl border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
+                                    href="/about">about me
+                                </NuxtLink>
+                            </li>
+
+                            <li @mouseover="isMouseEnter = true" class="flex flex-col items-center">
+                                <button
+                                    class="nav-item text-2xl border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
+                                    href="#">Categories
+                                </button>
+                            </li>
+
+                            <li @click="isMouseEnter = false">
+                                <NuxtLink
+                                    class="nav-item text-2xl border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
+                                    href="/blog">Blog
+                                </NuxtLink>
+                            </li>
+
+                        </ul>
+                        <ViewComponentBaseButton size="2xl" class="ml-16 relative z-20">
+                            contact
+                        </ViewComponentBaseButton>
+                    </div>
+
+                </nav>
+
+                <div :class="['absolute z-30 pb-12 pt-10 w-full top-24 opacity-0 bg-white', isMouseEnter && 'opacity-100']">
+                    <ul class="grid grid-cols-3 gap-12 w-1/2 mx-auto">
+                        <li v-for="category in categories" :key="category.id" @click="isMouseEnter = false"
+                            class="text-2xl text-[#5F5F5F] capitalize">
+                            <NuxtLink :to="`/categories/${category.id}`">{{ category.name }}</NuxtLink>
+                        </li>
+                    </ul>
+                </div>
+
+                <div v-show="isMouseEnter" @mouseover="isMouseEnter = false" class="fixed inset-0 overllay"></div>
+
+                <div class="lg:pt-[245px]">
+
+                    <div class="bg-user-mobile absolute z-10 bottom-0 w-full px-10">
+                        <img class="xs:inline-block lg:hidden w-full mx-auto capitalize"
+                            :src="setImageUrl(landing.data.image)" :alt="landing.data.alt">
+                        <img class="xs:hidden lg:flex mx-auto capitalize" width="500" :src="setImageUrl(landing.data.image)"
+                            :alt="landing.data.alt">
+
+                    </div>
+                    <div class="overflow-hidden lg:px-12">
+                        <h1
+                            class="to-right lg:text-[225px] lg:leading-[194px] -z-10 bottom-[12rem] font-bold whitespace-nowrap text-[62.877px] text-[#1C1C1C]">
+                            {{ landing.data.text }}</h1>
+                        <h1
+                            class="to-left lg:text-[225px] lg:leading-[194px] -z-10 bottom-[7rem] font-bold whitespace-nowrap text-[62.877px] text-[#025EFF]">
+                            {{ landing.data.text }}</h1>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+        <slot></slot>
+        <LayoutComponentTheFooter></LayoutComponentTheFooter>
+    </div>
 </template>
 
 <style scoped>
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    border: 55px solid #b6d4fc;
+    border-color: #b6d4fc;
+    animation: circle-opacity 3s infinite;
+}
+
+.circle-2 {
+    animation-delay: .3s;
+}
+
+.circle-3 {
+    animation-delay: .8s;
+}
+
+@keyframes circle-opacity {
+    0% {
+        opacity: 1;
+        transform: scale(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1);
+    }
+}
+
 .nav-item {
     display: flex;
     flex-direction: column;
@@ -242,5 +285,4 @@ const isMouseEnter = ref(false);
     backdrop-filter: blur(50px);
     z-index: 20;
 }
-
 </style>

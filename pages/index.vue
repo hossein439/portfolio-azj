@@ -7,13 +7,6 @@ definePageMeta({
     layout: "customheader",
 });
 
-const singleBlog = reactive({
-    title: null,
-    created_at: null,
-    description: null,
-    image: null,
-    alt: null,
-});
 
 const setImageUrl = (imageName) => {
     const path = `../uploads/${imageName}`;
@@ -22,11 +15,7 @@ const setImageUrl = (imageName) => {
 
 const showTime = (date, formatDate) => {
     console.log(date)
-    // return format(new Date(date), formatDate, { timeZone: 'Europe/Berlin' });
 }
-
-const { data: simple } = await useFetch('/api/simple');
-console.log(simple.value)
 
 const { pending, data: lastBlog } = await useFetch('/api/blogs/getLast');
 

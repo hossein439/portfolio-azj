@@ -17,7 +17,7 @@ const getLastBlog = async () => {
     const data = await $fetch('/api/blogs/getLast',{
         method: 'GET',
     });
-    const blog = data;
+    const blog = data[0];
     singleBlog.title = blog.title;
     singleBlog.created_at = blog.created_at;
     singleBlog.description = blog.description;

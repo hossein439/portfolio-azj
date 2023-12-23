@@ -19,7 +19,6 @@ export default defineEventHandler(async (event) => {
             table
         }
     } else {
-
-        return getById
+        return getById[0]
     }
 })
