@@ -1,5 +1,4 @@
 <script setup>
-import { format } from 'date-fns';
 
 const isLoadedBlog = ref(false);
 const singleBlog = reactive({

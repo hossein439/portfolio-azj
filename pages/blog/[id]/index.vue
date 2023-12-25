@@ -1,5 +1,4 @@
 <script setup>
-import { format } from 'date-fns';
 
 const route = useRoute();
 const isLoadedBlog = ref(false);

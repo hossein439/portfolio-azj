@@ -2,7 +2,6 @@
   "name": "nuxt-app",
   "private": true,
   "scripts": {
-    "serve": "nodemon ./server/server.js",
     "build": "nuxt build",
     "dev": "nuxt dev",
     "start": "nuxt start",
@@ -22,24 +21,13 @@
     "@splidejs/vue-splide": "^0.6.12",
     "@supabase/supabase-js": "^2.39.1",
     "@tailwindcss/line-clamp": "^0.4.4",
-    "axios": "^1.6.2",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.1",
     "cookie-parser": "^1.4.6",
-    "cors": "^2.8.5",
-    "date-fns": "^2.30.0",
-    "date-fns-tz": "^2.0.0",
-    "express": "^4.18.2",
+    "dayjs": "^1.11.10",
     "js-cookie": "^3.0.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.6.5",
-    "multer": "^1.4.5-lts.1",
-    "mysql2": "^3.6.1",
-    "nodemailer": "^6.8.0",
-    "nodemon": "^2.0.20",
     "pinia": "^2.1.4",
-    "sharp": "^0.31.1",
-    "sweetalert2": "^11.7.32",
-    "validator": "^13.7.0"
+    "sweetalert2": "^11.7.32"
   }
 }

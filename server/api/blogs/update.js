@@ -1,9 +1,7 @@
 import supabase from '../../supabase.js'
-import { format } from 'date-fns';
 
 export default defineEventHandler(async (event) => {
     const { title, alt, description, image, isChangedImage, exFileName, id } = await readBody(event)
-    const date = new Date();
 
     if (isChangedImage && image) {
         removeImage(exFileName);
@@ -11,7 +9,7 @@ export default defineEventHandler(async (event) => {
 
         const { data: updateBlog, error } = await supabase
             .from('blogs')
-            .update({ image: imageCreated, title, alt, description, created_at: format(date, 'yyyy-MM-dd HH:mm') })
+            .update({ image: imageCreated, title, alt, description})
             .eq('id', id)
             .select()
 
@@ -21,7 +19,7 @@ export default defineEventHandler(async (event) => {
 
         const { data: updateBlog, error } = await supabase
             .from('blogs')
-            .update({ title, alt, description, created_at: format(date, 'yyyy-MM-dd HH:mm') })
+            .update({ title, alt, description})
             .eq('id', id)
             .select()
 

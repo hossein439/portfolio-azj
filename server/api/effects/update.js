@@ -1,10 +1,8 @@
 import supabase from '../../supabase.js'
-import { format } from 'date-fns';
 
 
 export default defineEventHandler(async (event) => {
     const { id, name, link, alt, categoryId, image, gif, isChangedImg, isChangedGif, exFilenameImg, exFilenameGif } = await readBody(event);
-    const date = new Date();
 
     if (isChangedImg && image && !gif) {
 
@@ -13,7 +11,7 @@ export default defineEventHandler(async (event) => {
 
         const { data: updateEffectNewImage, error } = await supabase
             .from('effects')
-            .update({ name, image: imageCreated, link, alt, category_id: categoryId, created_at: format(date, 'yyyy-MM-dd HH:mm') })
+            .update({ name, image: imageCreated, link, alt, category_id: categoryId })
             .eq('id', id)
             .select()
 
@@ -27,7 +25,7 @@ export default defineEventHandler(async (event) => {
 
         const { data: updateEffectNewGif, error } = await supabase
             .from('effects')
-            .update({ name, gif: gifCreated, link, alt, category_id: categoryId, created_at: format(date, 'yyyy-MM-dd HH:mm') })
+            .update({ name, gif: gifCreated, link, alt, category_id: categoryId })
             .eq('id', id)
             .select()
 
@@ -44,7 +42,7 @@ export default defineEventHandler(async (event) => {
 
         const { data: updateEffectBoth, error } = await supabase
             .from('effects')
-            .update({ name, image: imageCreated, link, alt, gif: gifCreated, category_id: categoryId, created_at: format(date, 'yyyy-MM-dd HH:mm') })
+            .update({ name, image: imageCreated, link, alt, gif: gifCreated, category_id: categoryId })
             .eq('id', id)
             .select()
 
@@ -53,7 +51,7 @@ export default defineEventHandler(async (event) => {
 
     const { data: updateEffect, error } = await supabase
         .from('effects')
-        .update({ name, link, alt, category_id: categoryId, created_at: format(date, 'yyyy-MM-dd HH:mm') })
+        .update({ name, link, alt, category_id: categoryId })
         .eq('id', id)
         .select()
 

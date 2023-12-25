@@ -1,7 +1,4 @@
 <script setup>
-// import { format } from 'date-fns';
-import { format } from 'date-fns-tz';
-
 
 definePageMeta({
     layout: "customheader",
@@ -17,7 +14,6 @@ const showTime = (date, formatDate) => {
     console.log(date)
 }
 
-const { pending, data: lastBlog } = await useFetch('/api/blogs/getLast');
 
 </script>
 
