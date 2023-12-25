@@ -1,7 +1,11 @@
 const state = () => ({
     lastBlog: null,
-    blogs: null,
-    isExistBlogs: false
+    blogs: [],
+    isExistBlogs: false,
+    limit: 3,
+    offset: 0,    
+    isLoading: true,
+    singleBlog: null
 });
 
 export default state;

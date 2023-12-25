@@ -37,14 +37,14 @@ const showCategory = () => {
 
                     <ul class="flex gap-8 items-center relative z-30">
 
-                        <li @click="isMouseEnter = false">
+                        <li @click="isMouseEnter = false" @mouseover="isMouseEnter = false">
                             <NuxtLink
                                 class="nav-item text-2xl cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
                                 to="/">Home
                             </NuxtLink>
                         </li>
 
-                        <li @click="isMouseEnter = false">
+                        <li @click="isMouseEnter = false" @mouseover="isMouseEnter = false">
                             <NuxtLink
                                 class="nav-item text-2xl cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
                                 href="/about">about me
@@ -57,7 +57,7 @@ const showCategory = () => {
                             </button>
                         </li>
 
-                        <li @click="isMouseEnter = false">
+                        <li @click="isMouseEnter = false" @mouseover="isMouseEnter = false">
                             <NuxtLink
                                 class="nav-item text-2xl cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
                                 href="/blog">Blog

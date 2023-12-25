@@ -130,7 +130,7 @@ getAllEffects();
     width: 95%;
     height: 95%;
     z-index: 1;
-    background-color: white;
+    background-color: #fafafa;
     -webkit-clip-path: polygon(50% 9%, 85% 29%, 85% 70%, 50% 91%, 14% 69%, 14% 29%);
     clip-path: polygon(50% 9%, 85% 29%, 85% 70%, 50% 91%, 14% 69%, 14% 29%)
 }

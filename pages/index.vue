@@ -1,17 +1,13 @@
 <script setup>
+import { useBlogStore } from '@/stores/views/blog'
 
 definePageMeta({
     layout: "customheader",
 });
 
-
-const setImageUrl = (imageName) => {
-    const path = `../uploads/${imageName}`;
-    return new URL(path, import.meta.url).href;
-}
-
-const showTime = (date, formatDate) => {
-    console.log(date)
+const blogStore = useBlogStore();
+if (!blogStore.lastBlog) {
+    blogStore.getLastBlog()
 }
 
 
@@ -56,27 +52,27 @@ const showTime = (date, formatDate) => {
         <div class="divider"></div>
 
         <section class="fade-in xs:px-4 lg:px-[176px] mt-[34px] relative">
-
             <div class="h-[446px]">
-                <img class="rounded-lg h-full w-full object-cover" :src="setImageUrl(lastBlog?.image)" :alt="lastBlog?.alt">
+                <img class="rounded-lg h-full w-full object-cover" :src="setImageUrl('..', blogStore.lastBlog?.image)"
+                    :alt="blogStore.lastBlog?.alt">
             </div>
             <div class="flex flex-wrap xs:gap-4 items-center justify-between py-8">
-                <h1 class="text-4xl capitalize">{{ lastBlog?.title }}</h1>
+                <h1 class="text-4xl capitalize">{{ blogStore.lastBlog?.title }}</h1>
                 <div class="flex items-center gap-6">
                     <div class="flex items-center gap-3">
                         <img src="~/assets/images/icons/clock.svg" alt="">
                         <time>
-                            {{ lastBlog?.created_at }}
+                            {{ formatTime(blogStore.lastBlog?.created_at, 'HH:mm') }}
                         </time>
                     </div>
                     <div class="flex items-center gap-3">
                         <img src="~/assets/images/icons/calendar.svg" alt="calendar icon">
-                        {{ lastBlog?.created_at }}
+                        {{ formatTime(blogStore.lastBlog?.created_at, 'DD/MM/YYYY') }}
                     </div>
                 </div>
             </div>
             <p class="xs:text-[18px] lg:text-2xl pb-12 xs:h-[300px] lg:h-[130px] relative overflow-hidden">
-                {{ lastBlog?.description }}
+                {{ blogStore.lastBlog?.description }}
             <div class="bg-opacity"></div>
 
             <RouterLink to="/blog" class="absolute bottom-0 left-0 right-0">

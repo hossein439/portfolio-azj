@@ -1,5 +1,5 @@
 <script setup>
-import { useUiStore } from '@/stores/panel/ui'
+import { useUiStore } from '@/stores/views/ui'
 
 const uiStore = useUiStore()
 const setColor = computed(() => uiStore.isToggled ? '#E6EFFF' : '#000')

@@ -1,145 +1,109 @@
 <script setup>
+import { useBlogStore } from '@/stores/views/blog'
 
-const isLoadedBlog = ref(false);
-const singleBlog = reactive({
-    title: '',
-    created_at: '',
-    description: '',
-});
+const blogStore = useBlogStore();
 
-const setImageUrl = (imageName) => {
-    const path = `../../uploads/${imageName}`;
-    return new URL(path, import.meta.url).href;
-}
+blogStore.getBlogs();
 
-const getLastBlog = async () => {
-    const data = await $fetch('/api/blogs/getLast',{
-        method: 'GET',
-    });
-    const blog = data[0];
-    singleBlog.title = blog.title;
-    singleBlog.created_at = blog.created_at;
-    singleBlog.description = blog.description;
-    singleBlog.image = blog.image;
-    isLoadedBlog.value = true;
-}
-getLastBlog();
-
-const showTime = (date, formatDate) => {
-    // return format(new Date(date), formatDate);
+if (!blogStore.lastBlog) {
+    blogStore.getLastBlog()
 }
 
 
-const blogs = ref([]);
-const limit = 3;
-const isExistBlogs = ref(false);
-let offset = 0;
-
-const getMoreBlogs = async () => {
-    const data = await $fetch('/api/blogs/getByLimit',{
-        method: 'GET',
-        params: {
-            offset,
-            limit
-        }
-    })
-
-    blogs.value = [...blogs.value, ...data];
-    if (data.length < limit) isExistBlogs.value = true;
-    if (data.length > 0) {
-        offset += limit
-    }
-}
-getMoreBlogs();
 </script>
 
 
 <template>
     <Title>Blog</Title>
-    <section v-if="isLoadedBlog" class="xs:px-4 lg:px-[176px] mt-[34px]">
+    <section class="xs:px-4 lg:px-[176px] mt-[34px]">
 
         <div class="xs:h-[138px] lg:h-[446px]">
-            <img class="rounded-lg h-full w-full object-cover" :src="setImageUrl(singleBlog?.image)" alt="">
+            <img class="rounded-lg h-full w-full object-cover" :src="setImageUrl('..', blogStore.lastBlog?.image)"
+                :alt="blogStore.lastBlog?.alt">
         </div>
         <div class="flex flex-wrap xs:gap-4 lg:gap-0 items-center justify-between xs:py-4 lg:py-8">
-            <h1 class="text-4xl capitalize">{{ singleBlog.title }}</h1>
+            <h1 class="text-4xl capitalize">{{ blogStore.lastBlog?.title }}</h1>
             <div class="flex items-center gap-6">
                 <div class="flex items-center xs:gap-2 lg:gap-3">
                     <img src="~/assets/images/icons/clock.svg" alt="">
                     <time>
-                        {{ singleBlog?.created_at }}
+                        {{ formatTime(blogStore.lastBlog?.created_at, 'HH:mm') }}
                     </time>
                 </div>
                 <div class="flex items-center xs:gap-2 lg:gap-3">
                     <img src="~/assets/images/icons/calendar.svg" alt="">
-                    {{ singleBlog?.created_at }}
+
+                    {{ formatTime(blogStore.lastBlog?.created_at, 'DD/MM/YYYY') }}
                 </div>
             </div>
         </div>
         <p class="xs:text-[18px] lg:text-2xl pb-12">
-            {{ singleBlog.description }}
+            {{ blogStore.lastBlog?.description }}
         </p>
 
     </section>
 
     <div class="divider"></div>
 
-    <section class="xs:px-4 lg:px-[176px] fade-in">
-        <h2 class="text-5xl pt-8 pb-12 text-center font-semibold capitalize text-[#0E101C]">more content</h2>
-        <div class="grid lg:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 gap-6">
-            <template v-for="blog in blogs" :key="blog.id">
-                <NuxtLink :to="`/blog/${blog.id}`">
-                    <article class="flex flex-col gap-2 text-2xl">
-                        <div class="xs:h-[316px] lg:h-[406px]">
-                            <img class="rounded-lg h-full w-full object-cover" :src="setImageUrl(blog.image)" alt="">
-                        </div>
-                        <div class="flex flex-wrap justify-between">
-                            <p class="font-semibold capitalize">{{ blog.title }}</p>
-                            <div class="flex items-center gap-6">
-                                <div class="flex items-center gap-3">
-                                    <img src="~/assets/images/icons/clock.svg" alt="">
-                                    <time>{{ blog.created_at }}</time>
-                                </div>
-                                <div class="flex items-center gap-3">
-                                    <img src="~/assets/images/icons/calendar.svg" alt="">
-                                    <time>{{ blog.created_at }}</time>
+    <template v-if="!blogStore.isLoading">
+        <section class="xs:px-4 lg:px-[176px] fade-in">
+            <h2 class="text-5xl pt-8 pb-12 text-center font-semibold capitalize text-[#0E101C]">more content</h2>
+            <div class="grid lg:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 gap-6">
+                <template v-for="blog in blogStore.blogs" :key="blog.id">
+                    <NuxtLink :to="`/blog/${blog.id}`">
+                        <article class="flex flex-col gap-2 text-2xl">
+                            <div class="xs:h-[316px] lg:h-[406px]">
+                                <img class="rounded-lg h-full w-full object-cover" :src="setImageUrl('..', blog.image)"
+                                    :alt="blog.alt">
+                            </div>
+                            <div class="flex flex-wrap justify-between">
+                                <p class="font-semibold capitalize">{{ blog.title }}</p>
+                                <div class="flex items-center gap-6">
+                                    <div class="flex items-center gap-3">
+                                        <img src="~/assets/images/icons/clock.svg" alt="">
+                                        <time>{{ formatTime(blog.created_at, 'HH:mm') }}</time>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <img src="~/assets/images/icons/calendar.svg" alt="">
+                                        <time>{{ formatTime(blog.created_at, 'DD/MM/YYYY') }}</time>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <p class="line-clamp-3">{{ blog.description }}</p>
-                    </article>
-                </NuxtLink>
-            </template>
+                            <p class="line-clamp-3">{{ blog.description }}</p>
+                        </article>
+                    </NuxtLink>
+                </template>
+            </div>
+        </section>
+
+        <div class="" v-if="!blogStore.isExistBlogs">
+            <div class="xs:px-4 lg:px-[176px] mt-6 pb-16 grid lg:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 gap-6">
+
+                <div class="relative bg-red">
+                    <div class="absolute w-full h-full bg-image z-10"></div>
+                    <div class="h-[206px] w-full">
+                        <img class="rounded-lg h-full w-full object-cover" src="~/assets/images/client/blog-1.jpeg" alt="">
+                    </div>
+                </div>
+
+                <div class="relative xs:hidden lg:block">
+                    <div class="absolute w-full h-full bg-image z-10"></div>
+                    <div class="h-[206px] w-full">
+                        <img class="rounded-lg h-full w-full object-cover" src="~/assets/images/client/blog-2.jpeg" alt="">
+                    </div>
+                </div>
+
+                <div class="relative xs:hidden lg:block">
+                    <div class="absolute w-full h-full bg-image z-10"></div>
+                    <div class="h-[206px] w-full">
+                        <img class="rounded-lg h-full w-full object-cover" src="~/assets/images/client/blog-3.jpeg" alt="">
+                    </div>
+                </div>
+            </div>
+            <ViewComponentBaseButton @click="blogStore.getBlogs()" class="relative z-20 top-[-11.5rem] mx-auto">load more
+            </ViewComponentBaseButton>
         </div>
-    </section>
-
-    <div class="" v-if="!isExistBlogs">
-        <div class="xs:px-4 lg:px-[176px] mt-6 pb-16 grid lg:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 gap-6">
-
-            <div class="relative bg-red">
-                <div class="absolute w-full h-full bg-image z-10"></div>
-                <div class="h-[206px] w-full">
-                    <img class="rounded-lg h-full w-full object-cover" src="~/assets/images/client/blog-1.jpeg" alt="">
-                </div>
-            </div>
-
-            <div class="relative xs:hidden lg:block">
-                <div class="absolute w-full h-full bg-image z-10"></div>
-                <div class="h-[206px] w-full">
-                    <img class="rounded-lg h-full w-full object-cover" src="~/assets/images/client/blog-2.jpeg" alt="">
-                </div>
-            </div>
-
-            <div class="relative xs:hidden lg:block">
-                <div class="absolute w-full h-full bg-image z-10"></div>
-                <div class="h-[206px] w-full">
-                    <img class="rounded-lg h-full w-full object-cover" src="~/assets/images/client/blog-3.jpeg" alt="">
-                </div>
-            </div>
-        </div>
-        <ViewComponentBaseButton @click="getMoreBlogs()" class="relative z-20 top-[-11.5rem] mx-auto">load more
-        </ViewComponentBaseButton>
-    </div>
+    </template>
     <div class="divider"></div>
 </template>
 
