@@ -20,7 +20,7 @@ const getAllFilters = async () => {
 
 getAllFilters();
 
-const options = reactive({
+const options = {
     focus: 'center',
     perPage: 4,
     rewind: true,
@@ -28,20 +28,20 @@ const options = reactive({
     perMove: 1,
     pagination: false,
     breakpoints: {
-        320: {
-            perPage: 2
-        },
-        425: {
-            perPage: 1
+        1080: {
+            perPage: 3
         },
         768: {
             perPage: 3 
         },
-        1080: {
-            perPage: 3
-        }
+        425: {
+            perPage: 1
+        },
+        310: {
+            perPage: 1
+        },
     }
-});
+};
 
 const setImageUrl = (imageName) => {
     const path = `../../uploads/${imageName}`;
@@ -50,7 +50,7 @@ const setImageUrl = (imageName) => {
 
 </script>
 <template>
-    <div class="xs:mx-8 lg:mx-12 mt-12">
+    <div class="xs:mx-1 lg:mx-12 mt-12">
         <Splide :options="options" :has-track="false">
             <SplideTrack>
                 <SplideSlide v-for="filter in filters" :key="filter.id">
@@ -88,7 +88,7 @@ const setImageUrl = (imageName) => {
                 </SplideSlide>
             </SplideTrack>
     
-            <div class="splide__arrows relative -z-10 xs:bottom-[7.5rem] lg:bottom-[22rem] flex justify-between mx-auto">
+            <div class="splide__arrows xs:hidden relative -z-10 xs:bottom-[7.5rem] lg:bottom-[22rem] lg:flex justify-between mx-auto">
                 <button class="splide__arrow--prev mb-10 xs:-ml-[3.5rem] lg:-ml-28 cursor-pointer bg-[#5593FF] text-[#E6EFFF] lg:w-[80px] xs:w-[33px] lg:h-[80px] xs:h-[33px] rounded-full relative shadow-md hover:bg-[#025EFF] transition-all">
                     <svg class="absolute inset-0 w-full m-auto" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
                         <path d="M12 24L20 16L12 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"

@@ -32,6 +32,10 @@ getGategories();
 
 const isMouseEnter = ref(false);
 
+onMounted(() => {
+    
+})
+
 
 </script>
 
@@ -49,7 +53,7 @@ const isMouseEnter = ref(false);
     <div v-else>
         <ViewComponentMoblieNav></ViewComponentMoblieNav>
         <header class="relative overflow-hidden transition-all bg-home-page">
-            <div class="relative flex flex-col justify-between  xs:h-screen lg:h-auto">
+            <div class="relative flex flex-col justify-between  h-screen">
                 <nav class="lg:hidden xs:flex justify-between px-4 py-[50px]">
                     <IconsLogoIcon></IconsLogoIcon>
                     <ViewComponentHamburgerMenu></ViewComponentHamburgerMenu>
@@ -64,14 +68,14 @@ const isMouseEnter = ref(false);
 
                         <ul class="flex gap-8 items-center relative z-30">
 
-                            <li @click="isMouseEnter = false">
+                            <li @click="isMouseEnter = false" @mouseover="isMouseEnter = false">
                                 <NuxtLink
                                     class="nav-item text-2xl border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
                                     to="/">Home
                                 </NuxtLink>
                             </li>
 
-                            <li @click="isMouseEnter = false">
+                            <li @click="isMouseEnter = false" @mouseover="isMouseEnter = false">
                                 <NuxtLink
                                     class="nav-item text-2xl border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
                                     href="/about">about me
@@ -85,7 +89,7 @@ const isMouseEnter = ref(false);
                                 </button>
                             </li>
 
-                            <li @click="isMouseEnter = false">
+                            <li @click="isMouseEnter = false" @mouseover="isMouseEnter = false">
                                 <NuxtLink
                                     class="nav-item text-2xl border-transparent cursor-pointer hover:border-[#025EFF] capitalize hover:text-[#025EFF] py-2 transition-all"
                                     href="/blog">Blog
@@ -243,13 +247,13 @@ const isMouseEnter = ref(false);
     }
 
     to {
-        transform: translate(-800px);
+        transform: translate(-80px);
     }
 }
 
 @keyframes right {
     from {
-        transform: translate(-800px);
+        transform: translate(-80px);
     }
 
     to {
