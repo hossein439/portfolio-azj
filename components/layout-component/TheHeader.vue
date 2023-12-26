@@ -27,7 +27,7 @@ const showCategory = () => {
                 <ViewComponentHamburgerMenu></ViewComponentHamburgerMenu>
             </nav>
 
-            <nav :class="['xs:hidden lg:flex justify-evenly items-center py-8', isMouseEnter && 'bg-white relative z-30']">
+            <nav :class="['xs:hidden lg:flex justify-between items-center py-8 xs:px-8 lg:px-32', isMouseEnter && 'bg-white relative z-30']">
 
                 <div class="">
                     <img src="~/assets/images/client/logo.svg" alt="">

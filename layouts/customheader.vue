@@ -1,7 +1,7 @@
 <script setup>
 import { useUiStore } from '@/stores/views/ui'
 
-const isLoading = ref(true);
+const isLoading = ref(false);
 const landing = ref()
 
 const uiStore = useUiStore();
@@ -20,10 +20,6 @@ getLandigData();
 async function fetch() {
     await new Promise(resolve => setTimeout(resolve, 3000));
     isLoading.value = false;
-}
-if (uiStore.isFirstLoading) {
-    fetch()
-    uiStore.isFirstLoading = true;
 }
 
 const categories = ref([]);
@@ -53,7 +49,7 @@ const isMouseEnter = ref(false);
             </div>
         </div>
     </div>
-    <div v-else>
+    <div v-else class="max-w-[1512px] mx-auto">
         <ViewComponentMoblieNav></ViewComponentMoblieNav>
         <header class="relative overflow-hidden transition-all bg-home-page">
             <div class="relative flex flex-col justify-between  h-screen">
@@ -63,7 +59,7 @@ const isMouseEnter = ref(false);
                 </nav>
 
                 <nav
-                    :class="['xs:hidden lg:flex justify-evenly items-center py-8', isMouseEnter && 'bg-white relative z-30']">
+                    :class="['xs:hidden lg:flex justify-between items-center py-8 xs:px-8 lg:px-32', isMouseEnter && 'bg-white relative z-30']">
                     <div class="">
                         <img src="~/assets/images/client/logo.svg" alt="">
                     </div>
@@ -140,6 +136,7 @@ const isMouseEnter = ref(false);
 
         </header>
         <slot></slot>
+
         <LayoutComponentTheFooter></LayoutComponentTheFooter>
     </div>
 </template>
