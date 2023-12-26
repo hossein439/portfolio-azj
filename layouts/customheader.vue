@@ -1,7 +1,7 @@
 <script setup>
 import { useUiStore } from '@/stores/views/ui'
 
-const isLoading = ref(false);
+const isLoading = ref(true);
 const landing = ref()
 
 const uiStore = useUiStore();
@@ -17,10 +17,20 @@ getLandigData();
 //     return new URL(path, import.meta.url).href;
 // }
 
+
 async function fetch() {
     await new Promise(resolve => setTimeout(resolve, 3000));
     isLoading.value = false;
+    uiStore.isFirstLoading = false;
 }
+
+if(uiStore.isFirstLoading) {
+    console.log('hello')
+    fetch()
+}else {
+    isLoading.value = false
+}
+
 
 const categories = ref([]);
 const getGategories = async () => {
@@ -118,18 +128,18 @@ const isMouseEnter = ref(false);
 
                     <div class="bg-user-mobile absolute z-10 bottom-0 w-full px-10">
                         <img class="xs:inline-block lg:hidden w-full mx-auto capitalize"
-                            :src="setImageUrl('../', landing.data.image)" :alt="landing.data.alt">
+                            :src="setImageUrl('..', landing?.data?.image)" :alt="landing?.data?.alt">
                         <img class="xs:hidden lg:flex mx-auto capitalize" width="500"
-                            :src="setImageUrl('..', landing.data.image)" :alt="landing.data.alt">
+                            :src="setImageUrl('..', landing?.data?.image)" :alt="landing?.data?.alt">
 
                     </div>
                     <div class="overflow-hidden lg:px-12">
                         <h1
                             class="to-right lg:text-[225px] lg:leading-[194px] -z-10 bottom-[12rem] font-bold whitespace-nowrap text-[62.877px] text-[#1C1C1C]">
-                            {{ landing.data.text }}</h1>
+                            {{ landing?.data?.text }}</h1>
                         <h1
                             class="to-left lg:text-[225px] lg:leading-[194px] -z-10 bottom-[7rem] font-bold whitespace-nowrap text-[62.877px] text-[#025EFF]">
-                            {{ landing.data.text }}</h1>
+                            {{ landing?.data?.text }}</h1>
                     </div>
                 </div>
             </div>

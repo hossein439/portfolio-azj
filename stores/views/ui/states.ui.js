@@ -1,7 +1,7 @@
 const state = () => ({
     isToggled: false,
     activeSection: false,
-    isFirstLoading: false
+    isFirstLoading: true
 });
 
 export default state;
