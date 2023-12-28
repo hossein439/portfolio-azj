@@ -8,11 +8,6 @@ const getAllCollaboration = async () => {
     collaborations.value = data;
 }
 
-const setImageUrl = (imageName) => {
-    const path = `../../uploads/${imageName}`;
-    return new URL(path, import.meta.url).href;
-}
-
 getAllCollaboration();
 
 function checkFadeIn() {

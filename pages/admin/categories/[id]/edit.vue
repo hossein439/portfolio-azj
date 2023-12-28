@@ -4,11 +4,11 @@ definePageMeta({
 });
 
 const route = useRoute();
-const { successAlert } = useAlert();
+const { successAlert, loadingAlert, closeAlert } = useAlert();
 const { selectImage, imageSrc, fileImage, isChangedImage } = useImage()
 
 
-const category = reactive({
+const initialValues = reactive({
     name: null,
     description: null,
     alt: null,
@@ -18,42 +18,39 @@ const category = reactive({
     id: route.params.id
 });
 
-
-const setImageUrl = (imageName) => {
-    const path = `../../../../uploads/${imageName}`;
-    return new URL(path, import.meta.url).href;
-}
-
 const getSingle = async () => {
+    loadingAlert()
 
     const data = await $fetch(`/api/categories/${route.params.id}`, {
         method: 'GET'
     })
 
     const { name, image, description, alt } = data[0];
-    category.name = name;
-    category.image = image;
-    category.alt = alt;
-    category.description = description;
-    category.exFileName = image;
+    initialValues.name = name;
+    initialValues.image = image;
+    initialValues.alt = alt;
+    initialValues.description = description;
+    initialValues.exFileName = image;
 
     imageSrc.value = setImageUrl(image);
+    closeAlert()
 }
-
 getSingle()
 
-const edit = async () => {
-    category.image = fileImage.value;
-    category.isChangedImage = isChangedImage.value;
+
+const { handleSubmit } = useForm(initialValues);
+const edit = handleSubmit(async () => {
+    loadingAlert();
+    initialValues.image = fileImage.value;
+    initialValues.isChangedImage = isChangedImage.value;
 
     await $fetch('/api/categories/update', {
         method: 'POST',
-        body: category
+        body: initialValues
     })
 
     successAlert('Updated', 'You updated a category');
-    navigateTo('/admin/categories')
-}
+})
 
 </script>
 
@@ -61,34 +58,14 @@ const edit = async () => {
     <form @submit.prevent="edit()">
         <div class="grid grid-cols-2 gap-5">
 
-            <div>
-                <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Name</label>
-                <div class="mt-2">
-                    <input v-model="category.name" type="text" name="name" id="name"
-                        class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                        placeholder="">
-                </div>
-            </div>
+            <ViewComponentBaseTextInput rules="required|min:3|max:20" v-model="initialValues.name" name="name" id="name"
+                label="name" />
 
-            <div>
-                <label for="alt" class="block text-sm font-medium leading-6 text-gray-900">Alt</label>
-                <div class="mt-2">
-                    <input v-model="category.alt" type="text" alt="alt" id="alt"
-                        class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                        placeholder="">
-                </div>
-            </div>
+            <ViewComponentBaseTextInput rules="required|min:3|max:20" v-model="initialValues.alt" name="alt" id="alt"
+                label="alt" />
 
-            <div class="w-full flex flex-col">
-                <label for="description" class="block text-sm font-medium leading-6 text-gray-900">Description</label>
-                <div class="w-full flex-1">
-                    <textarea v-model="category.description" type="text" name="description" id="description"
-                        class="block w-full h-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                        placeholder="">
-
-                        </textarea>
-                </div>
-            </div>
+            <ViewComponentBaseTextArea rules="required|min:3|max:20" v-model="initialValues.description" name="description"
+                id="description" label="description" />
 
             <div class="w-full">
                 <label for="description" class="block text-sm font-medium leading-6 text-gray-900">Image</label>

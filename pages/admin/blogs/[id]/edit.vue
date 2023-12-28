@@ -1,13 +1,17 @@
 <script setup>
 definePageMeta({
     layout: "adminlayout",
+    middleware: ['auth'],
+    meta: {
+        requiresAuth: true, 
+    },
 });
 
 const route = useRoute();
-const { successAlert } = useAlert();
+const { successAlert, loadingAlert, closeAlert } = useAlert();
 const { selectImage, imageSrc, fileImage, isChangedImage } = useImage()
 
-const blog = reactive({
+const initialValues = reactive({
     title: null,
     alt: null,
     description: null,
@@ -17,74 +21,54 @@ const blog = reactive({
     id: route.params.id
 });
 
-
-const setImageUrl = (imageName) => {
-    const path = `../../../../uploads/${imageName}`;
-    return new URL(path, import.meta.url).href;
-}
-
 const getSingle = async () => {
+    loadingAlert()
     const data = await $fetch(`/api/blogs/${route.params.id}`, {
         method: 'GET'
     })
 
     const { title, image, description, alt } = data[0];
-    blog.title = title;
-    blog.image = image;
-    blog.alt = alt;
-    blog.description = description;
-    blog.exFileName = image
+    initialValues.title = title;
+    initialValues.image = image;
+    initialValues.alt = alt;
+    initialValues.description = description;
+    initialValues.exFileName = image
 
     imageSrc.value = setImageUrl(image);
+    closeAlert();
 }
 
 getSingle()
 
-const edit = async () => {
-    blog.isChangedImage = isChangedImage.value
-    blog.image = fileImage.value;
+const { handleSubmit } = useForm(initialValues);
 
+const edit = handleSubmit(async (values, { resetForm }) => {
+    initialValues.isChangedImage = isChangedImage.value
+    initialValues.image = fileImage.value;
+
+    loadingAlert();
     await $fetch('/api/blogs/update', {
         method: 'POST',
-        body: blog
+        body: initialValues
     })
 
     successAlert('Updated', 'You updated a blog');
-    navigateTo('/admin/blogs')
-}
+})
 
 </script>
 
 <template>
     <form @submit.prevent="edit()">
         <div class="grid grid-cols-2 gap-2">
-            <div>
-                <label for="title" class="block text-sm font-medium leading-6 text-gray-900">Title</label>
-                <div class="mt-2">
-                    <input v-model="blog.title" type="text" name="title" id="title"
-                        class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                        placeholder="">
-                </div>
-            </div>
 
-            <div>
-                <label for="alt" class="block text-sm font-medium leading-6 text-gray-900">Alt</label>
-                <div class="mt-2">
-                    <input v-model="blog.alt" type="text" name="alt" id="alt"
-                        class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                        placeholder="">
-                </div>
-            </div>
+            <ViewComponentBaseTextInput rules="required|min:3|max:20" v-model="initialValues.title" name="title" id="title"
+                label="title" />
 
-            <div class="w-full flex flex-col">
-                <label for="description" class="block text-sm font-medium leading-6 text-gray-900">Description</label>
-                <div class="w-full flex-1">
-                    <textarea v-model="blog.description" type="text" name="description" id="description"
-                        class="block w-full h-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                        placeholder="">
-                        </textarea>
-                </div>
-            </div>
+            <ViewComponentBaseTextInput rules="required|min:3|max:20" v-model="initialValues.alt" name="alt" id="alt"
+                label="alt" />
+
+            <ViewComponentBaseTextArea rules="required|min:3|max:20" v-model="initialValues.description" name="description"
+                id="description" label="description" />
 
 
             <div class="w-full">
@@ -100,7 +84,8 @@ const edit = async () => {
                     <input @change="selectImage($event)" class="absolute inset-0 opacity-0 cursor-pointer" type="file">
                     <span v-show="!imageSrc" class="mt-2 block text-sm font-semibold text-gray-900">Image for
                         blog</span>
-                    <img v-show="imageSrc" :src="imageSrc" alt="" class="w-full h-full rounded-lg inline-block object-cover">
+                    <img v-show="imageSrc" :src="imageSrc" alt=""
+                        class="w-full h-full rounded-lg inline-block object-cover">
                 </div>
             </div>
         </div>

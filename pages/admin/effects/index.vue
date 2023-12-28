@@ -4,14 +4,16 @@ definePageMeta({
     layout: "adminlayout",
 });
 
-const { deleteAlert, successAlert } = useAlert();
+const { deleteAlert, successAlert, loadingAlert, closeAlert } = useAlert();
 const effects = ref([]);
 
 const getAllEffects = async () => {
+    loadingAlert()
     const data = await $fetch('/api/effects/getAll', {
         method: 'GET'
     })
     effects.value = data;
+    closeAlert()
 }
 getAllEffects();
 
@@ -19,6 +21,7 @@ const deleteEffect = async (id, image, gif) => {
     deleteAlert('Are you sure you want to remove this effect?')
         .then(async (result) => {
             if (result.isConfirmed) {
+                loadingAlert()
                 await $fetch('/api/effects/delete', {
                     method: 'POST',
                     body: {
@@ -44,33 +47,11 @@ const deleteEffect = async (id, image, gif) => {
                 <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                     <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
                         <table class="min-w-full divide-y divide-gray-300">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th scope="col"
-                                        class="capitalize py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                                        id
-                                    </th>
-                                    <th scope="col"
-                                        class="capitalize px-3 py-3.5 text-left text-sm font-semibold text-gray-900">name
-                                    </th>
-                                    <th scope="col"
-                                        class="capitalize px-3 py-3.5 text-left text-sm font-semibold text-gray-900">link
-                                    </th>
-                                    <th scope="col"
-                                        class="capitalize px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                        category
-                                    </th>
-                                    <th scope="col"
-                                        class="capitalize px-3 py-3.5 text-left text-sm font-semibold text-gray-900">alt
-                                    </th>
-                                    <th scope="col" class="capitalize relative py-3.5 pl-3 pr-4 sm:pr-6">
-                                        <span class="sr-only">Edit</span>
-                                    </th>
-                                </tr>
-                            </thead>
+                            <AdminViewTHeadTable :thead="['id', 'name', 'link', 'category', 'actions']">
+                            </AdminViewTHeadTable>
                             <tbody class="divide-y divide-gray-200 bg-white">
                                 <tr v-for="effect in effects" :key="effect.id">
-                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-900">
                                         {{ effect.id }}
                                     </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
@@ -82,11 +63,8 @@ const deleteEffect = async (id, image, gif) => {
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                         {{ effect.categories?.name }}
                                     </td>
-                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                        {{ effect.alt }}
-                                    </td>
                                     <td
-                                        class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                                        class="relative whitespace-nowrap px-3 py-4 text-right text-sm font-medium">
                                         <NuxtLink :to="`/admin/effects/${effect.id}/edit`"
                                             class="text-indigo-600 hover:text-indigo-900">
                                             Edit
@@ -97,8 +75,6 @@ const deleteEffect = async (id, image, gif) => {
                                         </button>
                                     </td>
                                 </tr>
-
-                                <!-- More people... -->
                             </tbody>
                         </table>
                     </div>

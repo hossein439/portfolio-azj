@@ -18,7 +18,7 @@ if (!blogStore.lastBlog) {
     <section class="xs:px-4 lg:px-[176px] mt-[34px]">
 
         <div class="xs:h-[138px] lg:h-[446px]">
-            <img class="rounded-lg h-full w-full object-cover" :src="setImageUrl('..', blogStore.lastBlog?.image)"
+            <img class="rounded-lg h-full w-full object-cover" :src="setImageUrl(blogStore.lastBlog?.image)"
                 :alt="blogStore.lastBlog?.alt">
         </div>
         <div class="flex flex-wrap xs:gap-4 lg:gap-0 items-center justify-between xs:py-4 lg:py-8">
@@ -53,7 +53,7 @@ if (!blogStore.lastBlog) {
                     <NuxtLink :to="`/blog/${blog.id}`">
                         <article class="flex flex-col gap-2 text-2xl">
                             <div class="xs:h-[316px] lg:h-[406px]">
-                                <img class="rounded-lg h-full w-full object-cover" :src="setImageUrl('..', blog.image)"
+                                <img class="rounded-lg h-full w-full object-cover" :src="setImageUrl(blog.image)"
                                     :alt="blog.alt">
                             </div>
                             <div class="flex flex-wrap justify-between">

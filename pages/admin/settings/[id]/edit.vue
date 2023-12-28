@@ -4,11 +4,11 @@ definePageMeta({
 });
 
 const route = useRoute();
-const { successAlert } = useAlert();
+const { successAlert, loadingAlert, closeAlert } = useAlert();
 const { selectImage, imageSrc, fileImage, isChangedImage } = useImage()
 
 
-const settings = reactive({
+const initialValues = reactive({
     id: route.params.id,
     alt: null,
     text: null,
@@ -18,62 +18,55 @@ const settings = reactive({
     exFileName: null,
 });
 
-const setImageUrl = (imageName) => {
-    const path = `../../../../uploads/${imageName}`;
-    return new URL(path, import.meta.url).href;
-}
 
 const getSingle = async () => {
-    const data = await $fetch(`/api/settings/${route.params.id}`, {
+    loadingAlert()
+    const data = await $fetch(`/api/settings/${route.params.id}/id`, {
         method: 'GET',
-    });
-
-    const { text, image, alt } = data[0].data;
-    settings.text = text;
-    settings.image = image;
-    settings.alt = alt;
-    settings.exFileName = image;
+    }).catch((error) => error.data);
+    console.log(data)
+    const { text, image, alt } = data.data;
+    initialValues.text = text;
+    initialValues.image = image;
+    initialValues.alt = alt;
+    initialValues.exFileName = image;
+    initialValues.meta = data.meta
 
     imageSrc.value = setImageUrl(image);
+    closeAlert()
 }
 
 getSingle()
 
-const edit = async () => {
-    settings.image = fileImage.value;
-    settings.isChangedImage = isChangedImage.value;
+const { handleSubmit } = useForm(initialValues)
+const edit = handleSubmit(async () => {
+    loadingAlert()
+    initialValues.image = fileImage.value;
+    initialValues.isChangedImage = isChangedImage.value;
 
     await $fetch('/api/settings/update', {
         method: 'POST',
-        body: settings
+        body: initialValues
     })
 
     successAlert('Updated', 'You updated a settings');
-    navigateTo('/admin/settings')
-}
+})
+
 
 </script>
 
 <template>
     <form @submit.prevent="edit()">
         <div class="grid grid-cols-2 gap-2">
-            <div>
-                <label for="link" class="block text-sm font-medium leading-6 text-gray-900">Text</label>
-                <div class="mt-2">
-                    <input v-model="settings.text" type="text" name="link" id="link"
-                        class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                        placeholder="">
-                </div>
-            </div>
 
-            <div>
-                <label for="alt" class="block text-sm font-medium leading-6 text-gray-900">Alt</label>
-                <div class="mt-2">
-                    <input v-model="settings.alt" type="text" name="alt" id="alt"
-                        class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                        placeholder="">
-                </div>
-            </div>
+            <ViewComponentBaseTextInput rules="required|min:3|max:20" v-model="initialValues.alt" name="alt" id="alt"
+                label="alt" />
+
+            <ViewComponentBaseTextInput rules="required|min:3|max:20" v-model="initialValues.text" name="text" id="text"
+                label="text" />
+
+            <ViewComponentBaseTextInput rules="required|min:3|max:20" v-model="initialValues.meta" name="meta" id="meta"
+                label="meta" />
 
 
             <div class="w-full">

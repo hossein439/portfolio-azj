@@ -5,15 +5,16 @@ definePageMeta({
 });
 
 const categories = ref([]);
-const { deleteAlert, successAlert } = useAlert();
+
+const { deleteAlert, successAlert, loadingAlert, closeAlert } = useAlert();
 
 const getAllcategories = async () => {
-
+    loadingAlert()
     const data = await $fetch('/api/categories/getAll', {
         method: 'GET'
     })
-
     categories.value = data;
+    closeAlert()
 }
 
 getAllcategories();
@@ -22,7 +23,7 @@ const deleteCategory = async (id, image) => {
     deleteAlert('Are you sure you want to remove this category?')
         .then(async (result) => {
             if (result.isConfirmed) {
-
+                loadingAlert();
                 await $fetch('/api/categories/delete', {
                     method: 'POST',
                     body: {
@@ -48,29 +49,18 @@ const deleteCategory = async (id, image) => {
                 <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                     <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
                         <table class="min-w-full divide-y divide-gray-300">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th scope="col"
-                                        class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Id
-                                    </th>
-                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">name
-                                    </th>
-                                    <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
-                                        <span class="sr-only">Edit</span>
-                                    </th>
-                                </tr>
-                            </thead>
+                            <AdminViewTHeadTable :thead="['id', 'name', 'actions']"></AdminViewTHeadTable>
                             <tbody class="divide-y divide-gray-200 bg-white">
 
                                 <tr v-for="category in categories" :key="category.id">
-                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-900">
                                         {{ category.id }}</td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                         {{ category.name }}
                                     </td>
 
                                     <td
-                                        class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                                        class="relative whitespace-nowrap px-3 py-4 text-right text-sm font-medium">
                                         <NuxtLink :to="`/admin/categories/${category.id}/edit`"
                                             class="text-indigo-600 hover:text-indigo-900">
                                             Edit
@@ -81,8 +71,6 @@ const deleteCategory = async (id, image) => {
                                         </button>
                                     </td>
                                 </tr>
-
-                                <!-- More people... -->
                             </tbody>
                         </table>
                     </div>

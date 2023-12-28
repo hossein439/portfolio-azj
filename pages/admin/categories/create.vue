@@ -1,67 +1,49 @@
 <script setup>
-
 definePageMeta({
     layout: "adminlayout",
 });
 
-const { successAlert } = useAlert();
+const { successAlert, loadingAlert } = useAlert();
 
 const { selectImage, imageSrc, fileImage } = useImage()
 
-const category = reactive({
+const initialValues = reactive({
     alt: null,
-    description: null,
+    description: '',
     image: null,
     name: null,
 });
 
-const create = async () => {
 
-    category.image = fileImage.value
+const { handleSubmit } = useForm(initialValues);
+const create = handleSubmit(async (values, { resetForm }) => {
+    loadingAlert();
+
+    initialValues.image = fileImage.value
     await $fetch('/api/categories/create', {
         method: 'POST',
-        body: category
+        body: initialValues
     })
-
+    imageSrc.value = null
+    resetForm()
     successAlert('Created', 'You created a category');
-    navigateTo('/admin/categories')
-}
 
+})
 </script>
 
 <template>
     <form @submit.prevent="create()">
 
         <div class="grid grid-cols-2 gap-5">
-            
-            <div class="">
-                <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Name</label>
-                <div>
-                    <input v-model="category.name" type="text" name="name" id="name"
-                        class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                        placeholder="">
-                </div>
-            </div>
 
-            <div class="">
-                <label for="alt" class="block text-sm font-medium leading-6 text-gray-900">Alt</label>
-                <div>
-                    <input v-model="category.alt" type="text" alt="alt" id="alt"
-                        class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                        placeholder="">
-                </div>
-            </div>
+            <ViewComponentBaseTextInput rules="required|min:3|max:20" v-model="initialValues.name" name="name" id="name"
+                label="name" />
 
+            <ViewComponentBaseTextInput rules="required|min:3|max:20" v-model="initialValues.alt" name="alt" id="alt"
+                label="alt" />
 
-            <div class="w-full flex flex-col">
-                <label for="description" class="block text-sm font-medium leading-6 text-gray-900">Description</label>
-                <div class="w-full flex-1">
-                    <textarea v-model="category.description" type="text" name="description" id="description"
-                        class="block w-full h-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                        placeholder="">
-                        </textarea>
-                </div>
-            </div>
+            <ViewComponentBaseTextArea rules="required|min:3|max:20" v-model="initialValues.description" name="description"
+                id="description" label="description" />
 
             <div class="w-full">
                 <label for="description" class="block text-sm font-medium leading-6 text-gray-900">Image</label>

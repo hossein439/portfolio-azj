@@ -7,16 +7,10 @@ const landing = ref()
 const uiStore = useUiStore();
 
 const getLandigData = async () => {
-    const { data } = await useFetch('/api/settings/landing');
+    const { data } = await useFetch('/api/settings/landing/meta');
     landing.value = data.value;
 }
 getLandigData();
-
-// const setImageUrl = (imageName) => {
-//     const path = `../uploads/${imageName}`;
-//     return new URL(path, import.meta.url).href;
-// }
-
 
 async function fetch() {
     await new Promise(resolve => setTimeout(resolve, 3000));
@@ -128,9 +122,9 @@ const isMouseEnter = ref(false);
 
                     <div class="bg-user-mobile absolute z-10 bottom-0 w-full px-10">
                         <img class="xs:inline-block lg:hidden w-full mx-auto capitalize"
-                            :src="setImageUrl('..', landing?.data?.image)" :alt="landing?.data?.alt">
+                            :src="setImageUrl(landing?.data?.image)" :alt="landing?.data?.alt">
                         <img class="xs:hidden lg:flex mx-auto capitalize" width="500"
-                            :src="setImageUrl('..', landing?.data?.image)" :alt="landing?.data?.alt">
+                            :src="setImageUrl(landing?.data?.image)" :alt="landing?.data?.alt">
 
                     </div>
                     <div class="overflow-hidden lg:px-12">

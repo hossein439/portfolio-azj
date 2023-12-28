@@ -26,11 +26,6 @@ const getAllEffects = async () => {
     }
 }
 
-const setImageUrl = (imageName) => {
-    const path = `../../uploads/${imageName}`;
-    return new URL(path, import.meta.url).href;
-}
-
 getAllEffects();
 
 </script>

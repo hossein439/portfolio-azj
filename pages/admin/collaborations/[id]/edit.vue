@@ -1,13 +1,14 @@
 <script setup>
+
 definePageMeta({
     layout: "adminlayout",
 });
 
 const route = useRoute();
-const { successAlert } = useAlert();
+const { successAlert, loadingAlert, closeAlert } = useAlert();
 const { selectImage, imageSrc, fileImage, isChangedImage } = useImage();
 
-const collaboration = reactive({
+const initialValues = reactive({
     alt: null,
     link: null,
     image: null,
@@ -16,61 +17,47 @@ const collaboration = reactive({
     exFileName: null
 });
 
-const setImageUrl = (imageName) => {
-    const path = `../../../../uploads/${imageName}`;
-    return new URL(path, import.meta.url).href;
-}
-
 const getSingle = async () => {
-
+    loadingAlert()
     const data = await $fetch(`/api/collaborations/${route.params.id}`, { method: 'GET' })
 
     const { link, image, alt } = data[0];
-    collaboration.link = link;
-    collaboration.image = image;
-    collaboration.alt = alt;
-    collaboration.exFileName = image;
+    initialValues.link = link;
+    initialValues.image = image;
+    initialValues.alt = alt;
+    initialValues.exFileName = image;
 
     imageSrc.value = setImageUrl(image);
+    closeAlert();
 }
 
 getSingle()
 
-const edit = async () => {
-    collaboration.image = fileImage.value
-    collaboration.isChangedImage = isChangedImage.value
+const { handleSubmit } = useForm(initialValues);
+const edit = handleSubmit(async () => {
+    loadingAlert();
+    initialValues.image = fileImage.value
+    initialValues.isChangedImage = isChangedImage.value
 
     await $fetch('/api/collaborations/update', {
         method: 'POST',
-        body: collaboration
+        body: initialValues
     })
-
     successAlert('Updated', 'You updated a collaboration');
-    navigateTo('/admin/collaborations')
-}
+})
+
 
 </script>
 
 <template>
     <form @submit.prevent="edit()">
         <div class="grid grid-cols-2 gap-2">
-            <div>
-                <label for="link" class="block text-sm font-medium leading-6 text-gray-900">Link</label>
-                <div class="mt-2">
-                    <input v-model="collaboration.link" type="text" name="link" id="link"
-                        class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                        placeholder="">
-                </div>
-            </div>
 
-            <div>
-                <label for="alt" class="block text-sm font-medium leading-6 text-gray-900">Alt</label>
-                <div class="mt-2">
-                    <input v-model="collaboration.alt" type="text" name="alt" id="alt"
-                        class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                        placeholder="">
-                </div>
-            </div>
+            <ViewComponentBaseTextInput rules="required|min:3|max:20" v-model="initialValues.link" name="link" id="link"
+                label="link" />
+
+            <ViewComponentBaseTextInput rules="required|min:3|max:20" v-model="initialValues.alt" name="alt" id="alt"
+                label="alt" />
 
 
             <div class="w-full">
@@ -86,7 +73,8 @@ const edit = async () => {
                     <input @change="selectImage($event)" class="absolute inset-0 opacity-0 cursor-pointer" type="file">
                     <span v-show="!imageSrc" class="mt-2 block text-sm font-semibold text-gray-900">Image for
                         collaboration</span>
-                    <img v-show="imageSrc" :src="imageSrc" alt="" class="w-full h-full rounded-lg inline-block object-cover">
+                    <img v-show="imageSrc" :src="imageSrc" alt=""
+                        class="w-full h-full rounded-lg inline-block object-cover">
                 </div>
             </div>
         </div>

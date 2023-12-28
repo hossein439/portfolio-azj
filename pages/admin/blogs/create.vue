@@ -2,65 +2,52 @@
 
 definePageMeta({
     layout: "adminlayout",
+    middleware: ['auth'],
+    meta: {
+        requiresAuth: true, 
+    },
 });
 
-const { successAlert } = useAlert();
+
+
+const { successAlert, loadingAlert } = useAlert();
 
 const { selectImage, imageSrc, fileImage } = useImage()
 
-const blog = reactive({
+const initialValues = reactive({
     title: null,
     alt: null,
     description: null,
     image: null
 });
 
-
-const create = async () => {
-
-    blog.image = fileImage.value;
-    await $fetch('/api/blogs/create', {
+const { handleSubmit } = useForm(initialValues);
+const create = handleSubmit(async (values, { resetForm }) => {
+    initialValues.image = fileImage.value;
+    loadingAlert()
+    const data = await $fetch('/api/blogs/create', {
         method: 'post',
-        body: blog
+        body: initialValues
     });
-
+    imageSrc.value = null
     successAlert('Created', 'You created a blog');
-    navigateTo('/admin/blogs')
-}
+    resetForm();
+})
 
 </script>
 
 <template>
     <form @submit.prevent="create()">
         <div class="grid grid-cols-2 gap-5">
+            <ViewComponentBaseTextInput rules="required|min:3|max:20" v-model="initialValues.title" name="title" id="title"
+                label="title" />
 
-            <div>
-                <label for="title" class="block text-sm font-medium leading-6 text-gray-900">Title</label>
-                <div class="mt-2">
-                    <input v-model="blog.title" type="text" name="title" id="title"
-                        class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                        placeholder="">
-                </div>
-            </div>
+            <ViewComponentBaseTextInput rules="required|min:3|max:20" v-model="initialValues.alt" name="alt" id="alt"
+                label="alt" />
 
-            <div>
-                <label for="alt" class="block text-sm font-medium leading-6 text-gray-900">Alt</label>
-                <div class="mt-2">
-                    <input v-model="blog.alt" type="text" name="alt" id="alt"
-                        class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                        placeholder="">
-                </div>
-            </div>
+            <ViewComponentBaseTextArea rules="required|min:3|max:20" v-model="initialValues.description" name="description"
+                id="description" label="description" />
 
-            <div class="w-full flex flex-col">
-                <label for="description" class="block text-sm font-medium leading-6 text-gray-900">Description</label>
-                <div class="w-full flex-1">
-                    <textarea v-model="blog.description" type="text" name="description" id="description"
-                        class="block w-full h-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                        placeholder="">
-                        </textarea>
-                </div>
-            </div>
 
             <div class="w-full">
                 <label for="description" class="block text-sm font-medium leading-6 text-gray-900">Image</label>
@@ -74,7 +61,8 @@ const create = async () => {
                     <input @change="selectImage($event)" accept=".jpg, .png, .jpeg, .svg"
                         class="absolute inset-0 opacity-0 cursor-pointer" type="file">
                     <span v-show="!imageSrc" class="mt-2 block text-sm font-semibold text-gray-900">Image for blog</span>
-                    <img v-show="imageSrc" :src="imageSrc" alt="" class="w-full h-full rounded-lg inline-block object-cover">
+                    <img v-show="imageSrc" :src="imageSrc" alt=""
+                        class="w-full h-full rounded-lg inline-block object-cover">
                 </div>
             </div>
 

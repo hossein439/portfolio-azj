@@ -3,27 +3,30 @@ definePageMeta({
     layout: "adminlayout",
 });
 
-const { successAlert } = useAlert();
+const { successAlert, loadingAlert } = useAlert();
 const { selectImage, imageSrc, fileImage } = useImage()
 
-const setting = reactive({
+const initialValues = reactive({
     alt: null,
     image: null,
     text: null,
     meta: 'landing'
 });
 
+const { handleSubmit } = useForm(initialValues)
 
-const create = async () => {
-    setting.image = fileImage.value
+const create = handleSubmit(async (values, { resetForm }) => {
+    loadingAlert()
+    initialValues.image = fileImage.value
     await $fetch('/api/settings/create', {
         method: 'post',
-        body: setting
+        body: initialValues
     });
 
+    resetForm()
+    imageSrc.value = null;
     successAlert('Created', 'You created a setting');
-    navigateTo('/admin/settings')
-}
+})
 
 </script>
 
@@ -31,23 +34,15 @@ const create = async () => {
     <form @submit.prevent="create()">
         <div class="grid grid-cols-2 gap-5">
 
-            <div>
-                <label for="alt" class="block text-sm font-medium leading-6 text-gray-900">Alt</label>
-                <div class="mt-2">
-                    <input v-model="setting.alt" type="text" name="alt" id="alt"
-                        class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                        placeholder="">
-                </div>
-            </div>
+            <ViewComponentBaseTextInput rules="required|min:3|max:20" v-model="initialValues.alt" name="alt" id="alt"
+                label="alt" />
 
-            <div>
-                <label for="alt" class="block text-sm font-medium leading-6 text-gray-900">Text</label>
-                <div class="mt-2">
-                    <input v-model="setting.text" type="text" name="alt" id="alt"
-                        class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                        placeholder="">
-                </div>
-            </div>
+            <ViewComponentBaseTextInput rules="required|min:3|max:20" v-model="initialValues.text" name="text" id="text"
+                label="text" />
+
+            <ViewComponentBaseTextInput rules="required|min:3|max:20" v-model="initialValues.meta" name="meta" id="meta"
+                label="meta" />
+
 
             <div class="w-full">
                 <label for="image" class="block text-sm font-medium leading-6 text-gray-900">Image</label>

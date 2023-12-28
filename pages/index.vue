@@ -53,7 +53,7 @@ if (!blogStore.lastBlog) {
 
         <section class="fade-in xs:px-4 lg:px-[176px] mt-[34px] relative">
             <div class="h-[446px]">
-                <img class="rounded-lg h-full w-full object-cover" :src="setImageUrl('..', blogStore.lastBlog?.image)"
+                <img class="rounded-lg h-full w-full object-cover" :src="setImageUrl(blogStore.lastBlog?.image)"
                     :alt="blogStore.lastBlog?.alt">
             </div>
             <div class="flex flex-wrap xs:gap-4 items-center justify-between py-8">

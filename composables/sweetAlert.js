@@ -31,5 +31,22 @@ export function useAlert() {
         )
     }
 
-    return { showAlert, deleteAlert, successAlert }
+    function loadingAlert(isLoading) {
+        Swal.fire({
+            html: `
+            <div class="loader-container">
+                <span class="loader"></span>
+            </div>
+            `,
+            showConfirmButton: false,
+            allowOutsideClick: false
+        });
+
+    }
+
+    function closeAlert() {
+        Swal.close()
+    }
+
+    return { showAlert, deleteAlert, successAlert, loadingAlert, closeAlert }
 }

@@ -9,11 +9,6 @@ const category = reactive({
 });
 const imageSrc = ref();
 
-const setImageUrl = (imageName) => {
-    const path = `../../../uploads/${imageName}`;
-    return new URL(path, import.meta.url).href;
-}
-
 const getSingle = async () => {
 
     const data = await $fetch(`/api/categories/${route.params.id}`, {

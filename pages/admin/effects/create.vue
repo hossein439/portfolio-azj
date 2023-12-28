@@ -3,7 +3,7 @@
 definePageMeta({
     layout: "adminlayout",
 });
-const { successAlert } = useAlert();
+const { successAlert, loadingAlert } = useAlert();
 const { imageSrc, fileImage, fileGif, gifSrc, handleMedia } = useImage();
 
 const showCategory = ref(false);
@@ -12,7 +12,7 @@ const categories = ref([]);
 
 const selectCategory = (category) => {
     showCategory.value = false;
-    effect.categoryId = category.id;
+    initialValues.categoryId = category.id;
     selectedCategory.value = category.name;
 }
 
@@ -22,7 +22,7 @@ const getAllcategories = async () => {
 }
 getAllcategories();
 
-const effect = reactive({
+const initialValues = reactive({
     name: null,
     link: null,
     alt: null,
@@ -31,18 +31,23 @@ const effect = reactive({
     categoryId: null,
 });
 
-
-const create = async () => {
-    effect.gif = fileGif;
-    effect.image = fileImage
+const { handleSubmit } = useForm(initialValues);
+const create = handleSubmit(async (values, { resetForm }) => {
+    console.log(initialValues)
+    loadingAlert()
+    initialValues.gif = fileGif;
+    initialValues.image = fileImage
     await $fetch('/api/effects/create', {
         method: 'POST',
-        body: effect
+        body: initialValues
     })
 
     successAlert('Created', 'You created an effect');
-    navigateTo('/admin/effects')
-}
+    selectedCategory.value = null
+    gifSrc.value = null
+    imageSrc.value = null
+    resetForm();
+})
 
 </script>
 
@@ -50,32 +55,15 @@ const create = async () => {
     <form @submit.prevent="create()">
         <div class="grid grid-cols-2 gap-5">
 
-            <div>
-                <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Name</label>
-                <div>
-                    <input v-model="effect.name" type="text" name="name" id="name"
-                        class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                        placeholder="">
-                </div>
-            </div>
+            <ViewComponentBaseTextInput rules="required|min:3|max:20" v-model="initialValues.name" name="name" id="name"
+                label="name" />
 
-            <div>
-                <label for="link" class="block text-sm font-medium leading-6 text-gray-900">Link</label>
-                <div>
-                    <input v-model="effect.link" type="text" name="link" id="link"
-                        class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                        placeholder="">
-                </div>
-            </div>
+            <ViewComponentBaseTextInput rules="required|min:3|max:20" v-model="initialValues.link" name="link" id="link"
+                label="link" />
 
-            <div>
-                <label for="alt" class="block text-sm font-medium leading-6 text-gray-900">Alt</label>
-                <div>
-                    <input v-model="effect.alt" type="text" name="alt" id="alt"
-                        class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                        placeholder="">
-                </div>
-            </div>
+            <ViewComponentBaseTextInput rules="required|min:3|max:20" v-model="initialValues.alt" name="alt" id="alt"
+                label="alt" />
+
 
             <div>
                 <label id="listbox-label" class="block text-sm font-medium leading-6 text-gray-900">Category</label>

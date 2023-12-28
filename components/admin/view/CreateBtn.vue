@@ -3,13 +3,13 @@ const props = defineProps({
     btnType: {
         type: String,
         default: 'info'
-    }
+    },
 });
 </script>
 
 <template>
     <button
-        :class="['block rounded-md px-3 py-2 text-center text-sm font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 capitalize', props.btnType]">
+        :class="['block rounded-md px-3 py-2 text-center text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 capitalize', props.btnType]">
         <slot></slot>
     </button>
 </template>
@@ -18,6 +18,10 @@ const props = defineProps({
 .info {
     background-color: #4f46e5;
     outline-color: #4f46e5;
+}
+
+.disable {
+    background-color: gray;
 }
 
 .info:hover {

@@ -1,7 +1,6 @@
 
-const setImageUrl = (dir, imageName) => {
-    const path = `${dir}/uploads/${imageName}`;
-    console.log(path)
+const setImageUrl = (imageName) => {
+    const path = `../uploads/${imageName}`;
     return new URL(path, import.meta.url).href;
 }
 

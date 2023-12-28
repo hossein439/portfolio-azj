@@ -1,8 +1,18 @@
+<script setup>
+definePageMeta({
+    layout: "adminlayout",
+    middleware: ['auth'],
+    meta: {
+        requiresAuth: true, 
+    },
+});
+
+</script>
+
+
 <template>
-    <AdminLayoutTheSideBar></AdminLayoutTheSideBar>
-    
     <div>
-        
+        <AdminLayoutTheSideBar></AdminLayoutTheSideBar>
         <div class="lg:pl-72">
             <AdminLayoutTheHeader></AdminLayoutTheHeader>
             

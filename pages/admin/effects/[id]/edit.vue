@@ -1,10 +1,9 @@
 <script setup>
-
 definePageMeta({
     layout: "adminlayout",
 });
 
-const { successAlert } = useAlert();
+const { successAlert, loadingAlert, closeAlert } = useAlert();
 const { imageSrc, fileImage, isChangedImage, handleMedia, fileGif, gifSrc, isChangedGif } = useImage();
 
 const route = useRoute();
@@ -14,7 +13,7 @@ const selectedCategory = ref('');
 const categories = ref([]);
 const selectCategory = (category) => {
     showCategory.value = false;
-    effect.categoryId = category.id;
+    initialValues.categoryId = category.id;
     selectedCategory.value = category.name;
 }
 
@@ -26,7 +25,7 @@ const getAllcategories = async () => {
 getAllcategories();
 
 
-const effect = reactive({
+const initialValues = reactive({
     id: route.params.id,
     name: null,
     link: null,
@@ -40,107 +39,67 @@ const effect = reactive({
     exFilenameImg: null,
 });
 
-
-// const isChangedImg = ref(false);
-// const isChangedGif = ref(false);
-
-// const exFilenameImg = ref(null);
-// const exFilenameGif = ref(null);
-
-
-// const selectImage = (e, mediaType) => {
-//     if (mediaType === 'gif') {
-//         const file = e.target.files[0];
-//         gifSrc.value = URL.createObjectURL(file);
-//         effect.gif = file;
-//         isChangedGif.value = true;
-//     } else {
-//         const file = e.target.files[0];
-//         imageSrc.value = URL.createObjectURL(file);
-//         effect.image = file;
-//         isChangedImg.value = true;
-//     }
-// }
-
-
-const setImageUrl = (imageName) => {
-    const path = `../../../../uploads/${imageName}`;
-    return new URL(path, import.meta.url).href;
-}
-
 const getSingle = async () => {
+    loadingAlert()
     const data = await $fetch(`/api/effects/${route.params.id}`, {
         method: 'GET',
     })
 
     const { name, link, image, alt, gif, categories, category_id } = data[0];
 
-    effect.name = name;
-    effect.link = link;
-    effect.alt = alt;
-    effect.image = image;
-    effect.gif = gif;
-    effect.categoryId = category_id;
-    effect.isChangedGif = isChangedGif.value;
-    effect.isChangedImg = isChangedImage.value;
-    effect.exFilenameGif = gif;
-    effect.exFilenameImg = image;
+    initialValues.name = name;
+    initialValues.link = link;
+    initialValues.alt = alt;
+    initialValues.image = image;
+    initialValues.gif = gif;
+    initialValues.categoryId = category_id;
+    initialValues.isChangedGif = isChangedGif.value;
+    initialValues.isChangedImg = isChangedImage.value;
+    initialValues.exFilenameGif = gif;
+    initialValues.exFilenameImg = image;
 
 
     imageSrc.value = setImageUrl(image);
     gifSrc.value = setImageUrl(gif);
-    selectedCategory.value = categories.name
+    console.log(categories);
+    selectedCategory.value = categories?.name
+    closeAlert()
 }
 
 getSingle()
 
-const edit = async () => {
+const { handleSubmit } = useForm(initialValues);
 
-    effect.image = fileImage.value
-    effect.gif = fileGif.value
-    effect.isChangedGif = isChangedGif.value;
-    effect.isChangedImg = isChangedImage.value;
+const edit = handleSubmit(async () => {
+    loadingAlert()
+    initialValues.image = fileImage.value
+    initialValues.gif = fileGif.value
+    initialValues.isChangedGif = isChangedGif.value;
+    initialValues.isChangedImg = isChangedImage.value;
 
     await $fetch('/api/effects/update', {
         method: 'POST',
-        body: effect
+        body: initialValues
     })
 
     successAlert('Updated', 'You Updated an effect');
-    navigateTo('/admin/effects')
-}
+})
 
 </script>
 
 <template>
     <form @submit.prevent="edit()">
         <div class="grid grid-cols-2 gap-5">
-            <div>
-                <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Name</label>
-                <div>
-                    <input v-model="effect.name" type="text" name="name" id="name"
-                        class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                        placeholder="">
-                </div>
-            </div>
 
-            <div>
-                <label for="link" class="block text-sm font-medium leading-6 text-gray-900">Link</label>
-                <div>
-                    <input v-model="effect.link" type="text" name="link" id="link"
-                        class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                        placeholder="">
-                </div>
-            </div>
 
-            <div>
-                <label for="alt" class="block text-sm font-medium leading-6 text-gray-900">Alt</label>
-                <div>
-                    <input v-model="effect.alt" type="text" name="alt" id="alt"
-                        class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-                        placeholder="">
-                </div>
-            </div>
+            <ViewComponentBaseTextInput rules="required|min:3|max:20" v-model="initialValues.name" name="name" id="name"
+                label="name" />
+
+            <ViewComponentBaseTextInput rules="required|min:3|max:20" v-model="initialValues.link" name="link" id="link"
+                label="link" />
+
+            <ViewComponentBaseTextInput rules="required|min:3|max:20" v-model="initialValues.alt" name="alt" id="alt"
+                label="alt" />
 
             <div>
                 <label id="listbox-label" class="block text-sm font-medium leading-6 text-gray-900">Category</label>

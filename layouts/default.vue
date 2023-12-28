@@ -1,5 +1,5 @@
 <script setup>
-const title = useState('title', () => 'Nuxt 3 Blog');
+const title = useState('title', () => 'Portofilo AZJ');
 </script>
 
 <template>
