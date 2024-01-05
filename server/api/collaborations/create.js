@@ -1,15 +1,20 @@
 import supabase from '../../supabase.js'
 
 export default defineEventHandler(async (event) => {
-    const { link, alt, image } = await readBody(event)
-    const imageCreated = saveImage(image);
+    try {
+        const { link, alt, image } = await readBody(event)
+        const imageCreated = saveImage(image);
 
-    const { data: collaboration, error } = await supabase
-        .from('collaborations')
-        .insert([
-            { link, image: imageCreated, alt },
-        ])
-        .select()
+        const { data: collaboration, error } = await supabase
+            .from('collaborations')
+            .insert([
+                { link, image: imageCreated, alt },
+            ])
+            .select()
 
-    return { collaboration }
+        return { collaboration }
+
+    } catch (error) {
+        throw error
+    }
 })

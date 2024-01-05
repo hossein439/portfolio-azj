@@ -1,4 +1,6 @@
 import supabase from '../../supabase.js'
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 export default defineEventHandler(async (event) => {
 
@@ -8,16 +10,31 @@ export default defineEventHandler(async (event) => {
         .from('users')
         .select('*')
         .eq('email', email)
-        .eq('password', password);
-
-    if (error) {
-        return 'hello'
-    }
 
     if (!user.length) {
-        setResponseStatus(event, 404)
-        return 'user not exist'
-    }
+        throw createError({
+            statusCode: 400,
+            statusMessage: 'User not exist',
+        })
+    } else {
+        const { password: userPassword } = user[0]
+        const isMatchPass = await bcrypt.compare(password, userPassword);
+        const keyToken = useRuntimeConfig(event).keyJwtToken;
 
-    return user
+
+        if (!isMatchPass) {
+            setResponseStatus(event, 404, 'Unable to login please check your password or email !')
+        }
+
+        const token = jwt.sign({ email: email.toString() }, keyToken, { expiresIn: '1m' });
+        user[0].token = token
+
+        let { data: user2, error } = await supabase
+            .from('users')
+            .update({ ...user[0] })
+            .eq('email', email)
+            .select()
+
+        return user2
+    }
 })

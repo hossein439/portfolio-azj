@@ -2,58 +2,63 @@ import supabase from '../../supabase.js'
 
 
 export default defineEventHandler(async (event) => {
-    const { id, name, link, alt, categoryId, image, gif, isChangedImg, isChangedGif, exFilenameImg, exFilenameGif } = await readBody(event);
+    try {
+        const { id, name, link, alt, categoryId, image, gif, isChangedImg, isChangedGif, exFilenameImg, exFilenameGif } = await readBody(event);
 
-    if (isChangedImg && image && !gif) {
+        if (isChangedImg && image && !gif) {
 
-        removeImage(exFilenameImg);
-        const imageCreated = saveImage(image);
+            removeImage(exFilenameImg);
+            const imageCreated = saveImage(image);
 
-        const { data: updateEffectNewImage, error } = await supabase
+            const { data: updateEffectNewImage, error } = await supabase
+                .from('effects')
+                .update({ name, image: imageCreated, link, alt, category_id: categoryId })
+                .eq('id', id)
+                .select()
+
+            return updateEffectNewImage;
+        }
+
+        if (isChangedGif && gif && !image) {
+
+            removeImage(exFilenameGif);
+            const gifCreated = saveImage(gif, 'gif');
+
+            const { data: updateEffectNewGif, error } = await supabase
+                .from('effects')
+                .update({ name, gif: gifCreated, link, alt, category_id: categoryId })
+                .eq('id', id)
+                .select()
+
+            return updateEffectNewGif;
+        }
+
+        if (isChangedGif && isChangedImg && image && gif) {
+
+            removeImage(exFilenameGif);
+            removeImage(exFilenameImg);
+
+            const gifCreated = saveImage(gif, 'gif');
+            const imageCreated = saveImage(image);
+
+            const { data: updateEffectBoth, error } = await supabase
+                .from('effects')
+                .update({ name, image: imageCreated, link, alt, gif: gifCreated, category_id: categoryId })
+                .eq('id', id)
+                .select()
+
+            return updateEffectBoth;
+        }
+
+        const { data: updateEffect, error } = await supabase
             .from('effects')
-            .update({ name, image: imageCreated, link, alt, category_id: categoryId })
+            .update({ name, link, alt, category_id: categoryId })
             .eq('id', id)
             .select()
 
-        return updateEffectNewImage;
+        return updateEffect
+    } catch (error) {
+        throw error
     }
 
-    if (isChangedGif && gif && !image) {
-
-        removeImage(exFilenameGif);
-        const gifCreated = saveImage(gif, 'gif');
-
-        const { data: updateEffectNewGif, error } = await supabase
-            .from('effects')
-            .update({ name, gif: gifCreated, link, alt, category_id: categoryId })
-            .eq('id', id)
-            .select()
-
-        return updateEffectNewGif;
-    }
-
-    if (isChangedGif && isChangedImg && image && gif) {
-
-        removeImage(exFilenameGif);
-        removeImage(exFilenameImg);
-
-        const gifCreated = saveImage(gif, 'gif');
-        const imageCreated = saveImage(image);
-
-        const { data: updateEffectBoth, error } = await supabase
-            .from('effects')
-            .update({ name, image: imageCreated, link, alt, gif: gifCreated, category_id: categoryId })
-            .eq('id', id)
-            .select()
-
-        return updateEffectBoth;
-    }
-
-    const { data: updateEffect, error } = await supabase
-        .from('effects')
-        .update({ name, link, alt, category_id: categoryId })
-        .eq('id', id)
-        .select()
-
-    return updateEffect
 })

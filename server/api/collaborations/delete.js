@@ -1,17 +1,23 @@
 import supabase from '../../supabase.js'
 
 export default defineEventHandler(async (event) => {
-    const { id, image } = await readBody(event);
-    removeImage(image);
+    try {
+        const { id, image } = await readBody(event);
 
-    const { error } = await supabase
-        .from('collaborations')
-        .delete()
-        .eq('id', id)
+        removeImage(image);
 
-    if (error) {
-        return error
-    } else {
-        return 'okay'
+        const { error } = await supabase
+            .from('collaborations')
+            .delete()
+            .eq('id', id)
+
+        if (error) {
+            return error
+        } else {
+            return 'okay'
+        }
+
+    } catch (error) {
+        throw error
     }
 })

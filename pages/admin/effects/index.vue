@@ -2,8 +2,11 @@
 
 definePageMeta({
     layout: "adminlayout",
+    middleware: ['auth'],
+    meta: {
+        requiresAuth: true, 
+    },
 });
-
 const { deleteAlert, successAlert, loadingAlert, closeAlert } = useAlert();
 const effects = ref([]);
 

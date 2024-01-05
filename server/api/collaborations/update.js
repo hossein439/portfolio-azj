@@ -2,28 +2,33 @@ import supabase from '../../supabase.js'
 
 
 export default defineEventHandler(async (event) => {
-    const { link, alt, image, isChangedImage, exFileName, id } = await readBody(event)
+    try {
+        const { link, alt, image, isChangedImage, exFileName, id } = await readBody(event)
 
-    if (isChangedImage && image) {
-        removeImage(exFileName);
-        const imageCreated = saveImage(image);
+        if (isChangedImage && image) {
+            removeImage(exFileName);
+            const imageCreated = saveImage(image);
 
-        const { data: updateCollaboration, error } = await supabase
-            .from('collaborations')
-            .update({ link, image: imageCreated, alt })
-            .eq('id', id)
-            .select()
+            const { data: updateCollaboration, error } = await supabase
+                .from('collaborations')
+                .update({ link, image: imageCreated, alt })
+                .eq('id', id)
+                .select()
 
-        return updateCollaboration
+            return updateCollaboration
 
-    } else {
+        } else {
 
-        const { data: updateCollaboration, error } = await supabase
-            .from('collaborations')
-            .update({ link, alt })
-            .eq('id', id)
-            .select()
+            const { data: updateCollaboration, error } = await supabase
+                .from('collaborations')
+                .update({ link, alt })
+                .eq('id', id)
+                .select()
 
-        return updateCollaboration;
+            return updateCollaboration;
+        }
+
+    } catch (error) {
+        throw error
     }
 })

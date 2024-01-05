@@ -1,6 +1,10 @@
 <script setup>
 definePageMeta({
     layout: "adminlayout",
+    middleware: ['auth'],
+    meta: {
+        requiresAuth: true, 
+    },
 });
 
 const { successAlert, loadingAlert, closeAlert } = useAlert();
@@ -92,13 +96,13 @@ const edit = handleSubmit(async () => {
         <div class="grid grid-cols-2 gap-5">
 
 
-            <ViewComponentBaseTextInput rules="required|min:3|max:20" v-model="initialValues.name" name="name" id="name"
+            <ViewComponentBaseTextInput rules="required" v-model="initialValues.name" name="name" id="name"
                 label="name" />
 
-            <ViewComponentBaseTextInput rules="required|min:3|max:20" v-model="initialValues.link" name="link" id="link"
+            <ViewComponentBaseTextInput rules="required" v-model="initialValues.link" name="link" id="link"
                 label="link" />
 
-            <ViewComponentBaseTextInput rules="required|min:3|max:20" v-model="initialValues.alt" name="alt" id="alt"
+            <ViewComponentBaseTextInput rules="required" v-model="initialValues.alt" name="alt" id="alt"
                 label="alt" />
 
             <div>

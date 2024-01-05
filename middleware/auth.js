@@ -1,12 +1,11 @@
 export default defineNuxtRouteMiddleware((to, from) => {
-    const { getCookie } = useCookie();
-    const isSetCookie = getCookie('auth_token');
-    const isAuthenticate = to.meta.meta.requiresAuth;
-
     if (process.client) {
-        console.log(!isSetCookie)
-        if (isSetCookie) {
-            if(isAuthenticate) {
+        const { getCookie } = useCookie();
+        const isSetCookie = getCookie('auth_token');
+        const isAuthenticate = to.meta.meta.requiresAuth;
+        console.log(isSetCookie)
+        if (!isSetCookie || isSetCookie === 'undefined') {
+            if (isAuthenticate) {
                 return navigateTo('/admin/auth/login');
             }
         }

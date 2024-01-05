@@ -8,7 +8,7 @@ export function useCookie() {
     }
 
     function setCookie(token) {
-        return Cookies.set('auth_token', token, { expires: 7 });
+        return Cookies.set('auth_token', token, { expires: 5 });
     }
 
     return { getCookie, setCookie }

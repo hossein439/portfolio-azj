@@ -19,7 +19,6 @@ async function fetch() {
 }
 
 if(uiStore.isFirstLoading) {
-    console.log('hello')
     fetch()
 }else {
     isLoading.value = false

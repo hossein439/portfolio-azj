@@ -2,6 +2,10 @@
 
 definePageMeta({
     layout: "adminlayout",
+    middleware: ['auth'],
+    meta: {
+        requiresAuth: true, 
+    },
 });
 
 const categories = ref([]);
@@ -9,12 +13,16 @@ const categories = ref([]);
 const { deleteAlert, successAlert, loadingAlert, closeAlert } = useAlert();
 
 const getAllcategories = async () => {
-    loadingAlert()
-    const data = await $fetch('/api/categories/getAll', {
-        method: 'GET'
-    })
-    categories.value = data;
-    closeAlert()
+    try {
+        loadingAlert()
+        const data = await $fetch('/api/categories/getAll', {
+            method: 'GET'
+        })
+        categories.value = data;
+        closeAlert()
+    } catch(error) {
+        console.log(error.response)
+    }
 }
 
 getAllcategories();
