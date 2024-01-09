@@ -13,7 +13,7 @@ const { selectImage, imageSrc, fileImage } = useImage()
 
 const initialValues = reactive({
     alt: null,
-    description: '',
+    description: null,
     image: null,
     name: null,
 });
@@ -46,7 +46,7 @@ const create = handleSubmit(async (values, { resetForm }) => {
             <ViewComponentBaseTextInput rules="required" v-model="initialValues.alt" name="alt" id="alt"
                 label="alt" />
 
-            <ViewComponentBaseTextArea rules="required" v-model="initialValues.description" name="description"
+            <ViewComponentBaseTextArea v-model="initialValues.description" name="description"
                 id="description" label="description" />
 
             <div class="w-full">

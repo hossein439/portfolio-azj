@@ -63,7 +63,7 @@ const deleteCategory = async (id, image) => {
                                 <tr v-for="category in categories" :key="category.id">
                                     <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-900">
                                         {{ category.id }}</td>
-                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 capitalize">
                                         {{ category.name }}
                                     </td>
 
