@@ -1,7 +1,7 @@
 <script setup>
 
 definePageMeta({
-    layout: "authlayout",
+    layout: "auth-layout",
 });
 
 const { setCookie } = useCookie();
@@ -42,8 +42,8 @@ const login = handleSubmit(async () => {
                     <div>
                         <form @submit.prevent="login" class="space-y-6">
 
-                            <ViewComponentBaseTextInput rules="required|email" v-model="initialValues.email" name="email" type="email"
-                                id="email" label="email" />
+                            <ViewComponentBaseTextInput rules="required|email" v-model="initialValues.email" name="email"
+                                type="email" id="email" label="email" />
 
                             <ViewComponentBaseTextInput rules="required" v-model="initialValues.password" name="password"
                                 id="password" label="password" />
@@ -61,7 +61,7 @@ const login = handleSubmit(async () => {
             </div>
         </div>
         <div class="relative hidden w-0 flex-1 lg:block">
-            <img class="absolute inset-0 h-full w-full object-cover" src="~/assets/images/client/login-bg.avif" alt="">
+            <img class="absolute inset-0 h-full w-full object-cover" src="~/assets/images/login-bg.avif" alt="">
         </div>
     </div>
 </template>

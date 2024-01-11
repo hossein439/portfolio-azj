@@ -1,10 +1,10 @@
 <script setup>
 
 definePageMeta({
-    layout: "adminlayout",
+    layout: "admin-layout",
     middleware: ['auth'],
     meta: {
-        requiresAuth: true, 
+        requiresAuth: true,
     },
 });
 const { successAlert, loadingAlert } = useAlert();
@@ -37,11 +37,9 @@ const create = handleSubmit(async (values, { resetForm }) => {
     <form @submit.prevent="create()">
         <div class="grid grid-cols-2 gap-5">
 
-            <ViewComponentBaseTextInput rules="required" v-model="initialValues.link" name="link" id="link"
-                label="link" />
+            <ViewComponentBaseTextInput rules="required" v-model="initialValues.link" name="link" id="link" label="link" />
 
-            <ViewComponentBaseTextInput rules="required" v-model="initialValues.alt" name="alt" id="alt"
-                label="alt" />
+            <ViewComponentBaseTextInput rules="required" v-model="initialValues.alt" name="alt" id="alt" label="alt" />
 
             <div class="w-full">
                 <label for="alt" class="block text-sm font-medium leading-6 text-gray-900">Image</label>

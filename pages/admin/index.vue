@@ -1,9 +1,9 @@
 <script setup>
 definePageMeta({
-    layout: "adminlayout",
+    layout: "admin-layout",
     middleware: ['auth'],
     meta: {
-        requiresAuth: true, 
+        requiresAuth: true,
     },
 });
 

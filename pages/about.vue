@@ -1,11 +1,11 @@
 <template>
     <Title>about</Title>
     <section class="xs:px-4 lg:px-[110px]">
-        <div class="flex flex-wrap justify-between items-center">
+        <div class="flex flex-wrap justify-center xl:justify-between items-center lg:gap-5">
             <div class="xs:h-[358] lg:h-[418px] w-[397px]"><img class="rounded-lg object-cover inline-block h-full w-full"
-                    src="~/assets/images/client/about-me.jpeg" alt=""></div>
+                    src="~/assets/images/about-me.jpeg" alt=""></div>
             <h1 class="text-5xl xs:mt-3 lg:mt-0 bg-about">I'm Jawad
-                <div><img src="~/assets/images/client/sign.png" alt=""></div>
+                <div><img src="~/assets/images/sign.png" alt=""></div>
             </h1>
         </div>
 
@@ -47,54 +47,54 @@
                 <div class="flex h-full">
                     <div class="to-left overflow-hidden h-full flex items-center gap-16">
                         <div class="xs:w-10 xs:h-10 lg:w-16 lg:h-16"><img class="w-full h-full object-cover"
-                                src="~/assets/images/others/other-1.png" alt=""></div>
+                                src="~/assets/images/other-1.png" alt=""></div>
                         <div class="xs:w-10 xs:h-10 lg:w-16 lg:h-16"><img class="w-full h-full object-cover"
-                                src="~/assets/images/others/other-2.png" alt=""></div>
+                                src="~/assets/images/other-2.png" alt=""></div>
                         <div class="xs:w-10 xs:h-10 lg:w-16 lg:h-16"><img class="w-full h-full object-cover"
-                                src="~/assets/images/others/other-3.png" alt=""></div>
+                                src="~/assets/images/other-3.png" alt=""></div>
                         <div class="xs:w-10 xs:h-10 lg:w-16 lg:h-16"><img class="w-full h-full object-cover"
-                                src="~/assets/images/others/other-4.png" alt=""></div>
+                                src="~/assets/images/other-4.png" alt=""></div>
                         <div class="xs:w-10 xs:h-10 lg:w-16 lg:h-16"><img class="w-full h-full object-cover"
-                                src="~/assets/images/others/other-5.png" alt=""></div>
+                                src="~/assets/images/other-5.png" alt=""></div>
                         <div class="xs:w-10 xs:h-10 lg:w-16 lg:h-16"><img class="w-full h-full object-cover"
-                                src="~/assets/images/others/other-6.png" alt=""></div>
+                                src="~/assets/images/other-6.png" alt=""></div>
                         <div class="xs:w-10 xs:h-10 lg:w-16 lg:h-16"><img class="w-full h-full object-cover"
-                                src="~/assets/images/others/other-7.png" alt=""></div>
+                                src="~/assets/images/other-7.png" alt=""></div>
                         <div class="xs:w-10 xs:h-10 lg:w-16 lg:h-16"><img class="w-full h-full object-cover"
-                                src="~/assets/images/others/other-8.png" alt=""></div>
+                                src="~/assets/images/other-8.png" alt=""></div>
                         <div class="xs:w-10 xs:h-10 lg:w-16 lg:h-16"><img class="w-full h-full object-cover"
-                                src="~/assets/images/others/other-9.png" alt=""></div>
+                                src="~/assets/images/other-9.png" alt=""></div>
                         <div class="xs:w-10 xs:h-10 lg:w-16 lg:h-16"><img class="w-full h-full object-cover"
-                                src="~/assets/images/others/other-10.png" alt=""></div>
+                                src="~/assets/images/other-10.png" alt=""></div>
                         <div class="xs:w-10 xs:h-10 lg:w-16 lg:h-16"><img class="w-full h-full object-cover"
-                                src="~/assets/images/others/other-11.png" alt=""></div>
+                                src="~/assets/images/other-11.png" alt=""></div>
                         <div class="xs:w-10 xs:h-10 lg:w-16 lg:h-16"><img class="w-full h-full object-cover"
-                                src="~/assets/images/others/other-12.png" alt=""></div>
+                                src="~/assets/images/other-12.png" alt=""></div>
 
                         <div class="xs:w-10 xs:h-10 lg:w-16 lg:h-16"><img class="w-full h-full object-cover"
-                                src="~/assets/images/others/other-1.png" alt=""></div>
+                                src="~/assets/images/other-1.png" alt=""></div>
                         <div class="xs:w-10 xs:h-10 lg:w-16 lg:h-16"><img class="w-full h-full object-cover"
-                                src="~/assets/images/others/other-2.png" alt=""></div>
+                                src="~/assets/images/other-2.png" alt=""></div>
                         <div class="xs:w-10 xs:h-10 lg:w-16 lg:h-16"><img class="w-full h-full object-cover"
-                                src="~/assets/images/others/other-3.png" alt=""></div>
+                                src="~/assets/images/other-3.png" alt=""></div>
                         <div class="xs:w-10 xs:h-10 lg:w-16 lg:h-16"><img class="w-full h-full object-cover"
-                                src="~/assets/images/others/other-4.png" alt=""></div>
+                                src="~/assets/images/other-4.png" alt=""></div>
                         <div class="xs:w-10 xs:h-10 lg:w-16 lg:h-16"><img class="w-full h-full object-cover"
-                                src="~/assets/images/others/other-5.png" alt=""></div>
+                                src="~/assets/images/other-5.png" alt=""></div>
                         <div class="xs:w-10 xs:h-10 lg:w-16 lg:h-16"><img class="w-full h-full object-cover"
-                                src="~/assets/images/others/other-6.png" alt=""></div>
+                                src="~/assets/images/other-6.png" alt=""></div>
                         <div class="xs:w-10 xs:h-10 lg:w-16 lg:h-16"><img class="w-full h-full object-cover"
-                                src="~/assets/images/others/other-7.png" alt=""></div>
+                                src="~/assets/images/other-7.png" alt=""></div>
                         <div class="xs:w-10 xs:h-10 lg:w-16 lg:h-16"><img class="w-full h-full object-cover"
-                                src="~/assets/images/others/other-8.png" alt=""></div>
+                                src="~/assets/images/other-8.png" alt=""></div>
                         <div class="xs:w-10 xs:h-10 lg:w-16 lg:h-16"><img class="w-full h-full object-cover"
-                                src="~/assets/images/others/other-9.png" alt=""></div>
+                                src="~/assets/images/other-9.png" alt=""></div>
                         <div class="xs:w-10 xs:h-10 lg:w-16 lg:h-16"><img class="w-full h-full object-cover"
-                                src="~/assets/images/others/other-10.png" alt=""></div>
+                                src="~/assets/images/other-10.png" alt=""></div>
                         <div class="xs:w-10 xs:h-10 lg:w-16 lg:h-16"><img class="w-full h-full object-cover"
-                                src="~/assets/images/others/other-11.png" alt=""></div>
+                                src="~/assets/images/other-11.png" alt=""></div>
                         <div class="xs:w-10 xs:h-10 lg:w-16 lg:h-16"><img class="w-full h-full object-cover"
-                                src="~/assets/images/others/other-12.png" alt=""></div>
+                                src="~/assets/images/other-12.png" alt=""></div>
                     </div>
 
                 </div>

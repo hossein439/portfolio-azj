@@ -1,10 +1,10 @@
 <script setup>
 
 definePageMeta({
-    layout: "adminlayout",
+    layout: "admin-layout",
     middleware: ['auth'],
     meta: {
-        requiresAuth: true, 
+        requiresAuth: true,
     },
 });
 
@@ -57,11 +57,9 @@ const edit = handleSubmit(async () => {
     <form @submit.prevent="edit()">
         <div class="grid grid-cols-2 gap-2">
 
-            <ViewComponentBaseTextInput rules="required" v-model="initialValues.link" name="link" id="link"
-                label="link" />
+            <ViewComponentBaseTextInput rules="required" v-model="initialValues.link" name="link" id="link" label="link" />
 
-            <ViewComponentBaseTextInput rules="required" v-model="initialValues.alt" name="alt" id="alt"
-                label="alt" />
+            <ViewComponentBaseTextInput rules="required" v-model="initialValues.alt" name="alt" id="alt" label="alt" />
 
 
             <div class="w-full">

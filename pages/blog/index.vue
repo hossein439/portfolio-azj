@@ -15,7 +15,7 @@ if (!blogStore.lastBlog) {
 
 <template>
     <Title>Blog</Title>
-    <section class="xs:px-4 lg:px-[176px] mt-[34px]">
+    <section class="xs:px-4 lg:px-[110px]">
 
         <div class="xs:h-[138px] lg:h-[446px]">
             <img class="rounded-lg h-full w-full object-cover" :src="setImageUrl(blogStore.lastBlog?.image)"
@@ -25,13 +25,13 @@ if (!blogStore.lastBlog) {
             <h1 class="text-4xl capitalize">{{ blogStore.lastBlog?.title }}</h1>
             <div class="flex items-center gap-6">
                 <div class="flex items-center xs:gap-2 lg:gap-3">
-                    <img src="~/assets/images/icons/clock.svg" alt="">
+                    <img src="~/assets/images/clock.svg" alt="">
                     <time>
                         {{ formatTime(blogStore.lastBlog?.created_at, 'HH:mm') }}
                     </time>
                 </div>
                 <div class="flex items-center xs:gap-2 lg:gap-3">
-                    <img src="~/assets/images/icons/calendar.svg" alt="">
+                    <img src="~/assets/images/calendar.svg" alt="">
 
                     {{ formatTime(blogStore.lastBlog?.created_at, 'DD/MM/YYYY') }}
                 </div>
@@ -46,7 +46,7 @@ if (!blogStore.lastBlog) {
     <div class="divider"></div>
 
     <template v-if="!blogStore.isLoading">
-        <section class="xs:px-4 lg:px-[176px] fade-in">
+        <section class="xs:px-4 lg:px-[110px] fade-in">
             <h2 class="text-5xl pt-8 pb-12 text-center font-semibold capitalize text-[#0E101C]">more content</h2>
             <div class="grid lg:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 gap-6">
                 <template v-for="blog in blogStore.blogs" :key="blog.id">
@@ -60,11 +60,11 @@ if (!blogStore.lastBlog) {
                                 <p class="font-semibold capitalize">{{ blog.title }}</p>
                                 <div class="flex items-center gap-6">
                                     <div class="flex items-center gap-3">
-                                        <img src="~/assets/images/icons/clock.svg" alt="">
+                                        <img src="~/assets/images/clock.svg" alt="">
                                         <time>{{ formatTime(blog.created_at, 'HH:mm') }}</time>
                                     </div>
                                     <div class="flex items-center gap-3">
-                                        <img src="~/assets/images/icons/calendar.svg" alt="">
+                                        <img src="~/assets/images/calendar.svg" alt="">
                                         <time>{{ formatTime(blog.created_at, 'DD/MM/YYYY') }}</time>
                                     </div>
                                 </div>
@@ -82,21 +82,21 @@ if (!blogStore.lastBlog) {
                 <div class="relative bg-red">
                     <div class="absolute w-full h-full bg-image z-10"></div>
                     <div class="h-[206px] w-full">
-                        <img class="rounded-lg h-full w-full object-cover" src="~/assets/images/client/blog-1.jpeg" alt="">
+                        <img class="rounded-lg h-full w-full object-cover" src="~/assets/images/blog-1.jpeg" alt="">
                     </div>
                 </div>
 
                 <div class="relative xs:hidden lg:block">
                     <div class="absolute w-full h-full bg-image z-10"></div>
                     <div class="h-[206px] w-full">
-                        <img class="rounded-lg h-full w-full object-cover" src="~/assets/images/client/blog-2.jpeg" alt="">
+                        <img class="rounded-lg h-full w-full object-cover" src="~/assets/images/blog-2.jpeg" alt="">
                     </div>
                 </div>
 
                 <div class="relative xs:hidden lg:block">
                     <div class="absolute w-full h-full bg-image z-10"></div>
                     <div class="h-[206px] w-full">
-                        <img class="rounded-lg h-full w-full object-cover" src="~/assets/images/client/blog-3.jpeg" alt="">
+                        <img class="rounded-lg h-full w-full object-cover" src="~/assets/images/blog-3.jpeg" alt="">
                     </div>
                 </div>
             </div>

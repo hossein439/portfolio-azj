@@ -1,10 +1,10 @@
 <script setup>
 
 definePageMeta({
-    layout: "adminlayout",
+    layout: "admin-layout",
     middleware: ['auth'],
     meta: {
-        requiresAuth: true, 
+        requiresAuth: true,
     },
 });
 
@@ -20,7 +20,7 @@ const getAllcategories = async () => {
         })
         categories.value = data;
         closeAlert()
-    } catch(error) {
+    } catch (error) {
         console.log(error.response)
     }
 }
@@ -57,7 +57,7 @@ const deleteCategory = async (id, image) => {
                 <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                     <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
                         <table class="min-w-full divide-y divide-gray-300">
-                            <AdminViewTHeadTable :thead="['id', 'name', 'actions']"></AdminViewTHeadTable>
+                            <AdminViewTheadTable :thead="['id', 'name', 'actions']"></AdminViewTheadTable>
                             <tbody class="divide-y divide-gray-200 bg-white">
 
                                 <tr v-for="category in categories" :key="category.id">
@@ -67,8 +67,7 @@ const deleteCategory = async (id, image) => {
                                         {{ category.name }}
                                     </td>
 
-                                    <td
-                                        class="relative whitespace-nowrap px-3 py-4 text-right text-sm font-medium">
+                                    <td class="relative whitespace-nowrap px-3 py-4 text-right text-sm font-medium">
                                         <NuxtLink :to="`/admin/categories/${category.id}/edit`"
                                             class="text-indigo-600 hover:text-indigo-900">
                                             Edit

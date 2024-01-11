@@ -1,7 +1,7 @@
 <script setup>
 
 definePageMeta({
-    layout: "authlayout",
+    layout: "auth-layout",
 });
 
 const { setCookie } = useCookie();
@@ -99,7 +99,7 @@ const signup = handleSubmit(async () => {
             </div>
         </div>
         <div class="relative hidden w-0 flex-1 lg:block">
-            <img class="absolute inset-0 h-full w-full object-cover" src="~/assets/images/client/login-bg.avif" alt="">
+            <img class="absolute inset-0 h-full w-full object-cover" src="~/assets/images/login-bg.avif" alt="">
         </div>
     </div>
 </template>

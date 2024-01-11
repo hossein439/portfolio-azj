@@ -1,10 +1,10 @@
 <script setup>
 
 definePageMeta({
-    layout: "adminlayout",
+    layout: "admin-layout",
     middleware: ['auth'],
     meta: {
-        requiresAuth: true, 
+        requiresAuth: true,
     },
 });
 
@@ -60,14 +60,11 @@ const create = handleSubmit(async (values, { resetForm }) => {
     <form @submit.prevent="create()">
         <div class="grid grid-cols-2 gap-5">
 
-            <ViewComponentBaseTextInput rules="required" v-model="initialValues.name" name="name" id="name"
-                label="name" />
+            <ViewComponentBaseTextInput rules="required" v-model="initialValues.name" name="name" id="name" label="name" />
 
-            <ViewComponentBaseTextInput rules="required" v-model="initialValues.link" name="link" id="link"
-                label="link" />
+            <ViewComponentBaseTextInput rules="required" v-model="initialValues.link" name="link" id="link" label="link" />
 
-            <ViewComponentBaseTextInput rules="required" v-model="initialValues.alt" name="alt" id="alt"
-                label="alt" />
+            <ViewComponentBaseTextInput rules="required" v-model="initialValues.alt" name="alt" id="alt" label="alt" />
 
 
             <div>

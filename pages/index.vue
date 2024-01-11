@@ -2,7 +2,7 @@
 import { useBlogStore } from '@/stores/views/blog'
 
 definePageMeta({
-    layout: "customheader",
+    layout: "custom-header",
 });
 
 const blogStore = useBlogStore();
@@ -51,7 +51,7 @@ if (!blogStore.lastBlog) {
 
         <div class="divider"></div>
 
-        <section class="fade-in xs:px-4 lg:px-[176px] mt-[34px] relative">
+        <section class="fade-in xs:px-4 lg:px-[110px] mt-[34px] relative">
             <div class="h-[446px]">
                 <img class="rounded-lg h-full w-full object-cover" :src="setImageUrl(blogStore.lastBlog?.image)"
                     :alt="blogStore.lastBlog?.alt">
@@ -60,13 +60,13 @@ if (!blogStore.lastBlog) {
                 <h1 class="text-4xl capitalize">{{ blogStore.lastBlog?.title }}</h1>
                 <div class="flex items-center gap-6">
                     <div class="flex items-center gap-3">
-                        <img src="~/assets/images/icons/clock.svg" alt="">
+                        <img src="~/assets/images/clock.svg" alt="">
                         <time>
                             {{ formatTime(blogStore.lastBlog?.created_at, 'HH:mm') }}
                         </time>
                     </div>
                     <div class="flex items-center gap-3">
-                        <img src="~/assets/images/icons/calendar.svg" alt="calendar icon">
+                        <img src="~/assets/images/calendar.svg" alt="calendar icon">
                         {{ formatTime(blogStore.lastBlog?.created_at, 'DD/MM/YYYY') }}
                     </div>
                 </div>

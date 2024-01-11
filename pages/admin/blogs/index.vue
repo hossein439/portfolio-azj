@@ -1,10 +1,10 @@
 <script setup>
 
 definePageMeta({
-    layout: "adminlayout",
+    layout: "admin-layout",
     middleware: ['auth'],
     meta: {
-        requiresAuth: true, 
+        requiresAuth: true,
     },
 });
 
@@ -55,7 +55,7 @@ const deleteBlog = (id, image) => {
                 <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                     <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
                         <table class="min-w-full divide-y divide-gray-300">
-                            <AdminViewTHeadTable :thead="['id', 'title', 'actions']"></AdminViewTHeadTable>
+                            <AdminViewTheadTable :thead="['id', 'title', 'actions']"></AdminViewTheadTable>
                             <tbody class="divide-y divide-gray-200 bg-white">
                                 <tr v-for="blog in blogs" :key="blog.id">
                                     <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-900">
@@ -64,8 +64,7 @@ const deleteBlog = (id, image) => {
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                         {{ blog.title }}
                                     </td>
-                                    <td
-                                        class="relative whitespace-nowrap px-3 py-4 text-right text-sm font-medium">
+                                    <td class="relative whitespace-nowrap px-3 py-4 text-right text-sm font-medium">
                                         <NuxtLink :to="`/admin/blogs/${blog.id}/edit`"
                                             class="text-indigo-600 hover:text-indigo-900">
                                             <span>Edit</span>

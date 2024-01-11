@@ -11,7 +11,7 @@ const saveImage = (file, type = 'jpg') => {
 
     const imagePath = `./uploads/${filename}.${type}`;
     writeFileSync(imagePath, buffer);
-
+    console.log(type)
     return `${filename}.${type}`
 }
 
