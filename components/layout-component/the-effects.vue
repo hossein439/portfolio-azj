@@ -52,22 +52,22 @@ getAllEffects();
         <div v-if="!isExistEffects" class="relative">
             <div class="grid xs:grid-cols-4 lg:grid-cols-6 justify-center xs:px-8 lg:px-18">
                 <div class="lg:h-[160px] lg:w-[160px] mx-auto xs:w-9 lg:p-4">
-                    <img class="opacity-5 h-full w-full object-cover" src="~/assets/images/effects/effect-21.png" alt="">
+                    <img class="opacity-5 h-full w-full object-cover" src="~/assets/images/effect-21.png" alt="">
                 </div>
                 <div class="lg:h-[160px] lg:w-[160px] mx-auto xs:w-9 lg:p-4">
-                    <img class="opacity-5 h-full w-full object-cover" src="~/assets/images/effects/effect-22.png" alt="">
+                    <img class="opacity-5 h-full w-full object-cover" src="~/assets/images/effect-22.png" alt="">
                 </div>
                 <div class="lg:h-[160px] lg:w-[160px] mx-auto xs:w-9 lg:p-4">
-                    <img class="opacity-5 h-full w-full object-cover" src="~/assets/images/effects/effect-23.png" alt="">
+                    <img class="opacity-5 h-full w-full object-cover" src="~/assets/images/effect-23.png" alt="">
                 </div>
                 <div class="lg:h-[160px] lg:w-[160px] mx-auto xs:w-9 lg:p-4">
-                    <img class="opacity-5 h-full w-full object-cover" src="~/assets/images/effects/effect-24.png" alt="">
+                    <img class="opacity-5 h-full w-full object-cover" src="~/assets/images/effect-24.png" alt="">
                 </div>
                 <div class="lg:h-[160px] lg:w-[160px] mx-auto xs:w-9 lg:p-4 xs:hidden lg:inline">
-                    <img class="opacity-5 h-full w-full object-cover" src="~/assets/images/effects/effect-25.png" alt="">
+                    <img class="opacity-5 h-full w-full object-cover" src="~/assets/images/effect-25.png" alt="">
                 </div>
                 <div class="lg:h-[160px] lg:w-[160px] mx-auto xs:w-9 lg:p-4 xs:hidden lg:inline">
-                    <img class="opacity-5 h-full w-full object-cover" src="~/assets/images/effects/effect-26.png" alt="">
+                    <img class="opacity-5 h-full w-full object-cover" src="~/assets/images/effect-26.png" alt="">
                 </div>
             </div>
             <div class="absolute top-[3.7rem] left-0 right-0">
