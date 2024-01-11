@@ -1,7 +1,7 @@
 <script setup>
 
 import 'vue3-carousel/dist/carousel.css'
-import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
+import { Carousel, Slide } from 'vue3-carousel'
 
 const props = defineProps({
     showCategory: {
@@ -55,11 +55,11 @@ getAllFilters();
     <div class="xs:mx-5 md:mx-10 lg:mx-12 mt-12">
         <Carousel ref="carousel" :breakpoints="breakpoints" :wrap-around="true">
             <Slide v-for="filter in filters" :key="filter.id">
-                <div class="w-full">
-                    <div class="xs:w-full xs:h-[130px] md:h-[365px] lg:h-[465px] relative z-10">
+                <div class=" w-full">
+                    <div class="slide-container xs:w-full xs:h-[130px] md:h-[365px] lg:h-[465px] relative z-10">
                         <img class="xs:w-full h-full object-cover rounded-2xl" :src="setImageUrl(filter.gif)"
                             :alt="filter.alt">
-                        <div class="slide-item absolute right-0 left-0 rounded-2xl flex flex-col text-center">
+                        <div class=" slide-item absolute right-0 left-0 rounded-2xl flex flex-col text-center">
                             <div class="w-[30px] absolute z-50 top-4 left-4">
                                 <img class="inline-block h-full w-full object-cover" src="~/assets/images/icon-tiktok.svg"
                                     alt="tiktok icon">
